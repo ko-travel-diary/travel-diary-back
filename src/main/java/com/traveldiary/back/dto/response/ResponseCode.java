@@ -6,6 +6,7 @@ public interface ResponseCode {
     String VARIDATION_FAILED = "VF";
     String DUPLICATED_ID = "DI";
     String DUPLICATED_EMAIL = "DE";
+    String DUPLICATED_NICK_NAME = "DN";
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_COMMENT = "NC";
     String WRITTEN_COMMENT = "WC";

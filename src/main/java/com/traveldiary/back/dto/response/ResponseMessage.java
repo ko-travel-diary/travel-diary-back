@@ -6,6 +6,7 @@ public interface ResponseMessage {
     String VARIDATION_FAILED = "Varidation Failed.";
     String DUPLICATED_ID = "Duplicated Id.";
     String DUPLICATED_EMAIL = "Duplicated Email.";
+    String DUPLICATED_NICK_NAME = "Duplicated Nick Name";
     String NO_EXIST_BOARD = "No Exist Board.";
     String NO_EXIST_COMMENT = "No Exist Comment.";
     String WRITTEN_COMMENT ="Written Comment.";

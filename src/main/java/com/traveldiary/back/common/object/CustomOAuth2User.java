@@ -8,13 +8,13 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
-public class CustomAuth2User implements OAuth2User{
+public class CustomOAuth2User implements OAuth2User{
 
     private String id;
     private Map<String, Object> attributes;
     private Collection<? extends GrantedAuthority> authorities;
 
-    public CustomAuth2User(String id, Map<String, Object> attributes) {
+    public CustomOAuth2User(String id, Map<String, Object> attributes) {
         this.id = id;
 
         this.attributes = attributes;
