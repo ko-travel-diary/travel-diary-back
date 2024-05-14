@@ -21,7 +21,7 @@ public class JwtProvider {
 
     public String create (String userId) {
 
-        Date expiredDate = Date.from(Instant.now().plus(10, ChronoUnit.HOURS));
+        Date expiredDate = Date.from(Instant.now().plus(100, ChronoUnit.DAYS));
         String jwt = null;
 
         try {
