@@ -23,7 +23,7 @@ public class MailProvider {
         
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         mimeMessage.setRecipient(RecipientType.TO, new InternetAddress(to));
-        mimeMessage.setSubject("estate 인증 번호");
+        mimeMessage.setSubject("여행일기 인증 번호");
         mimeMessage.setText(getText(authNumber), "UTF-8", "html");
         javaMailSender.send(mimeMessage);
         
@@ -31,7 +31,7 @@ public class MailProvider {
 
     private String getText(String authNumber) {
         String text = 
-            "<h2 style='text-align: center'>estate 인증 번호</h2>" +
+            "<h2 style='text-align: center'>여행일기 인증 번호</h2>" +
             "<p>요청하신 email 인증 번호는 <strong style='color: red;'>" +
             authNumber +
             "</strong>입니다.</p>";
