@@ -11,6 +11,7 @@ import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.auth.SignInResponseDto;
 import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.provider.JwtProvider;
+import com.traveldiary.back.repository.EmailAuthNumberRepository;
 import com.traveldiary.back.repository.UserRepository;
 import com.traveldiary.back.service.AuthService;
 
@@ -21,13 +22,14 @@ import lombok.RequiredArgsConstructor;
 public class AuthServiceImplementation implements AuthService{
 
     private final UserRepository userRepository;
+    private final EmailAuthNumberRepository emailAuthNumberRepository;
 
     private final JwtProvider jwtProvider;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
-    public ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto) {
+    public ResponseEntity<? super SignInResponseDto> signIn (SignInRequestDto dto) {
 
         String accessToken = null;
 
@@ -54,7 +56,7 @@ public class AuthServiceImplementation implements AuthService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto) {
+    public ResponseEntity<ResponseDto> signUp (SignUpRequestDto dto) {
         try{
 
             String userId = dto.getUserId();

@@ -1,5 +1,7 @@
 package com.traveldiary.back.entity;
 
+import com.traveldiary.back.dto.request.auth.SignUpRequestDto;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
@@ -23,4 +25,14 @@ public class UserEntity {
     private String profileImage;
     private String joinPath;
     private String userRole;
+
+    public UserEntity(SignUpRequestDto dto) {
+        this.userId = dto.getUserId();
+        this.userPassword = dto.getUserPassword();
+        this.userEmail = dto.getUserEmail();
+        this.nickName = dto.getNickName();
+        this.profileImage = dto.getProfileImage();
+        this.userRole = "ROLE_USER";
+        this.joinPath = "HOME";
+    }
 }

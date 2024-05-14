@@ -7,7 +7,11 @@ import com.traveldiary.back.dto.response.ResponseCode;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.ResponseMessage;
 
-public class SignInResponseDto extends ResponseDto {
+import lombok.Getter;
+
+// 로그인 Response Body Dto
+@Getter
+public class SignInResponseDto extends ResponseDto{
 
     private String accessToken;
     private int expires;
@@ -15,12 +19,12 @@ public class SignInResponseDto extends ResponseDto {
     private SignInResponseDto(String accessToken) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.accessToken = accessToken;
-        this.expires = 10 * 60 * 60;
+        this.expires = 12 * 60 * 60 * 100;
     }
 
-    public static ResponseEntity<SignInResponseDto> success(String accessToken) {
+    public static ResponseEntity<SignInResponseDto> success (String accessToken) {
         SignInResponseDto responseBody = new SignInResponseDto(accessToken);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
-
+    
 }

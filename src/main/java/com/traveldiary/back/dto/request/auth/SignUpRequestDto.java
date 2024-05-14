@@ -1,5 +1,12 @@
 package com.traveldiary.back.dto.request.auth;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 // 회원가입 Request Body Dto
 @Getter
 @Setter
@@ -13,6 +20,9 @@ public class SignUpRequestDto{
     @NotNull
     @Pattern(regexp = "^[a-zA-Z0-9]*@([-.]?[a-zA-Z0-9])*\\.[a-zA-Z]{2,4}$")
     private String userEmail;
+    @NotBlank
+    private String nickName;
+    private String profileImage;
     @NotBlank
     private String authNumber;
 }
