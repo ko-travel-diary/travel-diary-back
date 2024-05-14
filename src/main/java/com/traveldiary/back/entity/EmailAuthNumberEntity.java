@@ -8,14 +8,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "travelFavorite")
-@Table(name = "travel_favorite")
+@Entity(name = "emailAuthNumber")
+@Table(name = "email_auth_number")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TravelFavoriteEntity {
+public class EmailAuthNumberEntity {
     @Id
-    private String userId;
-    private Integer reviewNumber;
+    private String email;
+    private String authNumber;
 }

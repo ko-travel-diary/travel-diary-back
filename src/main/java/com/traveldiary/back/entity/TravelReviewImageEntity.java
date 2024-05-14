@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "travel_review_image")
+@Entity(name = "travelReviewImage")
 @Table(name = "travel_review_image")
 @Getter
 @Setter
