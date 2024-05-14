@@ -1,6 +1,15 @@
 package com.traveldiary.back.entity;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
+import com.traveldiary.back.dto.request.review.PatchTravelReviewRequestDto;
+import com.traveldiary.back.dto.request.review.PostTravelReviewRequestDto;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -16,6 +25,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TravelReviewEntity {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer reviewNumber;
     private String reviewTitle;
     private String reviewContent;
@@ -23,4 +33,32 @@ public class TravelReviewEntity {
     private String reviewWriterId;
     private Integer reviewFavoriteCount;
     private Integer reviewViewCount;
+
+    public TravelReviewEntity(PostTravelReviewRequestDto dto, String userId) {
+
+        Date now = Date.from(Instant.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+        String writeDatetime = simpleDateFormat.format(now);
+
+        this.reviewTitle = dto.getReviewTitle();
+        this.reviewContent = dto.getReviewContent();
+        this.reviewDatetime = writeDatetime;
+        this.reviewWriterId = userId;
+        this.reviewFavoriteCount = 0;
+        this.reviewViewCount = 0;
+    }
+
+    public void update(PatchTravelReviewRequestDto dto) {
+        this.reviewTitle = dto.getReviewTitle();
+        this.reviewContent = dto.getReviewContent();
+    }
+
+    public void increaseViewCount() {
+        this.reviewFavoriteCount += 1;
+    }
+
+    public void decreaseViewCount() {
+        this.reviewFavoriteCount -= 1;
+    }
 }
+
