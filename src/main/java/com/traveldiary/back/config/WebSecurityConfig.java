@@ -62,9 +62,9 @@ public class WebSecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             // white list 작업 / 요청에 대해 지정한 인원들에게만 권한 부여
             .authorizeHttpRequests(request -> request
-                .requestMatchers("/", "/api/v1/auth/**", "/oauth2/callback/*").permitAll()
-                .requestMatchers("api/v1/board/").hasRole("USER")
-                .requestMatchers("api/v1/board/*/comment").hasRole("ADMIN")
+                .requestMatchers("/", "/traveldiary/v1/auth/**", "/oauth2/callback/*").permitAll()
+                .requestMatchers("traveldiary/v1/qna/").hasRole("USER")
+                .requestMatchers("traveldiary/v1/qna/*/comment").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
 

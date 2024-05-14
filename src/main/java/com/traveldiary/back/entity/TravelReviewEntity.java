@@ -1,6 +1,7 @@
 package com.traveldiary.back.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TravelReviewEntity {
+    @Id
     private Integer reviewNumber;
     private String reviewTitle;
     private String reviewContent;
@@ -21,5 +23,4 @@ public class TravelReviewEntity {
     private String reviewWriterId;
     private Integer reviewFavoriteCount;
     private Integer reviewViewCount;
-
 }
