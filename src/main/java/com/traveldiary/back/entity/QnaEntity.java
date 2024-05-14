@@ -1,6 +1,14 @@
 package com.traveldiary.back.entity;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
+import com.traveldiary.back.dto.request.qna.PostQnaRequestDto;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -15,13 +23,27 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class QnaEntity {
+    
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer receptionNumber;
     private String qnaTitle;
     private String qnaContent;
     private String qnaDatetime;
     private Boolean qnaStatus;
     private String qnaWriterId;
-    private Integer qnaViewCount;
     private String qnaComment;
+
+    public QnaEntity (PostQnaRequestDto dto, String userId) {
+        Date now = Date.from(Instant.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
+        String dateTime = simpleDateFormat.format(now);
+
+        this.qnaTitle = dto.getQnaTitle();
+        this.qnaContent = dto.getQnaContent();
+        this.qnaDatetime = dateTime;
+        this.qnaStatus = false;
+        this.qnaWriterId = userId;
+    }
+
 }
