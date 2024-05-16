@@ -8,15 +8,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity(name = "tourAttractionsReviewImage")
-@Table(name = "tour_attractions_review_image")
+@Entity(name = "tourAttractionsImage")
+@Table(name = "tour_attractions_image")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TourAttractionsReviewImageEntity {
+public class TourAttractionsImageEntity {
     @Id
     private Integer tourAttractionsImageNumber;
     private Integer tourAttractionsNumber;
-    private String tourAttractionsReviewImageUrl;
+    private String tourAttractionsImageUrl;
 }
