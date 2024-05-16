@@ -7,5 +7,5 @@ import com.traveldiary.back.dto.response.ResponseDto;
 
 public interface TravelFavoriteService {
 
-    ResponseEntity<ResponseDto> travelFavorite(PatchTravelFavoriteReviewRequestDto dto, int reviewNumber, String userId);
+    ResponseEntity<ResponseDto> patchtravelFavorite(PatchTravelFavoriteReviewRequestDto dto, int reviewNumber, String userId);
 }

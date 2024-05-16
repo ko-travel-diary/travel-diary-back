@@ -1,11 +1,6 @@
 package com.traveldiary.back.entity;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
-
 import com.traveldiary.back.dto.request.review.PatchTravelFavoriteReviewRequestDto;
-import com.traveldiary.back.dto.request.review.PostTravelReviewRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

@@ -3,17 +3,23 @@ package com.traveldiary.back.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.traveldiary.back.dto.request.review.PatchTravelFavoriteReviewRequestDto;
 import com.traveldiary.back.dto.request.review.PatchTravelReviewRequestDto;
 import com.traveldiary.back.dto.request.review.PostTravelReviewRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
+import com.traveldiary.back.dto.response.review.GetTravelReviewBoardResponseDto;
+import com.traveldiary.back.dto.response.review.GetTravelReviewDetailResponseDto;
+import com.traveldiary.back.dto.response.review.GetTravelReviewMyListResponseDto;
+import com.traveldiary.back.dto.response.review.GetTravelReviewSearchResponseDto;
 import com.traveldiary.back.service.TravelFavoriteService;
 import com.traveldiary.back.service.TravelReviewService;
 
@@ -27,6 +33,36 @@ public class ReviewController {
 
     private final TravelReviewService travelReviewService;
     private final TravelFavoriteService travelFavoriteService;
+
+    @GetMapping("/list")
+    public ResponseEntity<? super GetTravelReviewBoardResponseDto> getBoardList() {
+        ResponseEntity<? super GetTravelReviewBoardResponseDto> response = travelReviewService.getReviewBoardList();
+        return response;
+    }
+
+    @GetMapping("/list/search")
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewSearchList(
+        @RequestParam("word") String word
+    ) {
+        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewSearchList(word);
+        return response;
+    }
+
+    @GetMapping("/{reviewNumber}")
+    public ResponseEntity<? super GetTravelReviewDetailResponseDto> getReview(
+        @PathVariable("reviewNumber") int reviewNumber
+    ) {
+    ResponseEntity<? super GetTravelReviewDetailResponseDto> response = travelReviewService.getReview(reviewNumber);
+    return response;
+    }
+
+    @GetMapping("/post/list")
+    public ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(
+        @AuthenticationPrincipal String userId
+    ) {
+    ResponseEntity<? super GetTravelReviewMyListResponseDto> response = travelReviewService.getReviewMyList(userId);
+    return response;
+    }
 
     @PostMapping("/")
     public ResponseEntity<ResponseDto> postTravelReview(
@@ -47,6 +83,24 @@ public class ReviewController {
     return response;
     }
 
+    @PatchMapping("/{reviewNumber}/favorite")
+    public ResponseEntity<ResponseDto> patchtravelFavorite(
+        @RequestBody PatchTravelFavoriteReviewRequestDto responseBody,
+        @PathVariable("reviewNumber") int reviewNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+    ResponseEntity<ResponseDto> response = travelFavoriteService.patchtravelFavorite(responseBody, reviewNumber, userId);
+    return response;
+    }
+
+    @PatchMapping("/{reviewNumber}/view-count")
+    public ResponseEntity<ResponseDto> patchtravelView(
+        @PathVariable("reviewNumber") int reviewNumber
+    ) {
+    ResponseEntity<ResponseDto> response = travelReviewService.patchtravelView(reviewNumber);
+    return response;
+    }
+
     @DeleteMapping("/{reviewNumber}")
     public ResponseEntity<ResponseDto> deleteTravelReview(
         @PathVariable("reviewNumber") int reviewNumber,
@@ -54,16 +108,6 @@ public class ReviewController {
     ) {
     ResponseEntity<ResponseDto> response = travelReviewService.deleteTravelReview(reviewNumber, userId);
     return response;
-    }
-
-    @PatchMapping("/{reviewNumber}/favorite")
-    public ResponseEntity<ResponseDto> travelFavorite(
-        @RequestBody PatchTravelFavoriteReviewRequestDto responseBody,
-        @PathVariable("reviewNumber") int reviewNumber,
-        @AuthenticationPrincipal String userId
-    ) {
-    ResponseEntity<ResponseDto> response = travelFavoriteService.travelFavorite(responseBody, reviewNumber, userId);
-    return response;
-    }
+    }   
 }
 
