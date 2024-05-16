@@ -28,7 +28,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
         String userId = oAuth2User.getName();
 
         String token = jwtProvider.create(userId);
-
+        
         response.sendRedirect("http://localhost:3000/sns/" + token + "/4320000");
 
 	}
