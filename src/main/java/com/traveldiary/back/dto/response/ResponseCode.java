@@ -9,6 +9,7 @@ public interface ResponseCode {
     String DUPLICATED_NICK_NAME = "DN";
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_COMMENT = "NC";
+    String NO_EXIST_USER = "NU";
     String WRITTEN_COMMENT = "WC";
     String SIGN_IN_FAILED = "SF";
     String AUTHENTICATION_FAILED = "AF";

@@ -2,14 +2,22 @@ package com.traveldiary.back.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.traveldiary.back.dto.request.user.DeleteAdminUserRequestDto;
+import com.traveldiary.back.dto.request.user.DeleteUserRequestDto;
+import com.traveldiary.back.dto.request.user.PatchUserInfoRequestDto;
+import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserInfoResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserListResponseDto;
 import com.traveldiary.back.service.UserService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -32,6 +40,33 @@ public class UserController {
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<? super GetUserInfoResponseDto> response = userService.getUserInfo(userId);
+        return response;
+    }
+
+    @PatchMapping("/edit")
+    public ResponseEntity<ResponseDto> patchUserInfo (
+        @RequestBody @Valid PatchUserInfoRequestDto requestBody,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = userService.patchUserInfo(requestBody, userId);
+        return response;
+    }
+
+    @DeleteMapping("/cancle-account")
+    public ResponseEntity<ResponseDto> deleteUser (
+        @RequestBody @Valid DeleteUserRequestDto requestBody,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = userService.deleteUser(requestBody, userId);
+        return response;
+    }
+
+    @DeleteMapping("/userlist/cancle-account")
+    public ResponseEntity<ResponseDto> deleteAdminUser (
+        @RequestBody @Valid DeleteAdminUserRequestDto requestBody,
+        @AuthenticationPrincipal String deleteToUserId
+    ) {
+        ResponseEntity<ResponseDto> response = userService.deleteAdminUser(requestBody, deleteToUserId);
         return response;
     }
 }
