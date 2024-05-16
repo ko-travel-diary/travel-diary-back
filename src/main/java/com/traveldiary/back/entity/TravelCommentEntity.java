@@ -1,6 +1,8 @@
 package com.traveldiary.back.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -14,8 +16,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CommentEntity {
+public class TravelCommentEntity {
     @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer commentNumber;
     private String commentContent;
     private String commentWriterId;

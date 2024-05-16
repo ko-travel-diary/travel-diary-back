@@ -53,12 +53,16 @@ public class TravelReviewEntity {
         this.reviewContent = dto.getReviewContent();
     }
 
-    public void increaseViewCount() {
+    public void increaseFavoriteCount() {
         this.reviewFavoriteCount += 1;
     }
 
-    public void decreaseViewCount() {
+    public void decreaseFavoriteCount() {
         this.reviewFavoriteCount -= 1;
+    }
+
+    public void increaseViewCount() {
+        this.reviewViewCount++;
     }
 }
 

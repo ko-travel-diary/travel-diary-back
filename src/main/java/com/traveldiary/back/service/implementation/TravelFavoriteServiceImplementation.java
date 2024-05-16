@@ -23,7 +23,7 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
     private final TravelFavoriteRepository travelFavoriteRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> travelFavorite(PatchTravelFavoriteReviewRequestDto dto, int reviewNumber,
+    public ResponseEntity<ResponseDto> patchtravelFavorite(PatchTravelFavoriteReviewRequestDto dto, int reviewNumber,
             String userId) {
         
         try {
@@ -40,11 +40,11 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
 
             if(isfavoriteId) {
                 travelFavoriteRepository.delete(travelFavoriteEntity);
-                travelReviewEntity.decreaseViewCount();
+                travelReviewEntity.decreaseFavoriteCount();
             }
             else {
                 travelFavoriteRepository.save(travelFavoriteEntity);
-                travelReviewEntity.increaseViewCount();
+                travelReviewEntity.increaseFavoriteCount();
             }
             
             travelReviewRepository.save(travelReviewEntity);
