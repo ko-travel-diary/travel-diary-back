@@ -3,9 +3,7 @@ package com.traveldiary.back.common.object;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.traveldiary.back.dto.response.qna.GetQnaBoardResponseDto;
 import com.traveldiary.back.entity.QnaEntity;
-import com.traveldiary.back.repository.QnaRepository;
 
 import lombok.Getter;
 

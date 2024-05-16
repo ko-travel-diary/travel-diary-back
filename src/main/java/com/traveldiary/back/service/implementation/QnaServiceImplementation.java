@@ -5,7 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import com.traveldiary.back.dto.request.qna.GetQnaRequestDto;
+import com.traveldiary.back.dto.request.qna.PatchQnaRequestDto;
+import com.traveldiary.back.dto.request.qna.PostQnaCommentRequestDto;
 import com.traveldiary.back.dto.request.qna.PostQnaRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.qna.GetQnaBoardResponseDto;
@@ -16,10 +17,10 @@ import com.traveldiary.back.repository.QnaRepository;
 import com.traveldiary.back.repository.UserRepository;
 import com.traveldiary.back.service.QnaService;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class QnaServiceImplementation implements QnaService{
 
     private final UserRepository userRepository;
@@ -92,5 +93,87 @@ public class QnaServiceImplementation implements QnaService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> postQnaComment(PostQnaCommentRequestDto dto, Integer receptionNumber) {
+    
+        try {
+
+            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            if (qnaEntity == null) return ResponseDto.noExistBoard();
+
+            boolean status = qnaEntity.getQnaStatus();
+            if (status) return ResponseDto.writtenComment();
+
+            String comment = dto.getQnaComment();
+            qnaEntity.setQnaStatus(true);
+            qnaEntity.setQnaComment(comment);
+
+            qnaRepository.save(qnaEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> patchQna(PatchQnaRequestDto dto, Integer receptionNumber, String userId) {
+        
+        try {
+
+            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            if (qnaEntity == null) return ResponseDto.noExistBoard();
+
+            String writerId = qnaEntity.getQnaWriterId();
+            boolean isWriter = userId.equals(writerId);
+            if (!isWriter) return ResponseDto.authenticationFailed();
+
+            boolean status = qnaEntity.getQnaStatus();
+            if (status) return ResponseDto.writtenComment();
+
+            String qnaTitle = dto.getQnaTitle();
+            String qnaContent = dto.getQnaContent();
+
+            qnaEntity.setQnaTitle(qnaTitle);
+            qnaEntity.setQnaComment(qnaContent);
+
+            qnaRepository.save(qnaEntity);
+
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteQna(Integer receptionNumber, String userId) {
+        
+        try {
+
+            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            if (qnaEntity == null) return ResponseDto.noExistBoard();
+
+            String writerId = qnaEntity.getQnaWriterId();
+            boolean isWriter = userId.equals(writerId);
+            if(!isWriter) return ResponseDto.authenticationFailed();
+
+            boolean status = qnaEntity.getQnaStatus();
+            if(status) return ResponseDto.writtenComment();
+
+            qnaRepository.delete(qnaEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
     }
 }
