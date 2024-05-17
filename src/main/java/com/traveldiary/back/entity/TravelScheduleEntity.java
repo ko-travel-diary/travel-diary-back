@@ -1,11 +1,16 @@
 package com.traveldiary.back.entity;
 
+import com.traveldiary.back.dto.request.qna.PatchQnaRequestDto;
+import com.traveldiary.back.dto.request.schedule.PatchScheduleRequestDto;
 import com.traveldiary.back.dto.request.schedule.PostScheduleRequestDto;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,7 +29,7 @@ public class TravelScheduleEntity {
     private Integer travelScheduleNumber;
     private String travelScheduleName;
     private Integer travelSchedulePeople;
-    private Integer travelScheduleTotalMoney;
+    private Integer travelScheduleTotalMoney; 
     private String travelScheduleWriterId;
 
     public TravelScheduleEntity (PostScheduleRequestDto dto, String userId) {
@@ -33,4 +38,11 @@ public class TravelScheduleEntity {
         this.travelScheduleTotalMoney = dto.getTravelScheduleTotalMoney();
         this.travelScheduleWriterId = userId;
     }
+
+    public void update(PatchScheduleRequestDto dto) {
+        this.travelScheduleName = dto.getTravelScheduleName();
+        this.travelSchedulePeople = dto.getTravelSchedulePeople();
+        this.travelScheduleTotalMoney = dto.getTravelScheduleTotalMoney();
+    }
+
 }
