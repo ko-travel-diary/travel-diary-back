@@ -7,6 +7,8 @@ public interface ResponseMessage {
     String DUPLICATED_ID = "Duplicated Id.";
     String DUPLICATED_EMAIL = "Duplicated Email.";
     String DUPLICATED_NICK_NAME = "Duplicated Nick Name";
+    String DUPLICATED_TOUR_ATTRACTIONS = "Duplicated Tour Attractions";
+    String DUPLICATED_RESTAURANT = "Duplicated Restaurant";
     String NO_EXIST_BOARD = "No Exist Board.";
     String NO_EXIST_DATA = "No Exist Data";
     String NO_EXIST_COMMENT = "No Exist Comment.";

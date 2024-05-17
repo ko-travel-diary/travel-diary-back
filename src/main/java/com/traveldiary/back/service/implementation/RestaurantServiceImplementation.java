@@ -6,13 +6,16 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.traveldiary.back.dto.request.restaurant.PostRestaurantRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetRestaurantListResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
 import com.traveldiary.back.entity.RestaurantEntity;
 import com.traveldiary.back.entity.RestaurantImageEntity;
+import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.RestaurantImageRepository;
 import com.traveldiary.back.repository.RestaurantRepository;
+import com.traveldiary.back.repository.UserRepository;
 import com.traveldiary.back.repository.resultSet.GetRestaurantResultSet;
 import com.traveldiary.back.service.RestaurantService;
 
@@ -24,6 +27,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
     private final RestaurantRepository restaurantRepository;
     private final RestaurantImageRepository restaurantImageRepository;
+    private final UserRepository userRepository;
 
     @Override
     public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList() {
@@ -62,5 +66,35 @@ public class RestaurantServiceImplementation implements RestaurantService{
         }
         return GetRestaurantResponseDto.success(restaurantEntity, restaurantImageUrl);
     }
-    
+
+    @Override
+    public ResponseEntity<ResponseDto> postRestaurant(PostRestaurantRequestDto dto, String userId) {
+        try{
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            String userRole = userEntity.getUserRole();
+            System.out.println(userRole);
+            if(userRole == "ROLE_USER") return ResponseDto.authenticationFailed();
+
+            String restaurantName = dto.getRestaurantName();
+            boolean existsed = restaurantRepository.existsByRestaurantName(restaurantName);
+            if(existsed) return ResponseDto.duplicatedRestaurant();
+
+            RestaurantEntity restaurantEntity = new RestaurantEntity(dto);
+            restaurantRepository.save(restaurantEntity);
+
+            int restaurantNumber = restaurantEntity.getRestaurantNumber();
+
+            List<String> images = dto.getRestaurantImageUrl();
+            for(String image : images){
+                RestaurantImageEntity imageEntity = new RestaurantImageEntity(restaurantNumber, image);
+                restaurantImageRepository.save(imageEntity);
+            }
+
+        }catch (Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        return ResponseDto.success();
+    }
 }

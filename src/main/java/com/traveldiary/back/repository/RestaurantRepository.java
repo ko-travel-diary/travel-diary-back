@@ -28,4 +28,5 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity, In
     List<GetRestaurantResultSet> getRestaurantList ();
 
     RestaurantEntity findByRestaurantNumber (Integer RestaurantNumber);
+    boolean existsByRestaurantName (String restaurantName);
 }

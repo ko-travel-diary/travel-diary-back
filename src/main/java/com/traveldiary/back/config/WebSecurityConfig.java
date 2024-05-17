@@ -57,9 +57,10 @@ public class WebSecurityConfig {
             )
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(request -> request
-                .requestMatchers("/", "/traveldiary/v1/auth/**", "/oauth2/callback/*", "traveldiary/v1/qna/list", "/traveldiary/v1/tourattractions/tourlist", "/traveldiary/v1/tourattractions/tourlist/*", "/traveldiary/v1/restaurant/restlist", "/traveldiary/v1/restaurant/restlist/*").permitAll()
-                .requestMatchers("traveldiary/v1/qna/").hasRole("USER")
-                .requestMatchers("traveldiary/v1/qna/*/comment").hasRole("ADMIN")
+                .requestMatchers("/", "/traveldiary/v1/auth/**", "/oauth2/callback/*", "/traveldiary/v1/qna/list", "/traveldiary/v1/tourattractions/tourlist", "/traveldiary/v1/tourattractions/tourlist/*", "/traveldiary/v1/restaurant/restlist", "/traveldiary/v1/restaurant/restlist/*").permitAll()
+                .requestMatchers("/traveldiary/v1/qna/", "/traveldiary/v1/user", "/traveldiary/v1/user/", "/traveldiary/v1/user/edit", "/traveldiary/v1/user/cancle-account").hasRole("USER")
+                .requestMatchers("/traveldiary/v1/qna/*/comment", "/traveldiary/v1/tourattractions/addTourAttractions",
+                "/traveldiary/v1/userlist","/traveldiary/v1/user/userlist/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
 
@@ -101,6 +102,7 @@ class AuthorizationFailedEntryPoint implements AuthenticationEntryPoint {
         response.setContentType("application/json");
         response.setStatus(HttpServletResponse.SC_FORBIDDEN); 
         response.getWriter().write("{ \"code\":\"AF\",\"message\":\"Authorization Failed\" }");
+        authException.printStackTrace();
 
     }
     

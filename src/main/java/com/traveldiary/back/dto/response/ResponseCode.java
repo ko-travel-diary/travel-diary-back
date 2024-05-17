@@ -7,6 +7,8 @@ public interface ResponseCode {
     String DUPLICATED_ID = "DI";
     String DUPLICATED_EMAIL = "DE";
     String DUPLICATED_NICK_NAME = "DN";
+    String DUPLICATED_TOUR_ATTRACTIONS = "DT";
+    String DUPLICATED_RESTAURANT = "DR";
     String NO_EXIST_BOARD = "NB";
     String NO_EXIST_DATA = "ND";
     String NO_EXIST_COMMENT = "NC";
