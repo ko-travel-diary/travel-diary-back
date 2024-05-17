@@ -26,4 +26,8 @@ public interface TourAttractionsRepository extends JpaRepository<TourAttractions
         nativeQuery=true
     )
     List<GetTourAttractionsResultSet> getTourAttractionsList ();
+
+    TourAttractionsEntity findByTourAttractionsNumber (Integer tourAttractionsNumber);
+
+    boolean existsByTourAttractionsName (String tourAttractionsName);
 }

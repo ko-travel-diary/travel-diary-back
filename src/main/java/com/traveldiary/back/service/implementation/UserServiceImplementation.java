@@ -7,14 +7,12 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.traveldiary.back.common.object.UserListItem;
 import com.traveldiary.back.dto.request.user.DeleteAdminUserRequestDto;
 import com.traveldiary.back.dto.request.user.DeleteUserRequestDto;
 import com.traveldiary.back.dto.request.user.PatchUserInfoRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserInfoResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserListResponseDto;
-import com.traveldiary.back.entity.EmailAuthNumberEntity;
 import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.EmailAuthNumberRepository;
 import com.traveldiary.back.repository.UserRepository;
@@ -44,6 +42,7 @@ public class UserServiceImplementation implements UserService{
             if(userRole == "ROLE_USER") return ResponseDto.authenticationFailed();
 
             userEntities = userRepository.findByUserRole("ROLE_USER");
+            System.out.println(userRole);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -79,17 +78,24 @@ public class UserServiceImplementation implements UserService{
     @Override
     public ResponseEntity<ResponseDto> patchUserInfo(PatchUserInfoRequestDto dto, String userId) {
 
-        UserEntity userEntity;
-
         try {
 
-            userEntity = userRepository.findByUserId(userId);
+            UserEntity userEntity = userRepository.findByUserId(userId);
 
             String userRole = userEntity.getUserRole();
             if(userRole == "ROLE_ADMIN") return ResponseDto.authenticationFailed();
 
             boolean isMatchedUserId = userRepository.existsByUserId(userId);
             if(!isMatchedUserId) return ResponseDto.authenticationFailed();
+
+            String nickName = dto.getNickName();
+            boolean existNickName = userRepository.existsByNickName(nickName);
+            if(existNickName) return ResponseDto.duplicatedNickName();
+
+            String profileImage = dto.getProfileImage();
+
+            userEntity.setNickName(nickName);
+            userEntity.setProfileImage(profileImage);
 
             userRepository.save(userEntity);
 

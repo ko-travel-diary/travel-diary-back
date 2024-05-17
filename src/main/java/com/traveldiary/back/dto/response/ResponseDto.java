@@ -33,6 +33,16 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
+    public static ResponseEntity<ResponseDto> duplicatedTourAttractions () {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_TOUR_ATTRACTIONS, ResponseMessage.DUPLICATED_TOUR_ATTRACTIONS);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    };
+
+    public static ResponseEntity<ResponseDto> duplicatedRestaurant () {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_RESTAURANT, ResponseMessage.DUPLICATED_RESTAURANT);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    };
+
     public static ResponseEntity<ResponseDto> noExistBoard () {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_BOARD, ResponseMessage.NO_EXIST_BOARD);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);

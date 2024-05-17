@@ -1,10 +1,7 @@
 package com.traveldiary.back.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import com.traveldiary.back.common.object.UserListItem;
 import com.traveldiary.back.dto.request.auth.SignUpRequestDto;
+import com.traveldiary.back.dto.request.user.PatchUserInfoRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
