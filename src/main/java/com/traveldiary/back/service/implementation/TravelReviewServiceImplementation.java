@@ -130,7 +130,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchtravelView(int reviewNumber) {
+    public ResponseEntity<ResponseDto> patchTravelView(int reviewNumber) {
 
         try {
 
@@ -169,5 +169,4 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
         return ResponseDto.success();
     }
-
 }

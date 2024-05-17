@@ -10,8 +10,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PatchTravelFavoriteReviewRequestDto {
+
     @NotNull
-    private int reviewNumber;
+    private Integer reviewNumber;
     @NotNull
     private String userId;
     

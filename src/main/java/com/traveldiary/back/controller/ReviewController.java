@@ -12,14 +12,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.traveldiary.back.dto.request.review.PatchTravelCommentRequestDto;
 import com.traveldiary.back.dto.request.review.PatchTravelFavoriteReviewRequestDto;
 import com.traveldiary.back.dto.request.review.PatchTravelReviewRequestDto;
+import com.traveldiary.back.dto.request.review.PostTravelCommentRequestDto;
 import com.traveldiary.back.dto.request.review.PostTravelReviewRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewBoardResponseDto;
+import com.traveldiary.back.dto.response.review.GetTravelReviewCommentListResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewDetailResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewMyListResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewSearchResponseDto;
+import com.traveldiary.back.service.TravelCommentService;
 import com.traveldiary.back.service.TravelFavoriteService;
 import com.traveldiary.back.service.TravelReviewService;
 
@@ -33,6 +37,7 @@ public class ReviewController {
 
     private final TravelReviewService travelReviewService;
     private final TravelFavoriteService travelFavoriteService;
+    private final TravelCommentService travelCommentService;
 
     @GetMapping("/list")
     public ResponseEntity<? super GetTravelReviewBoardResponseDto> getBoardList() {
@@ -64,12 +69,30 @@ public class ReviewController {
     return response;
     }
 
+    @GetMapping("/{reviewNumber}/comment/list")
+    public ResponseEntity<? super GetTravelReviewCommentListResponseDto> getReviewCommentList(
+        @PathVariable("reviewNumber") int reviewNumber
+    ) {
+    ResponseEntity<? super GetTravelReviewCommentListResponseDto> response = travelCommentService.getTravelCommentList(reviewNumber);
+    return response;
+    }
+
     @PostMapping("/")
     public ResponseEntity<ResponseDto> postTravelReview(
         @RequestBody @Valid PostTravelReviewRequestDto responseBody,
         @AuthenticationPrincipal String userId
     ) {
     ResponseEntity<ResponseDto> response = travelReviewService.postTravelReview(responseBody, userId);
+    return response;
+    }
+
+    @PostMapping("/{reviewNumber}/comment")
+    public ResponseEntity<ResponseDto> postTravelComment(
+        @RequestBody @Valid PostTravelCommentRequestDto responseBody,
+        @PathVariable("reviewNumber") int reviewNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+    ResponseEntity<ResponseDto> response = travelCommentService.postTravelComment(responseBody, reviewNumber, userId);
     return response;
     }
 
@@ -97,7 +120,18 @@ public class ReviewController {
     public ResponseEntity<ResponseDto> patchtravelView(
         @PathVariable("reviewNumber") int reviewNumber
     ) {
-    ResponseEntity<ResponseDto> response = travelReviewService.patchtravelView(reviewNumber);
+    ResponseEntity<ResponseDto> response = travelReviewService.patchTravelView(reviewNumber);
+    return response;
+    }
+
+    @PatchMapping("/{reviewNumber}/comment/{commentNumber}")
+    public ResponseEntity<ResponseDto> patchTravelComment(
+        @RequestBody @Valid PatchTravelCommentRequestDto responseBody,
+        @PathVariable("commentNumber") int commentNumber,
+        @PathVariable("reviewNumber") int reviewNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+    ResponseEntity<ResponseDto> response = travelCommentService.patchTravelComment(responseBody, commentNumber, reviewNumber, userId);
     return response;
     }
 
@@ -108,6 +142,16 @@ public class ReviewController {
     ) {
     ResponseEntity<ResponseDto> response = travelReviewService.deleteTravelReview(reviewNumber, userId);
     return response;
-    }   
+    }
+
+    @DeleteMapping("/{reviewNumber}/comment/{commentNumber}")
+    public ResponseEntity<ResponseDto> deleteTravelComment(
+        @PathVariable("reviewNumber") int reviewNumber,
+        @PathVariable("commentNumber") int commentNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+    ResponseEntity<ResponseDto> response = travelCommentService.deleteTravelComment(commentNumber, reviewNumber, userId);
+    return response;
+    }
 }
 
