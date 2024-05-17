@@ -13,6 +13,7 @@ import com.traveldiary.back.dto.response.qna.GetQnaBoardResponseDto;
 import com.traveldiary.back.dto.response.qna.GetQnaResponseDto;
 import com.traveldiary.back.dto.response.qna.GetSearchQnaBoardResponseDto;
 import com.traveldiary.back.entity.QnaEntity;
+import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.QnaRepository;
 import com.traveldiary.back.repository.UserRepository;
 import com.traveldiary.back.service.QnaService;
@@ -31,10 +32,12 @@ public class QnaServiceImplementation implements QnaService{
         
         try {
 
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            String role = userEntity.getUserRole();
+            if (role != "ROLE_USER") return ResponseDto.authorizationFailed();
+
             boolean ifExists = userRepository.existsById(userId);
-            if (!ifExists) {
-                return ResponseDto.authenticationFailed();
-            }
+            if (!ifExists) return ResponseDto.authenticationFailed();
 
             QnaEntity qnaEntity = new QnaEntity(dto, userId);
             qnaRepository.save(qnaEntity);
@@ -130,7 +133,7 @@ public class QnaServiceImplementation implements QnaService{
 
             String writerId = qnaEntity.getQnaWriterId();
             boolean isWriter = userId.equals(writerId);
-            if (!isWriter) return ResponseDto.authenticationFailed();
+            if (!isWriter) return ResponseDto.authorizationFailed();
 
             boolean status = qnaEntity.getQnaStatus();
             if (status) return ResponseDto.writtenComment();

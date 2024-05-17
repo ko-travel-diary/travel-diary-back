@@ -48,9 +48,9 @@ public class QnaController {
 
     @GetMapping("/list/search")
     public ResponseEntity<? super GetSearchQnaBoardResponseDto> getSearchQnaList (
-        @RequestParam("searchWord") String searchWord
+        @RequestParam("word") String word
     ) {
-        ResponseEntity<? super GetSearchQnaBoardResponseDto> response = qnaService.getSearchQnaList(searchWord);
+        ResponseEntity<? super GetSearchQnaBoardResponseDto> response = qnaService.getSearchQnaList(word);
         return response;
     }
 

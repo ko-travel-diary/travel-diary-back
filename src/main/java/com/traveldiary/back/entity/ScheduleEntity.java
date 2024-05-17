@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.traveldiary.back.common.object.ScheduleListItem;
+import com.traveldiary.back.dto.request.schedule.PatchScheduleRequestDto;
 import com.traveldiary.back.dto.request.schedule.PostScheduleRequestDto;
 
 import jakarta.persistence.Entity;
@@ -39,5 +40,4 @@ public class ScheduleEntity {
         this.scheduleEndTime = item.getScheduleEndTime();
         this.travelScheduleNumber = travelScheduleNumber;
     }
-
 }
