@@ -13,7 +13,7 @@ import com.traveldiary.back.entity.TravelReviewEntity;
 
 import lombok.Getter;
 
-// 게시물 작성 Response Body Dto
+// 게시물 리스트보기 Response Body Dto
 @Getter
 public class GetTravelReviewBoardResponseDto extends ResponseDto{
 

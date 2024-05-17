@@ -18,7 +18,8 @@ public interface TravelReviewService {
     ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(String userId);
     ResponseEntity<ResponseDto> postTravelReview(PostTravelReviewRequestDto dto, String userId);
     ResponseEntity<ResponseDto> patchTravelReview(PatchTravelReviewRequestDto dto, int reviewNumber, String userId);
-    ResponseEntity<ResponseDto> patchtravelView(int reviewNumber);
+    ResponseEntity<ResponseDto> patchTravelView(int reviewNumber);
     ResponseEntity<ResponseDto> deleteTravelReview(int reviewNumber, String userId);
+    
 }
 
