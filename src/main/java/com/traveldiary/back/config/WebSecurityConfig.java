@@ -57,7 +57,7 @@ public class WebSecurityConfig {
             )
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(request -> request
-                .requestMatchers("/", "/traveldiary/v1/auth/**", "/oauth2/callback/*").permitAll()
+                .requestMatchers("/", "/traveldiary/v1/auth/**", "/oauth2/callback/*", "traveldiary/v1/qna/list", "/traveldiary/v1/tourattractions/tourlist", "/traveldiary/v1/tourattractions/tourlist/*", "/traveldiary/v1/restaurant/restlist", "/traveldiary/v1/restaurant/restlist/*").permitAll()
                 .requestMatchers("traveldiary/v1/qna/").hasRole("USER")
                 .requestMatchers("traveldiary/v1/qna/*/comment").hasRole("ADMIN")
                 .anyRequest().authenticated()

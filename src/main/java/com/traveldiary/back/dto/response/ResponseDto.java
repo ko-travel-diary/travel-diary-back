@@ -38,6 +38,11 @@ public class ResponseDto {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
+    public static ResponseEntity<ResponseDto> noExistData () {
+        ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_DATA, ResponseMessage.NO_EXIST_DATA);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
+    };
+
     public static ResponseEntity<ResponseDto> noExistComment () {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_COMMENT, ResponseMessage.NO_EXIST_COMMENT);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
