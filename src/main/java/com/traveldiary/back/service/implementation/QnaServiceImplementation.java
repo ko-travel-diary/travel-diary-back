@@ -34,7 +34,7 @@ public class QnaServiceImplementation implements QnaService{
 
             UserEntity userEntity = userRepository.findByUserId(userId);
             String role = userEntity.getUserRole();
-            if (role != "ROLE_USER") return ResponseDto.authorizationFailed();
+            if (role == "ROLE_ADMIN") return ResponseDto.authorizationFailed();
 
             boolean ifExists = userRepository.existsById(userId);
             if (!ifExists) return ResponseDto.authenticationFailed();
@@ -142,7 +142,7 @@ public class QnaServiceImplementation implements QnaService{
             String qnaContent = dto.getQnaContent();
 
             qnaEntity.setQnaTitle(qnaTitle);
-            qnaEntity.setQnaComment(qnaContent);
+            qnaEntity.setQnaContent(qnaContent);
 
             qnaRepository.save(qnaEntity);
 
