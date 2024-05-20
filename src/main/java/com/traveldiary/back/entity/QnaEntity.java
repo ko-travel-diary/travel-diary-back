@@ -4,6 +4,8 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+import com.traveldiary.back.dto.request.qna.PatchQnaCommentRequestDto;
+import com.traveldiary.back.dto.request.qna.PatchQnaRequestDto;
 import com.traveldiary.back.dto.request.qna.PostQnaRequestDto;
 
 import jakarta.persistence.Entity;
@@ -44,6 +46,15 @@ public class QnaEntity {
         this.qnaDatetime = dateTime;
         this.qnaStatus = false;
         this.qnaWriterId = userId;
+    }
+
+    public void update (PatchQnaRequestDto dto) {
+        this.qnaTitle = dto.getQnaTitle();
+        this.qnaContent = dto.getQnaContent();
+    }
+
+    public void updateComment (PatchQnaCommentRequestDto dto) {
+        this.qnaComment = dto.getQnaComment();
     }
 
 }
