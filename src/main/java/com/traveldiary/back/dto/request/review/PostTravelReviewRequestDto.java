@@ -18,5 +18,6 @@ public class PostTravelReviewRequestDto{
     @NotBlank
     private String reviewContent;
     private List<String> travelReviewImageUrl;
+    private Integer travelScheduleNumber;
 
 }

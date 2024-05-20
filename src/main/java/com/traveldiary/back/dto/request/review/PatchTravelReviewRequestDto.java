@@ -18,4 +18,5 @@ public class PatchTravelReviewRequestDto {
     @NotBlank
     private String reviewContent;
     private List<String> travelReviewImageUrl;
+    private Integer travelScheduleNumber;
 }

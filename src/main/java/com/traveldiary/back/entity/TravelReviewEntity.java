@@ -33,6 +33,7 @@ public class TravelReviewEntity {
     private String reviewWriterId;
     private Integer reviewFavoriteCount;
     private Integer reviewViewCount;
+    private Integer travelScheduleNumber;
 
     public TravelReviewEntity(PostTravelReviewRequestDto dto, String userId) {
 
@@ -46,6 +47,7 @@ public class TravelReviewEntity {
         this.reviewWriterId = userId;
         this.reviewFavoriteCount = 0;
         this.reviewViewCount = 0;
+        this.travelScheduleNumber = dto.getTravelScheduleNumber();
     }
 
     public void update(PatchTravelReviewRequestDto dto) {
