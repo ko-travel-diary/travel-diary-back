@@ -36,4 +36,9 @@ public class UserEntity {
         this.userRole = "ROLE_USER";
         this.joinPath = "HOME";
     }
+
+    public void update (PatchUserInfoRequestDto dto){
+        this.nickName = dto.getNickName();
+        this.profileImage = dto.getProfileImage();
+    }
 }

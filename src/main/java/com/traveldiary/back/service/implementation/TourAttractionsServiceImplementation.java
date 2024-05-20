@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.traveldiary.back.dto.request.tourAttractions.PostTourAttractionsRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
+import com.traveldiary.back.dto.response.touarAttraction.GetSearchTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsResponseDto;
 import com.traveldiary.back.entity.TourAttractionsEntity;
@@ -41,6 +42,21 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
             return ResponseDto.databaseError();
         }
     return GetTourAttractionsListResponseDto.success(resultSets);
+    }
+
+    @Override
+    public ResponseEntity<? super GetSearchTourAttractionsListResponseDto> getSearchTourAttractionsList(String searchWord) {
+
+        List<GetTourAttractionsResultSet> resultSets = null;
+
+        try {
+            resultSets = tourAttractionsRepository.getSearchTourAttractionsList(searchWord);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    return GetSearchTourAttractionsListResponseDto.success(resultSets);
     }
 
     @Override
@@ -97,5 +113,6 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
         }
         return ResponseDto.success();
     }
+
 
 }
