@@ -2,6 +2,7 @@ package com.traveldiary.back.service;
 
 import org.springframework.http.ResponseEntity;
 
+import com.traveldiary.back.dto.request.qna.PatchQnaCommentRequestDto;
 import com.traveldiary.back.dto.request.qna.PatchQnaRequestDto;
 import com.traveldiary.back.dto.request.qna.PostQnaCommentRequestDto;
 import com.traveldiary.back.dto.request.qna.PostQnaRequestDto;
@@ -18,6 +19,8 @@ public interface QnaService {
     ResponseEntity<? super GetQnaResponseDto> getQnaBoard(Integer receptionNumber);
     ResponseEntity<ResponseDto> postQnaComment(PostQnaCommentRequestDto dto, Integer receptionNumber);
     ResponseEntity<ResponseDto> patchQna(PatchQnaRequestDto dto, Integer receptionNumber, String userId);
+    ResponseEntity<ResponseDto> patchQnaComment(PatchQnaCommentRequestDto dto, Integer receptionNumber);
     ResponseEntity<ResponseDto> deleteQna(Integer receptionNumber, String userId);
+    ResponseEntity<ResponseDto> deleteQnaComment(Integer receptionNumber, String userId);
     
 }

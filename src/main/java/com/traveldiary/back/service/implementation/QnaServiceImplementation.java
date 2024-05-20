@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import com.traveldiary.back.dto.request.qna.PatchQnaCommentRequestDto;
 import com.traveldiary.back.dto.request.qna.PatchQnaRequestDto;
 import com.traveldiary.back.dto.request.qna.PostQnaCommentRequestDto;
 import com.traveldiary.back.dto.request.qna.PostQnaRequestDto;
@@ -34,7 +35,7 @@ public class QnaServiceImplementation implements QnaService{
 
             UserEntity userEntity = userRepository.findByUserId(userId);
             String role = userEntity.getUserRole();
-            if (role != "ROLE_USER") return ResponseDto.authorizationFailed();
+            if (role == "ROLE_ADMIN") return ResponseDto.authorizationFailed();
 
             boolean ifExists = userRepository.existsById(userId);
             if (!ifExists) return ResponseDto.authenticationFailed();
@@ -138,11 +139,7 @@ public class QnaServiceImplementation implements QnaService{
             boolean status = qnaEntity.getQnaStatus();
             if (status) return ResponseDto.writtenComment();
 
-            String qnaTitle = dto.getQnaTitle();
-            String qnaContent = dto.getQnaContent();
-
-            qnaEntity.setQnaTitle(qnaTitle);
-            qnaEntity.setQnaComment(qnaContent);
+            qnaEntity.update(dto);
 
             qnaRepository.save(qnaEntity);
 
@@ -171,6 +168,54 @@ public class QnaServiceImplementation implements QnaService{
             if(status) return ResponseDto.writtenComment();
 
             qnaRepository.delete(qnaEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> patchQnaComment(PatchQnaCommentRequestDto dto, Integer receptionNumber) {
+        
+        try {
+            
+            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            if (qnaEntity == null) return ResponseDto.noExistBoard();
+
+            boolean status = qnaEntity.getQnaStatus();
+            if (status) return ResponseDto.noExistComment();
+
+            qnaEntity.updateComment(dto);
+
+            qnaRepository.save(qnaEntity);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteQnaComment(Integer receptionNumber, String userId) {
+        
+        try {
+
+            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            if (qnaEntity == null) return ResponseDto.noExistBoard();
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            String role = userEntity.getUserRole();
+            if (role == "ROLE_USER") return ResponseDto.authenticationFailed();
+
+            qnaEntity.setQnaStatus(false);
+            qnaEntity.setQnaComment(null);
+
+            qnaRepository.save(qnaEntity);
             
         } catch (Exception exception) {
             exception.printStackTrace();

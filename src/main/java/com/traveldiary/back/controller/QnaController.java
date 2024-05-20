@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.traveldiary.back.dto.request.qna.PatchQnaCommentRequestDto;
 import com.traveldiary.back.dto.request.qna.PatchQnaRequestDto;
 import com.traveldiary.back.dto.request.qna.PostQnaCommentRequestDto;
 import com.traveldiary.back.dto.request.qna.PostQnaRequestDto;
@@ -82,12 +83,30 @@ public class QnaController {
         return response;
     }
 
+    @PatchMapping("/{receptionNumber}/comment")
+    public ResponseEntity<ResponseDto> patchQnaComment(
+        @RequestBody @Valid PatchQnaCommentRequestDto requstBody,
+        @PathVariable("receptionNumber") Integer receptionNumber
+    ) {
+        ResponseEntity<ResponseDto> response = qnaService.patchQnaComment(requstBody, receptionNumber);
+        return response;
+    }
+
     @DeleteMapping("/{receptionNumber}")
     public ResponseEntity<ResponseDto> deleteQna(
         @PathVariable("receptionNumber") Integer receptionNumber,
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<ResponseDto> response = qnaService.deleteQna(receptionNumber, userId);
+        return response;
+    }
+
+    @DeleteMapping("/{receptionNumber}/comment")
+    public ResponseEntity<ResponseDto> deleteQnaComment(
+        @PathVariable("receptionNumber") Integer receptionNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = qnaService.deleteQnaComment(receptionNumber, userId);
         return response;
     }
     

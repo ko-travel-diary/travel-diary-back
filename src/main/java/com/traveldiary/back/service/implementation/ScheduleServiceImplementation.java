@@ -100,24 +100,6 @@ public class ScheduleServiceImplementation implements ScheduleService{
                         scheduleRepository.save(scheduleEntity);
                     }
 
-                    // //! TravelScheduleExpenditureEntity에서 번호에 맞는 항목 찾기 > 리스트로 받아와야 되지 않나?
-                    // List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntity = travelScheduleExpenditureRepository.findByTravelScheduleNumber(number);
-                    // //! 받은 값 넣을 List
-                    // List<ExpenditureListItem> expenditureList = dto.getExpenditureList();
-
-                    // for (ExpenditureListItem item: expenditureList) {
-                    //     travelScheduleExpenditureEntity.iterator
-                    //     travelScheduleExpenditureRepository.save(travelScheduleExpenditureEntity);
-                    // }    
-
-                    // ScheduleEntity scheduleEntity = scheduleRepository.findByTravelScheduleNumber(number);
-                    // List<ScheduleListItem> scheduleListItems = dto.getScheduleListItems();
-
-                    // for (ScheduleListItem item: scheduleListItems) {
-                    //     scheduleEntity.update(item);
-                    //     scheduleRepository.save(scheduleEntity);
-                    // }
-    
                 } catch (Exception exception) {
                     exception.printStackTrace();
                     return ResponseDto.databaseError();
