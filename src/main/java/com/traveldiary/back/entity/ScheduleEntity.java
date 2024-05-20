@@ -1,11 +1,6 @@
 package com.traveldiary.back.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.traveldiary.back.common.object.ScheduleListItem;
-import com.traveldiary.back.dto.request.schedule.PatchScheduleRequestDto;
-import com.traveldiary.back.dto.request.schedule.PostScheduleRequestDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
