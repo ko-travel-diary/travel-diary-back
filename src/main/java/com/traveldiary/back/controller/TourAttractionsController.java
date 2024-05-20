@@ -7,10 +7,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.traveldiary.back.dto.request.tourAttractions.PostTourAttractionsRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
+import com.traveldiary.back.dto.response.touarAttraction.GetSearchTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsResponseDto;
 import com.traveldiary.back.service.TourAttractionsService;
@@ -28,6 +30,14 @@ public class TourAttractionsController {
     @GetMapping("/tourlist")
     public ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList (){
         ResponseEntity<? super GetTourAttractionsListResponseDto> response = tourAttractionsService.getTourAttractionsList();
+        return response;
+    }
+
+    @GetMapping("/tourlist/search")
+    public ResponseEntity<? super GetSearchTourAttractionsListResponseDto> getSearchTourAttractionsList (
+        @RequestParam ("searchWord") String searchWord
+    ){
+        ResponseEntity<? super GetSearchTourAttractionsListResponseDto> response = tourAttractionsService.getSearchTourAttractionsList(searchWord);
         return response;
     }
 

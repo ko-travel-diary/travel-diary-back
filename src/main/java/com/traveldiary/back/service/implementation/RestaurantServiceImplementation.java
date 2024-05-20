@@ -10,6 +10,7 @@ import com.traveldiary.back.dto.request.restaurant.PostRestaurantRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetRestaurantListResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
+import com.traveldiary.back.dto.response.restaurant.GetSearchRestaurantListResponseDto;
 import com.traveldiary.back.entity.RestaurantEntity;
 import com.traveldiary.back.entity.RestaurantImageEntity;
 import com.traveldiary.back.entity.UserEntity;
@@ -40,6 +41,19 @@ public class RestaurantServiceImplementation implements RestaurantService{
             return ResponseDto.databaseError();
         }
     return GetRestaurantListResponseDto.success(resultSets);
+    }
+
+    @Override
+    public ResponseEntity<? super GetSearchRestaurantListResponseDto> getSearchRestaurantList(String searchWord) {
+        List<GetRestaurantResultSet> resultSets = null;
+
+        try {
+            resultSets = restaurantRepository.getSearchRestaurantList(searchWord);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+    return GetSearchRestaurantListResponseDto.success(resultSets);
     }
 
     @Override

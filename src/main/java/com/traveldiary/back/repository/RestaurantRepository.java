@@ -27,6 +27,23 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity, In
     )
     List<GetRestaurantResultSet> getRestaurantList ();
 
+    @Query(
+        value=
+        "SELECT image, " + 
+                "r.restaurant_name as restaurantName, " + 
+                "r.restaurant_location as restaurantLocation, " + 
+                "r.restaurant_tel_number as restaurantTelNumber, " + 
+                "r.restaurant_hours as restaurantHours FROM restaurant r LEFT JOIN ( " +
+            "SELECT restaurant_number, ANY_VALUE(restaurant_image_url) as image " +
+            "FROM restaurant_image " +
+            "GROUP BY restaurant_number " +
+        ") i " +
+        "ON r.restaurant_number = i.restaurant_number " +
+        "WHERE r.restaurant_name LIKE %:searchWord%",
+        nativeQuery=true
+    )
+    List<GetRestaurantResultSet> getSearchRestaurantList (String searchWord);
+
     RestaurantEntity findByRestaurantNumber (Integer RestaurantNumber);
     boolean existsByRestaurantName (String restaurantName);
 }

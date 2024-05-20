@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.traveldiary.back.dto.request.restaurant.PostRestaurantRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetRestaurantListResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
+import com.traveldiary.back.dto.response.restaurant.GetSearchRestaurantListResponseDto;
 import com.traveldiary.back.service.RestaurantService;
 
 import jakarta.validation.Valid;
@@ -28,6 +30,14 @@ public class RestaurantController {
     @GetMapping("/restlist")
     public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList () {
         ResponseEntity<? super GetRestaurantListResponseDto> response = restaurantService.getRestaurantList();
+        return response;
+    }
+
+    @GetMapping("/restlist/search")
+    public ResponseEntity<? super GetSearchRestaurantListResponseDto> getSearchRestaurantList (
+        @RequestParam ("searchWord") String searchWord
+    ){
+        ResponseEntity<? super GetSearchRestaurantListResponseDto> response = restaurantService.getSearchRestaurantList(searchWord);
         return response;
     }
 

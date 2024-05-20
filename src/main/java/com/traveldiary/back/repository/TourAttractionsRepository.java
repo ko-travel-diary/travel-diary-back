@@ -27,6 +27,23 @@ public interface TourAttractionsRepository extends JpaRepository<TourAttractions
     )
     List<GetTourAttractionsResultSet> getTourAttractionsList ();
 
+    @Query(
+        value=
+        "SELECT image, " + 
+                "t.tour_attractions_name as tourAttractionsName, " + 
+                "t.tour_attractions_location as tourAttractionsLocation, " + 
+                "t.tour_attractions_tel_number as tourAttractionsTelNumber, " + 
+                "t.tour_attractions_hours as tourAttractionsHours FROM tour_attractions t LEFT JOIN ( " +
+            "SELECT tour_attractions_number, ANY_VALUE(tour_attractions_image_url) as image " +
+            "FROM tour_attractions_image " +
+            "GROUP BY tour_attractions_number " +
+        ") i " +
+        "ON t.tour_attractions_number = i.tour_attractions_number "+
+        "WHERE t.tour_attractions_name LIKE %:searchWord%",
+        nativeQuery=true
+    )
+    List<GetTourAttractionsResultSet> getSearchTourAttractionsList (String searchWord);
+
     TourAttractionsEntity findByTourAttractionsNumber (Integer tourAttractionsNumber);
 
     boolean existsByTourAttractionsName (String tourAttractionsName);

@@ -92,10 +92,7 @@ public class UserServiceImplementation implements UserService{
             boolean existNickName = userRepository.existsByNickName(nickName);
             if(existNickName) return ResponseDto.duplicatedNickName();
 
-            String profileImage = dto.getProfileImage();
-
-            userEntity.setNickName(nickName);
-            userEntity.setProfileImage(profileImage);
+            userEntity.update(dto);
 
             userRepository.save(userEntity);
 
