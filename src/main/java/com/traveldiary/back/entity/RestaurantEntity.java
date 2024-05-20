@@ -39,10 +39,10 @@ public class RestaurantEntity {
     private String restaurantServiceMenu;
     @NotNull
     private Integer restaurantRecommendCount;
-    @NotNull
-    private Double restaurantLat;
-    @NotNull
-    private Double restaurantLng;
+    @NotBlank
+    private String restaurantLat;
+    @NotBlank
+    private String restaurantLng;
 
     public RestaurantEntity (PostRestaurantRequestDto dto){
         this.restaurantName = dto.getRestaurantName();
