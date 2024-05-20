@@ -36,10 +36,10 @@ public class TourAttractionsEntity {
     private String tourAttractionsHours;
     @NotNull
     private Integer tourAttractionsRecommendCount;
-    @NotNull
-    private Double tourAttractionsLat;
-    @NotNull
-    private Double tourAttractionsLng;
+    @NotBlank
+    private String tourAttractionsLat;
+    @NotBlank
+    private String tourAttractionsLng;
 
     public TourAttractionsEntity (PostTourAttractionsRequestDto dto){
         this.tourAttractionsName = dto.getTourAttractionsName();
