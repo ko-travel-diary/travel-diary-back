@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 import com.traveldiary.back.dto.response.ResponseCode;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.ResponseMessage;
@@ -28,7 +27,7 @@ public class GetTravelReviewDetailResponseDto extends ResponseDto{
     private Integer reviewViewCount;
     private Integer reviewFavoriteCount;
 
-    public GetTravelReviewDetailResponseDto(TravelReviewEntity travelReviewEntity) {
+    public GetTravelReviewDetailResponseDto(TravelReviewEntity travelReviewEntity, List<String> travelReviewImageUrl) {
 
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
 
@@ -44,13 +43,13 @@ public class GetTravelReviewDetailResponseDto extends ResponseDto{
         this.reviewContent = travelReviewEntity.getReviewContent();
         this.writerId = writerId;
         this.reviewDatetime = writeDatetime;
-        this.travelReviewImageUrl = null;
+        this.travelReviewImageUrl = travelReviewImageUrl;
         this.reviewViewCount = travelReviewEntity.getReviewViewCount();
         this.reviewFavoriteCount = travelReviewEntity.getReviewFavoriteCount();
     }
 
-    public static ResponseEntity<GetTravelReviewDetailResponseDto> success(TravelReviewEntity travelReviewEntity) {
-        GetTravelReviewDetailResponseDto responseBody = new GetTravelReviewDetailResponseDto(travelReviewEntity);
+    public static ResponseEntity<GetTravelReviewDetailResponseDto> success(TravelReviewEntity travelReviewEntity, List<String> travelReviewImageUrl) {
+        GetTravelReviewDetailResponseDto responseBody = new GetTravelReviewDetailResponseDto(travelReviewEntity, travelReviewImageUrl);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
 
     }

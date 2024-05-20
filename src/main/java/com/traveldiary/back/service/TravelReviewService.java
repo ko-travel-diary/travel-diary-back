@@ -14,12 +14,12 @@ public interface TravelReviewService {
 
     ResponseEntity<? super GetTravelReviewBoardResponseDto> getReviewBoardList();
     ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewSearchList(String searchWord);
-    ResponseEntity<? super GetTravelReviewDetailResponseDto> getReview(int reviewNumber);
+    ResponseEntity<? super GetTravelReviewDetailResponseDto> getReview(Integer reviewNumber);
     ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(String userId);
     ResponseEntity<ResponseDto> postTravelReview(PostTravelReviewRequestDto dto, String userId);
     ResponseEntity<ResponseDto> patchTravelReview(PatchTravelReviewRequestDto dto, int reviewNumber, String userId);
-    ResponseEntity<ResponseDto> patchTravelView(int reviewNumber);
-    ResponseEntity<ResponseDto> deleteTravelReview(int reviewNumber, String userId);
+    ResponseEntity<ResponseDto> patchTravelView(Integer reviewNumber);
+    ResponseEntity<ResponseDto> deleteTravelReview(Integer reviewNumber, String userId);
     
 }
 

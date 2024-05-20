@@ -20,7 +20,7 @@ import lombok.Setter;
 public class TravelReviewImageEntity {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Integer travelReivewImageNumber;
+    private Integer travelReviewImageNumber;
     @NotNull
     private Integer travelReviewNumber;
     private String travelReviewImageUrl;

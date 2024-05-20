@@ -1,5 +1,6 @@
 package com.traveldiary.back.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -60,19 +61,29 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     }
 
     @Override
-    public ResponseEntity<? super GetTravelReviewDetailResponseDto> getReview(int reviewNumber) {
+    public ResponseEntity<? super GetTravelReviewDetailResponseDto> getReview(Integer reviewNumber) {
         
+        TravelReviewEntity travelReviewEntity;
+        List<String> travelReviewImageUrl;
+
         try {
 
-            TravelReviewEntity travelReviewEntity = travelReviewRepository.findByReviewNumber(reviewNumber);
+            travelReviewEntity = travelReviewRepository.findByReviewNumber(reviewNumber);
             if(travelReviewEntity == null) return ResponseDto.noExistBoard();
 
-            return GetTravelReviewDetailResponseDto.success(travelReviewEntity);
+            travelReviewImageUrl = new ArrayList<>();
+            List<TravelReviewImageEntity> reviewImageEntities = travelReviewImageRepository.findByTravelReviewNumber(reviewNumber);
+            for(TravelReviewImageEntity entity: reviewImageEntities){
+                String image = entity.getTravelReviewImageUrl();
+                travelReviewImageUrl.add(image);
 
+            }
+            
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+        return GetTravelReviewDetailResponseDto.success(travelReviewEntity, travelReviewImageUrl);
     }
 
     @Override
@@ -155,7 +166,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchTravelView(int reviewNumber) {
+    public ResponseEntity<ResponseDto> patchTravelView(Integer reviewNumber) {
 
         try {
 
@@ -174,7 +185,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteTravelReview(int reviewNumber, String userId) {
+    public ResponseEntity<ResponseDto> deleteTravelReview(Integer reviewNumber, String userId) {
         
         try {
 
