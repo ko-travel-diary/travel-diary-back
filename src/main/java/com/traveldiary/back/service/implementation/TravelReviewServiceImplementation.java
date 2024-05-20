@@ -13,8 +13,11 @@ import com.traveldiary.back.dto.response.review.GetTravelReviewDetailResponseDto
 import com.traveldiary.back.dto.response.review.GetTravelReviewMyListResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewSearchResponseDto;
 import com.traveldiary.back.entity.TravelReviewEntity;
+import com.traveldiary.back.entity.TravelReviewImageEntity;
+import com.traveldiary.back.repository.TravelReviewImageRepository;
 import com.traveldiary.back.repository.TravelReviewRepository;
 import com.traveldiary.back.repository.UserRepository;
+import com.traveldiary.back.repository.resultSet.GetTravelReviewResultSet;
 import com.traveldiary.back.service.TravelReviewService;
 
 import lombok.RequiredArgsConstructor;
@@ -25,14 +28,15 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
     private final UserRepository userRepository;
     private final TravelReviewRepository travelReviewRepository;
+    private final TravelReviewImageRepository travelReviewImageRepository;
 
     @Override
     public ResponseEntity<? super GetTravelReviewBoardResponseDto> getReviewBoardList() {
         
         try {
 
-            List<TravelReviewEntity> travelReviewEntities = travelReviewRepository.findByOrderByReviewNumberDesc();
-            return GetTravelReviewBoardResponseDto.success(travelReviewEntities);
+            List<GetTravelReviewResultSet> resultSets = travelReviewRepository.getReviewBoardList();
+            return GetTravelReviewBoardResponseDto.success(resultSets);
 
 
         } catch(Exception exception) {
@@ -46,8 +50,8 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
         
         try {
         
-            List<TravelReviewEntity> travelReviewEntities = travelReviewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
-            return GetTravelReviewSearchResponseDto.success(travelReviewEntities);
+            List<GetTravelReviewResultSet> resultSets = travelReviewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
+            return GetTravelReviewSearchResponseDto.success(resultSets);
             
         } catch(Exception exception) {
             exception.printStackTrace();
@@ -76,10 +80,10 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
         
         try {
             
-            List<TravelReviewEntity> travelReviewEntities = travelReviewRepository.findByReviewWriterId(userId);
-            if(travelReviewEntities == null) return ResponseDto.authorizationFailed();
+            List<GetTravelReviewResultSet> resultSets = travelReviewRepository.getReviewBoardList();
+            if(resultSets == null) return ResponseDto.authorizationFailed();
 
-            return GetTravelReviewMyListResponseDto.success(travelReviewEntities);
+            return GetTravelReviewMyListResponseDto.success(resultSets);
             
         } catch(Exception exception) {
             exception.printStackTrace();
@@ -97,7 +101,15 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             
             TravelReviewEntity travelReviewEntity = new TravelReviewEntity(dto, userId);
             travelReviewRepository.save(travelReviewEntity);
+            
+            int travelReviewNumber = travelReviewEntity.getReviewNumber();
 
+            List<String> images = dto.getTravelReviewImageUrl();
+            for(String image: images) {
+                TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(travelReviewNumber, image);
+                travelReviewImageRepository.save(imageEntity);
+            }
+            
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -121,6 +133,19 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
             travelReviewEntity.update(dto);
             travelReviewRepository.save(travelReviewEntity);
+
+            if(dto.getTravelReviewImageUrl() == null) {
+                travelReviewImageRepository.deleteByTravelReviewNumber(reviewNumber);
+                return ResponseDto.success();
+            }
+            
+            travelReviewImageRepository.deleteByTravelReviewNumber(reviewNumber);
+
+            List<String> images = dto.getTravelReviewImageUrl();
+            for(String image: images) {
+                TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(reviewNumber, image);
+                travelReviewImageRepository.save(imageEntity);
+            }
 
         } catch(Exception exception) {
             exception.printStackTrace();
