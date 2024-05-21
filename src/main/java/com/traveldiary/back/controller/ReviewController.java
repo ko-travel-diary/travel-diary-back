@@ -45,11 +45,27 @@ public class ReviewController {
         return response;
     }
 
-    @GetMapping("/list/search")
-    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewSearchList(
+    @GetMapping("/list/search/title")
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewTitleAndContentSearchList(
         @RequestParam("word") String word
     ) {
-        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewSearchList(word);
+        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewTitleAndContentSearchList(word);
+        return response;
+    }
+
+    @GetMapping("/list/search/writer")
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriterSearchList(
+        @RequestParam("word") String word
+    ) {
+        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewWriterSearchList(word);
+        return response;
+    }
+
+    @GetMapping("/list/search/writedate")
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriteDateSearchList(
+        @RequestParam("word") String word
+    ) {
+        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewWriteDateSearchList(word);
         return response;
     }
 

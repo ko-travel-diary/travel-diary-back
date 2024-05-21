@@ -28,7 +28,7 @@ public class ReviewBoardListItem {
         this.reviewDatetime = resultSet.getReviewDatetime();
         this.reviewViewCount = resultSet.getReviewViewCount();
         this.reviewFavoriteCount = resultSet.getReviewFavoriteCount();
-        this.travelReviewImageUrl = resultSet.getTravelReviewImageUrl();
+        this.travelReviewImageUrl = resultSet.getImage();
     }
 
     public static List<ReviewBoardListItem> getReviewList(List<GetTravelReviewResultSet> resultSets) {
