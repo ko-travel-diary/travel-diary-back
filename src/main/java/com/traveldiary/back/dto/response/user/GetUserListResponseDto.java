@@ -15,11 +15,11 @@ import lombok.Getter;
 
 @Getter
 public class GetUserListResponseDto extends ResponseDto{
-    private List<UserListItem> userListItems;
+    private List<UserListItem> userListItem;
 
     private GetUserListResponseDto (List<UserEntity> qnaEntities){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.userListItems = UserListItem.getUserList(qnaEntities);
+        this.userListItem = UserListItem.getUserList(qnaEntities);
     }
 
     public static ResponseEntity<GetUserListResponseDto> success (List<UserEntity> userEntities) {
