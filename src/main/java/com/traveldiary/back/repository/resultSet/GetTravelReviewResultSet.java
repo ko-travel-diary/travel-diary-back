@@ -8,5 +8,5 @@ public interface GetTravelReviewResultSet {
     String getReviewDatetime();
     Integer getReviewViewCount();
     Integer getReviewFavoriteCount();
-    String getTravelReviewImageUrl();
+    String getImage();
 }

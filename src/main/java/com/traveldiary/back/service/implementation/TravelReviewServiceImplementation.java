@@ -47,17 +47,48 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     }
 
     @Override
-    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewSearchList(String searchWord) {
-        
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewTitleAndContentSearchList(String searchWord) {
+        List<GetTravelReviewResultSet> resultSets;
         try {
         
-            List<GetTravelReviewResultSet> resultSets = travelReviewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
-            return GetTravelReviewSearchResponseDto.success(resultSets);
+            resultSets = travelReviewRepository.getReivewTitleOrReviewContent(searchWord);
             
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+        
+        return GetTravelReviewSearchResponseDto.success(resultSets);
+    }
+
+    @Override
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriterSearchList(String searchWord) {
+        List<GetTravelReviewResultSet> resultSets;
+        try {
+        
+            resultSets = travelReviewRepository.getReviewWriter(searchWord);
+            
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        
+        return GetTravelReviewSearchResponseDto.success(resultSets);
+    }
+
+    @Override
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriteDateSearchList(String searchWord) {
+        List<GetTravelReviewResultSet> resultSets;
+        try {
+        
+            resultSets = travelReviewRepository.getReviewDatetime(searchWord);
+            
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        
+        return GetTravelReviewSearchResponseDto.success(resultSets);
     }
 
     @Override
@@ -116,6 +147,11 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             int travelReviewNumber = travelReviewEntity.getReviewNumber();
 
             List<String> images = dto.getTravelReviewImageUrl();
+            if(images.isEmpty() || images.get(0) == null) {
+                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
+                TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(travelReviewNumber, image);
+                travelReviewImageRepository.save(imageEntity);
+            }
             for(String image: images) {
                 TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(travelReviewNumber, image);
                 travelReviewImageRepository.save(imageEntity);
