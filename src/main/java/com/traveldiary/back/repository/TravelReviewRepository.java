@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.traveldiary.back.entity.TravelReviewEntity;
@@ -48,10 +49,10 @@ public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity
             "GROUP BY travel_review_number " +
         ") i " +
         "ON r.review_number = i.travel_review_number " +
-        "WHERE r.review_title OR r.review_content LIKE %:searchWord%",
+        "WHERE r.review_title LIKE %:searchWord% OR r.review_content LIKE %:searchWord%",
         nativeQuery=true
     )
-    List<GetTravelReviewResultSet> getReivewTitleOrReviewContent (String searchWord);
+    List<GetTravelReviewResultSet> getReivewTitleOrReviewContent (@Param("searchWord") String searchWord);
     @Query(
         value=
         "SELECT image, " + 
@@ -70,7 +71,7 @@ public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity
         "WHERE r.review_writer_id LIKE %:searchWord%",
         nativeQuery=true
     )
-    List<GetTravelReviewResultSet> getReviewWriter (String searchWord);
+    List<GetTravelReviewResultSet> getReviewWriter (@Param("searchWord") String searchWord);
     @Query(
         value=
         "SELECT image, " + 
@@ -89,7 +90,7 @@ public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity
         "WHERE r.review_datetime LIKE %:searchWord%",
         nativeQuery=true
     )
-    List<GetTravelReviewResultSet> getReviewDatetime (String searchWord);
+    List<GetTravelReviewResultSet> getReviewDatetime (@Param("searchWord") String searchWord);
 
     boolean existsByReviewNumber(Integer reviewNumber);
 
