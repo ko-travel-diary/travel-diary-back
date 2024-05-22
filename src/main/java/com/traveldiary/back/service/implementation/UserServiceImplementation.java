@@ -12,6 +12,7 @@ import com.traveldiary.back.dto.request.user.DeleteUserRequestDto;
 import com.traveldiary.back.dto.request.user.PostUserNickNameRequestDto;
 import com.traveldiary.back.dto.request.user.PatchUserInfoRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
+import com.traveldiary.back.dto.response.user.GetSearchUserListResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserInfoResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserListResponseDto;
 import com.traveldiary.back.dto.response.user.PostUserNickNameResponseDto;
@@ -34,7 +35,26 @@ public class UserServiceImplementation implements UserService{
     @Override
     public ResponseEntity<? super GetUserListResponseDto> getUserList(String userId) {
 
-        List<UserEntity> userEntities;
+        try {
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
+
+            String userRole = userEntity.getUserRole();
+            if(userRole == "ROLE_USER") return ResponseDto.authenticationFailed();
+
+            List<UserEntity> userEntities = userRepository.findByUserRoleOrderByJoinDate("ROLE_USER");
+
+            return GetUserListResponseDto.success(userEntities);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+    }
+
+    @Override
+    public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList(String userId, String searchWord) {
 
         try {
 
@@ -43,15 +63,15 @@ public class UserServiceImplementation implements UserService{
             String userRole = userEntity.getUserRole();
             if(userRole == "ROLE_USER") return ResponseDto.authenticationFailed();
 
-            userEntities = userRepository.findByUserRole("ROLE_USER");
-            System.out.println(userRole);
+            List<UserEntity> userEntities = userRepository.findByUserRoleAndUserIdContainingOrderByJoinDate("ROLE_USER", searchWord);
+
+            return GetSearchUserListResponseDto.success(userEntities);
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetUserListResponseDto.success(userEntities);
     }
 
     @Override

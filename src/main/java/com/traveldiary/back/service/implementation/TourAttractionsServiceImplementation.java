@@ -50,6 +50,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
         List<GetTourAttractionsResultSet> resultSets = null;
 
         try {
+
             resultSets = tourAttractionsRepository.getSearchTourAttractionsList(searchWord);
 
         } catch (Exception exception) {
