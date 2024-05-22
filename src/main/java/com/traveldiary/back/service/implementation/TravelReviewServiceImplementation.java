@@ -231,10 +231,20 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
             String writerId = travelReviewEntity.getReviewWriterId();
             boolean iswriterId = userId.equals(writerId);
+            System.out.println(userId);
+            System.out.println(writerId);
+
             UserEntity userEntity = userRepository.findByUserId(userId);
             String userRole = userEntity.getUserRole();
             System.out.println(userRole);
-            if(!iswriterId && userRole != "ROLE_ADMIN") return ResponseDto.authorizationFailed();
+            boolean isAdmin = userRole.equals("ROLE_ADMIN");
+
+            if(!iswriterId && !isAdmin) return ResponseDto.authenticationFailed();
+
+            List<TravelReviewImageEntity> travelReviewImageEntities = travelReviewImageRepository.findByTravelReviewNumber(reviewNumber);
+            for (TravelReviewImageEntity entity : travelReviewImageEntities){
+                travelReviewImageRepository.delete(entity);
+            }
 
             travelReviewRepository.delete(travelReviewEntity);
 

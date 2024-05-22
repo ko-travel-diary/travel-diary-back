@@ -151,7 +151,7 @@ public class ReviewController {
     return response;
     }
 
-    @DeleteMapping("/{reviewNumber}")
+    @DeleteMapping("/delete/{reviewNumber}")
     public ResponseEntity<ResponseDto> deleteTravelReview(
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
