@@ -13,11 +13,13 @@ public class ReviewCommentListItem {
     private Integer reviewCommentNumber;
     private String reviewCommentWriterId;
     private String commentContent;
+    private Integer commentParentsNumber;
 
     public ReviewCommentListItem(TravelCommentEntity travelCommentEntity) {
         this.reviewCommentNumber = travelCommentEntity.getCommentNumber();
         this.reviewCommentWriterId = travelCommentEntity.getCommentWriterId();
         this.commentContent = travelCommentEntity.getCommentContent();
+        this.commentParentsNumber = travelCommentEntity.getCommentParentsNumber();
     }
 
     public static List<ReviewCommentListItem> getCommentList(List<TravelCommentEntity> travelCommentEntities) {
