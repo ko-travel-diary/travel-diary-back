@@ -9,11 +9,13 @@ import org.springframework.stereotype.Service;
 
 import com.traveldiary.back.dto.request.user.DeleteAdminUserRequestDto;
 import com.traveldiary.back.dto.request.user.DeleteUserRequestDto;
+import com.traveldiary.back.dto.request.user.PostUserNickNameRequestDto;
 import com.traveldiary.back.dto.request.user.PatchUserInfoRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.user.GetSearchUserListResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserInfoResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserListResponseDto;
+import com.traveldiary.back.dto.response.user.PostUserNickNameResponseDto;
 import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.EmailAuthNumberRepository;
 import com.traveldiary.back.repository.UserRepository;
@@ -94,6 +96,32 @@ public class UserServiceImplementation implements UserService{
 
         return GetUserInfoResponseDto.success(userEntity);
     }
+
+    
+    @Override
+    public ResponseEntity<? super PostUserNickNameResponseDto> getUserNickName(PostUserNickNameRequestDto dto) {
+
+        String nickName;
+
+        try {
+
+            String userId = dto.getWriterId();
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
+
+            String userRole = userEntity.getUserRole();
+            if(userRole == "ROLE_ADMIN") return ResponseDto.authenticationFailed();
+
+            nickName = userEntity.getNickName();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return PostUserNickNameResponseDto.success(nickName);
+    }
+
 
     @Override
     public ResponseEntity<ResponseDto> patchUserInfo(PatchUserInfoRequestDto dto, String userId) {
@@ -186,7 +214,4 @@ public class UserServiceImplementation implements UserService{
 
         return ResponseDto.success();
     }
-
-    
-    
 }

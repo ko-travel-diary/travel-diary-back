@@ -32,7 +32,6 @@ public class GetTravelReviewDetailResponseDto extends ResponseDto{
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
 
         String writerId = travelReviewEntity.getReviewWriterId();
-        writerId = writerId.substring(0, 1) + "*".repeat(writerId.length() - 1);
         
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");

@@ -15,6 +15,7 @@ import com.traveldiary.back.dto.response.review.GetTravelReviewMyListResponseDto
 import com.traveldiary.back.dto.response.review.GetTravelReviewSearchResponseDto;
 import com.traveldiary.back.entity.TravelReviewEntity;
 import com.traveldiary.back.entity.TravelReviewImageEntity;
+import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.TravelReviewImageRepository;
 import com.traveldiary.back.repository.TravelReviewRepository;
 import com.traveldiary.back.repository.UserRepository;
@@ -230,9 +231,12 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
             String writerId = travelReviewEntity.getReviewWriterId();
             boolean iswriterId = userId.equals(writerId);
-            if(!iswriterId) return ResponseDto.authorizationFailed();
+            UserEntity userEntity = userRepository.findByUserId(userId);
+            String userRole = userEntity.getUserRole();
+            System.out.println(userRole);
+            if(!iswriterId && userRole != "ROLE_ADMIN") return ResponseDto.authorizationFailed();
 
-            travelReviewRepository.save(travelReviewEntity);
+            travelReviewRepository.delete(travelReviewEntity);
 
         } catch(Exception exception) {
             exception.printStackTrace();
