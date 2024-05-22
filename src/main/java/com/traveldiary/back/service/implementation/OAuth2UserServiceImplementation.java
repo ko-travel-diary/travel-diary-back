@@ -1,5 +1,8 @@
 package com.traveldiary.back.service.implementation;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -41,6 +44,12 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
         int nickNameEndIndex = oauthNickName.length() > 10 ? 10 : oauthNickName.length();
         String nickName = oauthClientName + "_" + oauthNickName.substring(0, nickNameEndIndex);
 
+        Date now = Date.from(Instant.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+        String dateTime = simpleDateFormat.format(now);
+
+        String joinDate = dateTime;
+
         boolean isExistsUser = userRepository.existsByUserId(userId);
         if (!isExistsUser) {
             String userEmail = id + "@" + oauthClientName.toLowerCase() + ".com";
@@ -49,7 +58,7 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             EmailAuthNumberEntity emailAuthNumberEntity = new EmailAuthNumberEntity(userEmail, "0000");
             emailAuthNumberRepository.save(emailAuthNumberEntity);
 
-            UserEntity userEntity = new UserEntity(userId, password, userEmail, nickName, profileImage, oauthClientName, "ROLE_USER");
+            UserEntity userEntity = new UserEntity(userId, password, userEmail, nickName, profileImage, oauthClientName, "ROLE_USER", joinDate);
 
             userRepository.save(userEntity);
         }

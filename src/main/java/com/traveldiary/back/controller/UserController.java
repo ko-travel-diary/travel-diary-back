@@ -7,12 +7,14 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.traveldiary.back.dto.request.user.DeleteAdminUserRequestDto;
 import com.traveldiary.back.dto.request.user.DeleteUserRequestDto;
 import com.traveldiary.back.dto.request.user.PatchUserInfoRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
+import com.traveldiary.back.dto.response.user.GetSearchUserListResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserInfoResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserListResponseDto;
 import com.traveldiary.back.service.UserService;
@@ -40,6 +42,15 @@ public class UserController {
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<? super GetUserInfoResponseDto> response = userService.getUserInfo(userId);
+        return response;
+    }
+
+        @GetMapping("/userlist/search")
+    public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserResponseDto(
+        @RequestParam("word") String word,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<? super GetSearchUserListResponseDto> response = userService.getSearchUserList(userId, word);
         return response;
     }
 

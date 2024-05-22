@@ -1,5 +1,9 @@
 package com.traveldiary.back.entity;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
+
 import com.traveldiary.back.dto.request.auth.SignUpRequestDto;
 import com.traveldiary.back.dto.request.user.PatchUserInfoRequestDto;
 
@@ -26,8 +30,13 @@ public class UserEntity {
     private String profileImage;
     private String joinPath;
     private String userRole;
+    private String joinDate;
 
     public UserEntity(SignUpRequestDto dto) {
+        Date now = Date.from(Instant.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+        String dateTime = simpleDateFormat.format(now);
+
         this.userId = dto.getUserId();
         this.userPassword = dto.getUserPassword();
         this.userEmail = dto.getUserEmail();
@@ -35,6 +44,7 @@ public class UserEntity {
         this.profileImage = dto.getProfileImage();
         this.userRole = "ROLE_USER";
         this.joinPath = "HOME";
+        this.joinDate = dateTime;
     }
 
     public void update (PatchUserInfoRequestDto dto){
