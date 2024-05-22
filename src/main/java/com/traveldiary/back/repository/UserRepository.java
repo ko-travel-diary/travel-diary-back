@@ -18,5 +18,8 @@ public interface UserRepository extends JpaRepository<UserEntity, String>{
     boolean existsByUserEmail (String userEmail);
     
     UserEntity findByUserId (String userId);
+    List<UserEntity> findByUserRoleOrderByJoinDate(String userRole);
+    List<UserEntity> findByUserIdContains(String searchWord);
+    List<UserEntity> findByUserRoleAndUserIdContainingOrderByJoinDate(String userRole, String searchWord);
     List<UserEntity> findByUserRole(String userRole);
 }
