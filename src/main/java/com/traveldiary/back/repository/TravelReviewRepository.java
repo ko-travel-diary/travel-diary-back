@@ -50,7 +50,7 @@ public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity
             "GROUP BY travel_review_number " +
         ") i " +
         "ON r.review_number = i.travel_review_number " +
-        "WHERE r.review_title LIKE %:searchWord% OR r.review_content LIKE %:searchWord%" +
+        "WHERE r.review_title LIKE %:searchWord% OR r.review_content LIKE %:searchWord%  " +
         "ORDER BY r.review_number DESC",
         nativeQuery=true
     )
@@ -70,7 +70,7 @@ public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity
             "GROUP BY travel_review_number " +
         ") i " +
         "ON r.review_number = i.travel_review_number " +
-        "WHERE r.review_writer_id LIKE %:searchWord%" +
+        "WHERE r.review_writer_id LIKE %:searchWord%  " +
         "ORDER BY r.review_number DESC",
         nativeQuery=true
     )
@@ -90,7 +90,7 @@ public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity
             "GROUP BY travel_review_number " +
         ") i " +
         "ON r.review_number = i.travel_review_number " +
-        "WHERE r.review_datetime LIKE %:searchWord%" +
+        "WHERE r.review_datetime LIKE %:searchWord%  " +
         "ORDER BY r.review_number DESC",
         nativeQuery=true
     )

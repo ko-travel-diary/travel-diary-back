@@ -1,9 +1,11 @@
 package com.traveldiary.back.entity;
 
-import com.traveldiary.back.dto.request.review.PatchTravelFavoriteReviewRequestDto;
+
+import com.traveldiary.back.entity.pk.FavoritePk;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.IdClass;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,16 +18,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(FavoritePk.class)
 public class TravelFavoriteEntity {
     @Id
     private String userId;
+    @Id
     private Integer reviewNumber;
-
-    public TravelFavoriteEntity(PatchTravelFavoriteReviewRequestDto dto, String userId) {
-
-        this.userId = dto.getUserId();
-        this.reviewNumber = dto.getReviewNumber();
-    }
 }
 
 

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.traveldiary.back.dto.request.review.PatchTravelCommentRequestDto;
-import com.traveldiary.back.dto.request.review.PatchTravelFavoriteReviewRequestDto;
 import com.traveldiary.back.dto.request.review.PatchTravelReviewRequestDto;
 import com.traveldiary.back.dto.request.review.PostTravelCommentRequestDto;
 import com.traveldiary.back.dto.request.review.PostTravelReviewRequestDto;
@@ -21,8 +20,10 @@ import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewBoardResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewCommentListResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewDetailResponseDto;
+import com.traveldiary.back.dto.response.review.GetTravelReviewFavoriteStatusResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewMyListResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewSearchResponseDto;
+import com.traveldiary.back.dto.response.review.PostTravelReviewResponseDto;
 import com.traveldiary.back.service.TravelCommentService;
 import com.traveldiary.back.service.TravelFavoriteService;
 import com.traveldiary.back.service.TravelReviewService;
@@ -85,6 +86,15 @@ public class ReviewController {
     return response;
     }
 
+    @GetMapping("/{reviewNumber}/")
+    public ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> getFavoriteStatus(
+        @PathVariable("reviewNumber") int reviewNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+    ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> response = travelFavoriteService.getFavoriteStatus(reviewNumber, userId);
+    return response;
+    }
+
     @GetMapping("/{reviewNumber}/comment/list")
     public ResponseEntity<? super GetTravelReviewCommentListResponseDto> getReviewCommentList(
         @PathVariable("reviewNumber") int reviewNumber
@@ -94,11 +104,11 @@ public class ReviewController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<ResponseDto> postTravelReview(
+    public ResponseEntity<? super PostTravelReviewResponseDto> postTravelReview(
         @RequestBody @Valid PostTravelReviewRequestDto responseBody,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<ResponseDto> response = travelReviewService.postTravelReview(responseBody, userId);
+        ResponseEntity<? super PostTravelReviewResponseDto> response = travelReviewService.postTravelReview(responseBody, userId);
     return response;
     }
 
@@ -124,11 +134,10 @@ public class ReviewController {
 
     @PatchMapping("/{reviewNumber}/favorite")
     public ResponseEntity<ResponseDto> patchtravelFavorite(
-        @RequestBody PatchTravelFavoriteReviewRequestDto responseBody,
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<ResponseDto> response = travelFavoriteService.patchtravelFavorite(responseBody, reviewNumber, userId);
+    ResponseEntity<ResponseDto> response = travelFavoriteService.patchtravelFavorite(reviewNumber, userId);
     return response;
     }
 

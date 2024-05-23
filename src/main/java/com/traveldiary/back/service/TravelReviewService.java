@@ -7,8 +7,10 @@ import com.traveldiary.back.dto.request.review.PostTravelReviewRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewBoardResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewDetailResponseDto;
+import com.traveldiary.back.dto.response.review.GetTravelReviewFavoriteStatusResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewMyListResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewSearchResponseDto;
+import com.traveldiary.back.dto.response.review.PostTravelReviewResponseDto;
 
 public interface TravelReviewService {
 
@@ -18,10 +20,12 @@ public interface TravelReviewService {
     ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriteDateSearchList(String searchWord);
     ResponseEntity<? super GetTravelReviewDetailResponseDto> getReview(Integer reviewNumber);
     ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(String userId);
-    ResponseEntity<ResponseDto> postTravelReview(PostTravelReviewRequestDto dto, String userId);
+
+    ResponseEntity<? super PostTravelReviewResponseDto> postTravelReview(PostTravelReviewRequestDto dto, String userId);
+
     ResponseEntity<ResponseDto> patchTravelReview(PatchTravelReviewRequestDto dto, int reviewNumber, String userId);
     ResponseEntity<ResponseDto> patchTravelView(Integer reviewNumber);
+
     ResponseEntity<ResponseDto> deleteTravelReview(Integer reviewNumber, String userId);
-    
 }
 
