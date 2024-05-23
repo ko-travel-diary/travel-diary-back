@@ -11,19 +11,16 @@ import com.traveldiary.back.dto.request.review.PostTravelReviewRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewBoardResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewDetailResponseDto;
-import com.traveldiary.back.dto.response.review.GetTravelReviewFavoriteStatusResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewMyListResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewSearchResponseDto;
 import com.traveldiary.back.dto.response.review.PostTravelReviewResponseDto;
 import com.traveldiary.back.entity.TravelFavoriteEntity;
 import com.traveldiary.back.entity.TravelReviewEntity;
 import com.traveldiary.back.entity.TravelReviewImageEntity;
-import com.traveldiary.back.entity.TravelScheduleEntity;
 import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.TravelFavoriteRepository;
 import com.traveldiary.back.repository.TravelReviewImageRepository;
 import com.traveldiary.back.repository.TravelReviewRepository;
-import com.traveldiary.back.repository.TravelScheduleRepository;
 import com.traveldiary.back.repository.UserRepository;
 import com.traveldiary.back.repository.resultSet.GetTravelReviewResultSet;
 import com.traveldiary.back.service.TravelReviewService;
@@ -156,12 +153,12 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             travelReviewNumber = travelReviewEntity.getReviewNumber();
 
             List<String> images = dto.getTravelReviewImageUrl();
-            if(images.isEmpty() || images.get(0) == null) {
-                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
+            for(String image: images) {
                 TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(travelReviewNumber, image);
                 travelReviewImageRepository.save(imageEntity);
             }
-            for(String image: images) {
+            if(images.isEmpty() || images.get(0) == null) {
+                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
                 TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(travelReviewNumber, image);
                 travelReviewImageRepository.save(imageEntity);
             }
@@ -190,15 +187,16 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             travelReviewEntity.update(dto);
             travelReviewRepository.save(travelReviewEntity);
 
-            if(dto.getTravelReviewImageUrl() == null) {
-                travelReviewImageRepository.deleteByTravelReviewNumber(reviewNumber);
-                return ResponseDto.success();
-            }
-            
-            travelReviewImageRepository.deleteByTravelReviewNumber(reviewNumber);
+            List<TravelReviewImageEntity> travelReviewImageEntities = travelReviewImageRepository.findByTravelReviewNumber(reviewNumber);
+            travelReviewImageRepository.deleteAll(travelReviewImageEntities);
 
             List<String> images = dto.getTravelReviewImageUrl();
             for(String image: images) {
+                TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(reviewNumber, image);
+                travelReviewImageRepository.save(imageEntity);
+            }
+            if(images.isEmpty() || images.get(0) == null) {
+                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
                 TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(reviewNumber, image);
                 travelReviewImageRepository.save(imageEntity);
             }
