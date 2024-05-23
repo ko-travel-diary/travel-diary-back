@@ -83,9 +83,6 @@ public class UserServiceImplementation implements UserService{
 
             userEntity = userRepository.findByUserId(userId);
 
-            String userRole = userEntity.getUserRole();
-            if(userRole == "ROLE_ADMIN") return ResponseDto.authenticationFailed();
-
             boolean isMatchedUserId = userRepository.existsByUserId(userId);
             if(!isMatchedUserId) return ResponseDto.authenticationFailed();
 

@@ -3,8 +3,8 @@ package com.traveldiary.back.service.implementation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import com.traveldiary.back.dto.request.review.PatchTravelFavoriteReviewRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
+import com.traveldiary.back.dto.response.review.GetTravelReviewFavoriteStatusResponseDto;
 import com.traveldiary.back.entity.TravelFavoriteEntity;
 import com.traveldiary.back.entity.TravelReviewEntity;
 import com.traveldiary.back.repository.TravelFavoriteRepository;
@@ -23,8 +23,7 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
     private final TravelFavoriteRepository travelFavoriteRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> patchtravelFavorite(PatchTravelFavoriteReviewRequestDto dto, int reviewNumber,
-            String userId) {
+    public ResponseEntity<ResponseDto> patchtravelFavorite(int reviewNumber, String userId) {
         
         try {
 
@@ -32,7 +31,7 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
             if(travelReviewEntity == null) return ResponseDto.noExistBoard();
 
             boolean existId = userRepository.existsByUserId(userId);
-            if(!existId) return ResponseDto.notFound();
+            if(!existId) return ResponseDto.noExistUser();
 
             boolean isfavoriteId = travelFavoriteRepository.existsByUserIdAndReviewNumber(userId, reviewNumber);
 
@@ -55,6 +54,26 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
         }
 
         return ResponseDto.success();
+    }
+
+    
+    @Override
+    public ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> getFavoriteStatus(Integer reviewNumber, String userId) {
+        boolean existsFavorite;
+        
+        try {
+
+            if(reviewNumber == null) return ResponseDto.noExistBoard();
+            if(userId == null) return ResponseDto.authenticationFailed();
+            
+            existsFavorite = travelFavoriteRepository.existsByUserIdAndReviewNumber(userId, reviewNumber);
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetTravelReviewFavoriteStatusResponseDto.success(existsFavorite);
     }
     
 }

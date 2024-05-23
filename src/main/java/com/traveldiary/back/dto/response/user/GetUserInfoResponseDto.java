@@ -15,12 +15,14 @@ public class GetUserInfoResponseDto extends ResponseDto{
     private String profileImage;
     private String userId;
     private String userEmail;
+    private String userRole;
 
     private GetUserInfoResponseDto (UserEntity userEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.profileImage = userEntity.getProfileImage();
         this.userId = userEntity.getUserId();
         this.userEmail = userEntity.getUserEmail();
+        this.userRole = userEntity.getUserRole();
     }
 
     public static ResponseEntity<GetUserInfoResponseDto> success (UserEntity userEntity) {
