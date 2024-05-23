@@ -13,17 +13,17 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RestaurantListItem {
-    private String restaurantReviewImageUrl;
+    private String restaurantImageUrl;
     private String restaurantName;
     private String restaurantLocation;
     private String restaurantTelNumber;
     private String restaurantHours;
 
     private RestaurantListItem (GetRestaurantResultSet resultSet) {
-        this.restaurantReviewImageUrl = resultSet.getImage();
+        this.restaurantImageUrl = resultSet.getImage();
         this.restaurantName = resultSet.getRestaurantName();
         this.restaurantLocation = resultSet.getRestaurantLocation();
-        this.restaurantLocation = resultSet.getRestaurantTelNumber();
+        this.restaurantTelNumber = resultSet.getRestaurantTelNumber();
         this.restaurantHours = resultSet.getRestaurantHours();
     }
 

@@ -16,11 +16,11 @@ import lombok.Getter;
 @Getter
 public class GetRestaurantListResponseDto extends ResponseDto{
     
-    private List<RestaurantListItem> restaurantListItems;
+    private List<RestaurantListItem> restaurantListItem;
 
     private GetRestaurantListResponseDto (List<GetRestaurantResultSet> resultSets){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.restaurantListItems = RestaurantListItem.getRestaurantList(resultSets);
+        this.restaurantListItem = RestaurantListItem.getRestaurantList(resultSets);
     }
 
     public static ResponseEntity<GetRestaurantListResponseDto> success (List<GetRestaurantResultSet> resultSets) {
