@@ -14,6 +14,7 @@ import lombok.Getter;
 public class GetQnaResponseDto extends ResponseDto{
 
     private Integer receptionNumber;
+    private Boolean qnaStatus;
     private String qnaTitle;
     private String qnaContent;
     private String qnaWriterId;
@@ -23,6 +24,7 @@ public class GetQnaResponseDto extends ResponseDto{
     private GetQnaResponseDto(QnaEntity qnaEntity) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.receptionNumber = qnaEntity.getReceptionNumber();
+        this.qnaStatus = qnaEntity.getQnaStatus();
         this.qnaTitle = qnaEntity.getQnaTitle();
         this.qnaContent = qnaEntity.getQnaContent();
         this.qnaWriterId = qnaEntity.getQnaWriterId();

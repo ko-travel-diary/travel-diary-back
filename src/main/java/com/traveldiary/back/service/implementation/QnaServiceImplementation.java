@@ -186,7 +186,7 @@ public class QnaServiceImplementation implements QnaService{
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
             boolean status = qnaEntity.getQnaStatus();
-            if (status) return ResponseDto.noExistComment();
+            if (!status) return ResponseDto.noExistComment();
 
             qnaEntity.updateComment(dto);
 
