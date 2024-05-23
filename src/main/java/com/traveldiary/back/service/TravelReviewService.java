@@ -7,7 +7,6 @@ import com.traveldiary.back.dto.request.review.PostTravelReviewRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewBoardResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewDetailResponseDto;
-import com.traveldiary.back.dto.response.review.GetTravelReviewFavoriteStatusResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewMyListResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewSearchResponseDto;
 import com.traveldiary.back.dto.response.review.PostTravelReviewResponseDto;
