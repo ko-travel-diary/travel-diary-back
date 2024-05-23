@@ -14,18 +14,18 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TourAttractionsListItem {
     
-    private String tourattractionsImageUrl;
-    private String tourattractionsName;
-    private String tourattractionsLocation;
-    private String tourattractionsTelNumber;
-    private String tourattractionsHours;
+    private String tourAttractionsImageUrl;
+    private String tourAttractionsName;
+    private String tourAttractionsLocation;
+    private String tourAttractionsTelNumber;
+    private String tourAttractionsHours;
 
     private TourAttractionsListItem (GetTourAttractionsResultSet resultSet) {
-        this.tourattractionsImageUrl = resultSet.getImage();
-        this.tourattractionsName = resultSet.getTourAttractionsName();
-        this.tourattractionsLocation = resultSet.getTourAttractionsLocation();
-        this.tourattractionsTelNumber = resultSet.getTourAttractionsTelNumber();
-        this.tourattractionsHours = resultSet.getTourAttractionsHours();
+        this.tourAttractionsImageUrl = resultSet.getImage();
+        this.tourAttractionsName = resultSet.getTourAttractionsName();
+        this.tourAttractionsLocation = resultSet.getTourAttractionsLocation();
+        this.tourAttractionsTelNumber = resultSet.getTourAttractionsTelNumber();
+        this.tourAttractionsHours = resultSet.getTourAttractionsHours();
     }
 
     public static List<TourAttractionsListItem> getTourAttractionsList(List<GetTourAttractionsResultSet> resultSets) {
