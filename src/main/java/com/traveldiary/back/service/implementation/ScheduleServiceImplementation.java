@@ -1,5 +1,6 @@
 package com.traveldiary.back.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -131,16 +132,20 @@ public class ScheduleServiceImplementation implements ScheduleService{
 
     @Override
     public ResponseEntity<? super GetScheduleListResponseDto> getScheduleList(String userId) {
-        
+        List<String> travelScheduleName = new ArrayList<>();
         try {
-
             List<TravelScheduleEntity> travelScheduleEntities = travelSchduleRepository.findByTravelScheduleWriterId(userId);
-            return GetScheduleListResponseDto.success(travelScheduleEntities);
-            
+            for(TravelScheduleEntity entity: travelScheduleEntities){
+                String name = entity.getTravelScheduleName();
+                travelScheduleName.add(name);
+            }
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+        
+        // return GetScheduleListResponseDto.success(travelScheduleName);
+        return null;
 
     }
 
