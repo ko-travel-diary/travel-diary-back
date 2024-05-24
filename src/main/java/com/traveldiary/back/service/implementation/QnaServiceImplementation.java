@@ -164,9 +164,6 @@ public class QnaServiceImplementation implements QnaService{
             boolean isWriter = userId.equals(writerId);
             if(!isWriter) return ResponseDto.authenticationFailed();
 
-            boolean status = qnaEntity.getQnaStatus();
-            if(status) return ResponseDto.writtenComment();
-
             qnaRepository.delete(qnaEntity);
             
         } catch (Exception exception) {
