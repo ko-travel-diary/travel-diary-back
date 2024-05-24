@@ -17,7 +17,7 @@ import lombok.Getter;
 @Getter
 public class GetTravelReviewMyListResponseDto extends ResponseDto{
 
-    List<ReviewBoardListItem> TravelReviewMyList;
+    private List<ReviewBoardListItem> TravelReviewMyList;
 
     public GetTravelReviewMyListResponseDto(List<GetTravelReviewResultSet> resultSets) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
