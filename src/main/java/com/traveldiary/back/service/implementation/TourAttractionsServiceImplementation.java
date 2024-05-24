@@ -75,6 +75,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
                 String image = entity.getTourAttractionsImageUrl();
                 tourAttractionsImageUrl.add(image);
             }
+            
         }catch(Exception exception){
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -107,7 +108,6 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
                 tourAttractionsImageRepository.save(imageEntity);
             }
             
-
         }catch(Exception exception){
             exception.printStackTrace();
             return ResponseDto.databaseError();

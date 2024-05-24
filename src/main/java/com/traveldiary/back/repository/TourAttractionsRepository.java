@@ -14,9 +14,11 @@ public interface TourAttractionsRepository extends JpaRepository<TourAttractions
     @Query(
         value=
         "SELECT image, " + 
+                "t.tour_attractions_number as tourAttractionsNumber, " + 
                 "t.tour_attractions_name as tourAttractionsName, " + 
                 "t.tour_attractions_location as tourAttractionsLocation, " + 
                 "t.tour_attractions_tel_number as tourAttractionsTelNumber, " + 
+                "t.tour_attractions_outline as tourAttractionsOutline,  " +
                 "t.tour_attractions_hours as tourAttractionsHours FROM tour_attractions t LEFT JOIN ( " +
             "SELECT tour_attractions_number, ANY_VALUE(tour_attractions_image_url) as image " +
             "FROM tour_attractions_image " +
@@ -30,9 +32,11 @@ public interface TourAttractionsRepository extends JpaRepository<TourAttractions
     @Query(
         value=
         "SELECT image, " + 
+                "t.tour_attractions_number as tourAttractionsNumber, " + 
                 "t.tour_attractions_name as tourAttractionsName, " + 
                 "t.tour_attractions_location as tourAttractionsLocation, " + 
                 "t.tour_attractions_tel_number as tourAttractionsTelNumber, " + 
+                "t.tour_attractions_outline as tourAttractionsOutline,  " +
                 "t.tour_attractions_hours as tourAttractionsHours FROM tour_attractions t LEFT JOIN ( " +
             "SELECT tour_attractions_number, ANY_VALUE(tour_attractions_image_url) as image " +
             "FROM tour_attractions_image " +

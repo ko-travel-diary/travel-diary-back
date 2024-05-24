@@ -13,6 +13,7 @@ import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetSearchRestaurantListResponseDto;
 import com.traveldiary.back.entity.RestaurantEntity;
 import com.traveldiary.back.entity.RestaurantImageEntity;
+import com.traveldiary.back.entity.TourAttractionsImageEntity;
 import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.RestaurantImageRepository;
 import com.traveldiary.back.repository.RestaurantRepository;
@@ -104,7 +105,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
                 RestaurantImageEntity imageEntity = new RestaurantImageEntity(restaurantNumber, image);
                 restaurantImageRepository.save(imageEntity);
             }
-
+            
         }catch (Exception exception){
             exception.printStackTrace();
             return ResponseDto.databaseError();
