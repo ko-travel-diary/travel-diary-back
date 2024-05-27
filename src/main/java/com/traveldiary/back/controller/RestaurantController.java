@@ -2,6 +2,7 @@ package com.traveldiary.back.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,6 +56,15 @@ public class RestaurantController {
         @AuthenticationPrincipal String userId
     ){
         ResponseEntity<ResponseDto> response = restaurantService.postRestaurant(responseBody, userId);
+        return response;
+    }
+
+        @DeleteMapping("/restlist/{restaurantNumber}")
+    public ResponseEntity<ResponseDto> deleteRestaurant (
+        @PathVariable ("restaurantNumber") Integer restaurantNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = restaurantService.deleteRestaurant(restaurantNumber, userId);
         return response;
     }
 }

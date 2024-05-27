@@ -13,4 +13,5 @@ public interface RestaurantService {
     ResponseEntity<? super GetSearchRestaurantListResponseDto> getSearchRestaurantList (String searchWord);
     ResponseEntity<? super GetRestaurantResponseDto> getRestaurant (Integer restaurantNumber);
     ResponseEntity<ResponseDto> postRestaurant (PostRestaurantRequestDto dto, String userId);
+    ResponseEntity<ResponseDto> deleteRestaurant (Integer restaurantNumber, String userId);
 }

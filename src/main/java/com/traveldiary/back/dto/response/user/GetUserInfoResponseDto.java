@@ -14,6 +14,7 @@ import lombok.Getter;
 public class GetUserInfoResponseDto extends ResponseDto{
     private String profileImage;
     private String userId;
+    private String nickName;
     private String userEmail;
     private String userRole;
 
@@ -21,6 +22,7 @@ public class GetUserInfoResponseDto extends ResponseDto{
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.profileImage = userEntity.getProfileImage();
         this.userId = userEntity.getUserId();
+        this.nickName = userEntity.getNickName();
         this.userEmail = userEntity.getUserEmail();
         this.userRole = userEntity.getUserRole();
     }

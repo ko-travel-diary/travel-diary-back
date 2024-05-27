@@ -112,4 +112,31 @@ public class RestaurantServiceImplementation implements RestaurantService{
         }
         return ResponseDto.success();
     }
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteRestaurant(Integer restaurantNumber, String userId) {
+
+        UserEntity userEntity;
+        RestaurantEntity restaurantEntity;
+        List<RestaurantImageEntity> restaurantImageEntities;
+
+        try {
+
+            userEntity = userRepository.findByUserId(userId);
+            String role = userEntity.getUserRole();
+            if (role == "ROLE_USER") return ResponseDto.authorizationFailed();
+
+            restaurantImageEntities = restaurantImageRepository.findByRestaurantNumber(restaurantNumber);
+            restaurantImageRepository.deleteAll(restaurantImageEntities);
+
+            restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
+            restaurantRepository.delete(restaurantEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
 }
