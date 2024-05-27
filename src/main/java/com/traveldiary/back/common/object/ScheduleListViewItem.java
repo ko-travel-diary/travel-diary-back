@@ -13,9 +13,11 @@ import lombok.NoArgsConstructor;
 public class ScheduleListViewItem {
     
     private String travelScheduleName;
+    private Integer travelScheduleNumber;
 
     private ScheduleListViewItem (TravelScheduleEntity travelScheduleEntity) {
         this.travelScheduleName = travelScheduleEntity.getTravelScheduleName();
+        this.travelScheduleNumber = travelScheduleEntity.getTravelScheduleNumber();
     }
 
     public static List<ScheduleListViewItem> getScheduleViewList (List<TravelScheduleEntity> entities) {
