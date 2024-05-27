@@ -13,4 +13,5 @@ public interface TourAttractionsService {
     ResponseEntity<? super GetSearchTourAttractionsListResponseDto> getSearchTourAttractionsList (String searchWord);
     ResponseEntity<? super GetTourAttractionsResponseDto> getTourAttractions (Integer tourAttractionsNumber);
     ResponseEntity<ResponseDto> postTourAttractions (PostTourAttractionsRequestDto dto, String userId);
+    ResponseEntity<ResponseDto> deleteTourAttractions (Integer tourAttractionsNumber, String userId);
 }

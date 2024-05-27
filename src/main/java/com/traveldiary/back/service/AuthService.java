@@ -17,5 +17,5 @@ public interface AuthService {
     ResponseEntity<ResponseDto> nickNameCheck (NickNameCheckRequestDto dto);
     ResponseEntity<ResponseDto> eamilAuth (EmailAuthRequestDto dto);
     ResponseEntity<ResponseDto> eamilAuthCheck (EmailAuthCheckRequestDto dto);
-    ResponseEntity<ResponseDto>signUp(SignUpRequestDto dto);
+    ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto);
 }
