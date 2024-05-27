@@ -132,20 +132,18 @@ public class ScheduleServiceImplementation implements ScheduleService{
 
     @Override
     public ResponseEntity<? super GetScheduleListResponseDto> getScheduleList(String userId) {
-        List<String> travelScheduleName = new ArrayList<>();
+
+        List<TravelScheduleEntity> travelScheduleEntities;
+
         try {
-            List<TravelScheduleEntity> travelScheduleEntities = travelSchduleRepository.findByTravelScheduleWriterId(userId);
-            for(TravelScheduleEntity entity: travelScheduleEntities){
-                String name = entity.getTravelScheduleName();
-                travelScheduleName.add(name);
-            }
+            travelScheduleEntities = travelSchduleRepository.findByTravelScheduleWriterId(userId);
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         
-        // return GetScheduleListResponseDto.success(travelScheduleName);
-        return null;
+        return GetScheduleListResponseDto.success(travelScheduleEntities);
 
     }
 
