@@ -16,7 +16,7 @@ import lombok.Getter;
 public class GetTourAttractionsResponseDto extends ResponseDto{
     private List<String> tourAttractionsImageUrl;
     private String tourAttractionsName;
-    private String tourAttractionslocation;
+    private String tourAttractionsLocation;
     private String tourAttractionsTelNumber;
     private String tourAttractionsHours;
     private String tourAttractionsOutline;
@@ -25,7 +25,7 @@ public class GetTourAttractionsResponseDto extends ResponseDto{
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.tourAttractionsImageUrl = tourAttractionsImageUrl;
         this.tourAttractionsName = tourAttractionsEntity.getTourAttractionsName();
-        this.tourAttractionslocation = tourAttractionsEntity.getTourAttractionsLocation();
+        this.tourAttractionsLocation = tourAttractionsEntity.getTourAttractionsLocation();
         this.tourAttractionsTelNumber = tourAttractionsEntity.getTourAttractionsTelNumber();
         this.tourAttractionsHours = tourAttractionsEntity.getTourAttractionsHours();
         this.tourAttractionsOutline = tourAttractionsEntity.getTourAttractionsOutline();
