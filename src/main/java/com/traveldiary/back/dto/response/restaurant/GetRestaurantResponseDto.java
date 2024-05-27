@@ -16,7 +16,7 @@ import lombok.Getter;
 public class GetRestaurantResponseDto extends ResponseDto{
     private List<String> restaurantImageUrl;
     private String restaurantName;
-    private String restaurantlocation;
+    private String restaurantLocation;
     private String restaurantTelNumber;
     private String restaurantHours;
     private String restaurantOutline;
@@ -27,7 +27,7 @@ public class GetRestaurantResponseDto extends ResponseDto{
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.restaurantImageUrl = restaurantImageUrl;
         this.restaurantName = restaurantEntity.getRestaurantName();
-        this.restaurantlocation = restaurantEntity.getRestaurantLocation();
+        this.restaurantLocation = restaurantEntity.getRestaurantLocation();
         this.restaurantTelNumber = restaurantEntity.getRestaurantTelNumber();
         this.restaurantHours = restaurantEntity.getRestaurantHours();
         this.restaurantOutline = restaurantEntity.getRestaurantOutline();

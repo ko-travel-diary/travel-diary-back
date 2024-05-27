@@ -14,9 +14,13 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity, In
     @Query(
         value=
         "SELECT image, " + 
+                "r.restaurant_number as restaurantNumber, " + 
                 "r.restaurant_name as restaurantName, " + 
                 "r.restaurant_location as restaurantLocation, " + 
-                "r.restaurant_tel_number as restaurantTelNumber, " + 
+                "r.restaurant_tel_number as restaurantTelNumber, " +                 
+                "r.restaurant_outline as restaurantOutline, " + 
+                "r.restaurant_main_menu as restaurantMainMenu, " + 
+                "r.restaurant_service_menu as restaurantServiceMenu, " + 
                 "r.restaurant_hours as restaurantHours FROM restaurant r LEFT JOIN ( " +
             "SELECT restaurant_number, ANY_VALUE(restaurant_image_url) as image " +
             "FROM restaurant_image " +
@@ -30,9 +34,13 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity, In
     @Query(
         value=
         "SELECT image, " + 
+                "r.restaurant_number as restaurantNumber, " + 
                 "r.restaurant_name as restaurantName, " + 
                 "r.restaurant_location as restaurantLocation, " + 
-                "r.restaurant_tel_number as restaurantTelNumber, " + 
+                "r.restaurant_tel_number as restaurantTelNumber, " +                 
+                "r.restaurant_outline as restaurantOutline, " + 
+                "r.restaurant_main_menu as restaurantMainMenu, " + 
+                "r.restaurant_service_menu as restaurantServiceMenu, " + 
                 "r.restaurant_hours as restaurantHours FROM restaurant r LEFT JOIN ( " +
             "SELECT restaurant_number, ANY_VALUE(restaurant_image_url) as image " +
             "FROM restaurant_image " +
