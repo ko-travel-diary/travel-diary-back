@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.traveldiary.back.entity.TourAttractionsEntity;
@@ -19,6 +20,8 @@ public interface TourAttractionsRepository extends JpaRepository<TourAttractions
                 "t.tour_attractions_location as tourAttractionsLocation, " + 
                 "t.tour_attractions_tel_number as tourAttractionsTelNumber, " + 
                 "t.tour_attractions_outline as tourAttractionsOutline,  " +
+                "t.tour_attractions_lat as tourAttractionsLat,  " +
+                "t.tour_attractions_lng as tourAttractionsLng,  " +
                 "t.tour_attractions_hours as tourAttractionsHours FROM tour_attractions t LEFT JOIN ( " +
             "SELECT tour_attractions_number, ANY_VALUE(tour_attractions_image_url) as image " +
             "FROM tour_attractions_image " +
@@ -28,6 +31,33 @@ public interface TourAttractionsRepository extends JpaRepository<TourAttractions
         nativeQuery=true
     )
     List<GetTourAttractionsResultSet> getTourAttractionsList ();
+
+    @Query(
+        value=
+        "SELECT image, " + 
+                "t.tour_attractions_number as tourAttractionsNumber, " + 
+                "t.tour_attractions_name as tourAttractionsName, " + 
+                "t.tour_attractions_location as tourAttractionsLocation, " + 
+                "t.tour_attractions_tel_number as tourAttractionsTelNumber, " + 
+                "t.tour_attractions_outline as tourAttractionsOutline,  " +
+                "t.tour_attractions_lat as tourAttractionsLat,  " +
+                "t.tour_attractions_lng as tourAttractionsLng,  " +
+                "t.tour_attractions_hours as tourAttractionsHours FROM tour_attractions t LEFT JOIN ( " +
+            "SELECT tour_attractions_number, ANY_VALUE(tour_attractions_image_url) as image " +
+            "FROM tour_attractions_image " +
+            "GROUP BY tour_attractions_number " +
+        ") i " +
+        "ON t.tour_attractions_number = i.tour_attractions_number " +
+        "WHERE t.tour_attractions_lat >= (:lat - 0.025) " +
+        "AND t.tour_attractions_lat <= (:lat + 0.025) " +
+        "AND t.tour_attractions_lng >= (:lng - 0.05) " +
+        "AND t.tour_attractions_lng <= (:lng + 0.05) ",
+        nativeQuery=true
+    )
+    List<GetTourAttractionsResultSet> getTourAttractionsRangeList (
+        @Param("lat") Double lat,
+        @Param("lng") Double lng
+    );
 
     @Query(
         value=

@@ -20,6 +20,8 @@ public class GetTourAttractionsResponseDto extends ResponseDto{
     private String tourAttractionsTelNumber;
     private String tourAttractionsHours;
     private String tourAttractionsOutline;
+    private double tourAttractionsLat;
+    private double tourAttractionsLng;
 
     private GetTourAttractionsResponseDto (TourAttractionsEntity tourAttractionsEntity, List<String> tourAttractionsImageUrl){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -29,6 +31,8 @@ public class GetTourAttractionsResponseDto extends ResponseDto{
         this.tourAttractionsTelNumber = tourAttractionsEntity.getTourAttractionsTelNumber();
         this.tourAttractionsHours = tourAttractionsEntity.getTourAttractionsHours();
         this.tourAttractionsOutline = tourAttractionsEntity.getTourAttractionsOutline();
+        this.tourAttractionsLat = tourAttractionsEntity.getTourAttractionsLat();
+        this.tourAttractionsLng = tourAttractionsEntity.getTourAttractionsLng();
     }
 
     public static ResponseEntity<GetTourAttractionsResponseDto> success (TourAttractionsEntity tourAttractionsEntity, List<String> tourAttractionsImageUrl) {

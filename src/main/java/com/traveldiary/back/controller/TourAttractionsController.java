@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,8 +30,11 @@ public class TourAttractionsController {
     private final TourAttractionsService tourAttractionsService;
 
     @GetMapping("/tourlist")
-    public ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList (){
-        ResponseEntity<? super GetTourAttractionsListResponseDto> response = tourAttractionsService.getTourAttractionsList();
+    public ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList (
+        @RequestParam(name="lat", required=false) Double lat,
+        @RequestParam(name="lng", required=false) Double lng
+    ){
+        ResponseEntity<? super GetTourAttractionsListResponseDto> response = tourAttractionsService.getTourAttractionsList(lat, lng);
         return response;
     }
 
@@ -59,7 +63,7 @@ public class TourAttractionsController {
             return response;
         }
 
-     @DeleteMapping("/tourlist/{tourattractionsNumber}")
+    @DeleteMapping("/tourlist/{tourattractionsNumber}")
     public ResponseEntity<ResponseDto> deleteTourAttractions (
         @PathVariable ("tourattractionsNumber") Integer tourattractionsNumber,
         @AuthenticationPrincipal String userId
@@ -67,5 +71,14 @@ public class TourAttractionsController {
         ResponseEntity<ResponseDto> response = tourAttractionsService.deleteTourAttractions(tourattractionsNumber, userId);
         return response;
     }
-    
+
+    @PatchMapping("/tourlist/{tourattractionsNumber}")
+    public ResponseEntity<ResponseDto> patchTourAttrcation (
+        @RequestBody @Valid PatchTourAttrcationsRequestDto requestBody,
+        @PathVariable("tourattractionsNumber") Integer tourattractionsNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = tourAttractionsService.patchTourAttractions(requestBody, tourattractionsNumber, userId);
+        return response;
+    }
 }

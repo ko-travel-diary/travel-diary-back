@@ -22,6 +22,8 @@ public class RestaurantListItem {
     private String restaurantHours;
     private String restaurantMainMenu;
     private String restaurantServiceMenu;
+    private Double restaurantLat;
+    private Double restaurantLng;
 
     private RestaurantListItem (GetRestaurantResultSet resultSet) {
         this.restaurantNumber = resultSet.getRestaurantNumber();
@@ -33,6 +35,8 @@ public class RestaurantListItem {
         this.restaurantHours = resultSet.getRestaurantHours();
         this.restaurantMainMenu = resultSet.getRestaurantMainMenu();
         this.restaurantServiceMenu = resultSet.getRestaurantServiceMenu();
+        this.restaurantLat = resultSet.getRestaurantLat();
+        this.restaurantLng = resultSet.getRestaurantLng();
     }
 
     public static List<RestaurantListItem> getRestaurantList (List<GetRestaurantResultSet> resultSets) {

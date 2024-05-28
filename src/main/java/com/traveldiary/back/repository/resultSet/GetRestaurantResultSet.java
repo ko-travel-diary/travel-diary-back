@@ -10,4 +10,6 @@ public interface GetRestaurantResultSet {
     String getRestaurantHours();
     String getRestaurantMainMenu();
     String getRestaurantServiceMenu();
+    Double getRestaurantLat();
+    Double getRestaurantLng();
 }

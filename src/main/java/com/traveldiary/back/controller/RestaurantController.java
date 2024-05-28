@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,8 +30,11 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
 
     @GetMapping("/restlist")
-    public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList () {
-        ResponseEntity<? super GetRestaurantListResponseDto> response = restaurantService.getRestaurantList();
+    public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList (
+        @RequestParam(name="lat", required=false) Double lat,
+        @RequestParam(name="lng", required=false) Double lng
+    ) {
+        ResponseEntity<? super GetRestaurantListResponseDto> response = restaurantService.getRestaurantList(lat, lng);
         return response;
     }
 
@@ -59,12 +63,22 @@ public class RestaurantController {
         return response;
     }
 
-        @DeleteMapping("/restlist/{restaurantNumber}")
+    @DeleteMapping("/restlist/{restaurantNumber}")
     public ResponseEntity<ResponseDto> deleteRestaurant (
         @PathVariable ("restaurantNumber") Integer restaurantNumber,
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<ResponseDto> response = restaurantService.deleteRestaurant(restaurantNumber, userId);
+        return response;
+    }
+
+    @PatchMapping("/restlist/{restaurantNumber}")
+    public ResponseEntity<ResponseDto> patchRestaurant (
+        @RequestBody @Valid PatchRestaurantRequestDto requestBody,
+        @PathVariable ("restaurantNumber") Integer restaurantNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = restaurantService.patchRestaurant(requestBody, restaurantNumber, userId);
         return response;
     }
 }

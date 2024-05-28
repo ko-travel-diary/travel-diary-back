@@ -8,4 +8,6 @@ public interface GetTourAttractionsResultSet {
     String getTourAttractionsTelNumber();
     String getTourAttractionsOutline();
     String getTourAttractionsHours();
+    Double getTourAttractionsLat();
+    Double getTourAttractionsLng();
 }
