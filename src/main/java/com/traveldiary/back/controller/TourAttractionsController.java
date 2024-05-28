@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.traveldiary.back.dto.request.tourAttractions.PatchTourAttrcationsRequestDto;
 import com.traveldiary.back.dto.request.tourAttractions.PostTourAttractionsRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetSearchTourAttractionsListResponseDto;

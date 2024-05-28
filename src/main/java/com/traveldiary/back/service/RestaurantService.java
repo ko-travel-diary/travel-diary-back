@@ -2,6 +2,7 @@ package com.traveldiary.back.service;
 
 import org.springframework.http.ResponseEntity;
 
+import com.traveldiary.back.dto.request.restaurant.PatchRestaurantRequestDto;
 import com.traveldiary.back.dto.request.restaurant.PostRestaurantRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetRestaurantListResponseDto;
@@ -14,4 +15,5 @@ public interface RestaurantService {
     ResponseEntity<? super GetRestaurantResponseDto> getRestaurant (Integer restaurantNumber);
     ResponseEntity<ResponseDto> postRestaurant (PostRestaurantRequestDto dto, String userId);
     ResponseEntity<ResponseDto> deleteRestaurant (Integer restaurantNumber, String userId);
+    ResponseEntity<ResponseDto> patchRestaurant (PatchRestaurantRequestDto dto, Integer restaurantNumber, String userId);
 }
