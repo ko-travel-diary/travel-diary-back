@@ -26,6 +26,7 @@ public class GetTravelReviewDetailResponseDto extends ResponseDto{
     private List<String> travelReviewImageUrl;
     private Integer reviewViewCount;
     private Integer reviewFavoriteCount;
+    private Integer travelScheduleNumber;
 
     public GetTravelReviewDetailResponseDto(TravelReviewEntity travelReviewEntity, List<String> travelReviewImageUrl) {
 
@@ -45,12 +46,12 @@ public class GetTravelReviewDetailResponseDto extends ResponseDto{
         this.travelReviewImageUrl = travelReviewImageUrl;
         this.reviewViewCount = travelReviewEntity.getReviewViewCount();
         this.reviewFavoriteCount = travelReviewEntity.getReviewFavoriteCount();
+        this.travelScheduleNumber = travelReviewEntity.getTravelScheduleNumber();
     }
 
     public static ResponseEntity<GetTravelReviewDetailResponseDto> success(TravelReviewEntity travelReviewEntity, List<String> travelReviewImageUrl) {
         GetTravelReviewDetailResponseDto responseBody = new GetTravelReviewDetailResponseDto(travelReviewEntity, travelReviewImageUrl);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
-
     }
     
 }

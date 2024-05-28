@@ -13,7 +13,6 @@ import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetSearchRestaurantListResponseDto;
 import com.traveldiary.back.entity.RestaurantEntity;
 import com.traveldiary.back.entity.RestaurantImageEntity;
-import com.traveldiary.back.entity.TourAttractionsImageEntity;
 import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.RestaurantImageRepository;
 import com.traveldiary.back.repository.RestaurantRepository;
@@ -32,11 +31,15 @@ public class RestaurantServiceImplementation implements RestaurantService{
     private final UserRepository userRepository;
 
     @Override
-    public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList() {
+    public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(Double lat, Double lng) {
         List<GetRestaurantResultSet> resultSets = null;
 
         try {
-            resultSets = restaurantRepository.getRestaurantList();
+            if (lat == null || lng == null)
+                resultSets = restaurantRepository.getRestaurantList();
+            else
+                resultSets = restaurantRepository.getRestaurantRangeList(lat, lng);
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();

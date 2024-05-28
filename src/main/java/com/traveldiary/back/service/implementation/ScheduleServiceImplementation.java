@@ -1,6 +1,5 @@
 package com.traveldiary.back.service.implementation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;

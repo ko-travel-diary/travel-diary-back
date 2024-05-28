@@ -37,9 +37,9 @@ public class TourAttractionsEntity {
     @NotNull
     private Integer tourAttractionsRecommendCount;
     @NotBlank
-    private String tourAttractionsLat;
+    private double tourAttractionsLat;
     @NotBlank
-    private String tourAttractionsLng;
+    private double tourAttractionsLng;
 
     public TourAttractionsEntity (PostTourAttractionsRequestDto dto){
         this.tourAttractionsName = dto.getTourAttractionsName();
@@ -50,5 +50,15 @@ public class TourAttractionsEntity {
         this.tourAttractionsLat = dto.getTourAttractionsLat();
         this.tourAttractionsLng = dto.getTourAttractionsLng();
         this.tourAttractionsRecommendCount = 0;
+    }
+
+    public void update (PatchTourAttrcationsRequestDto dto) {
+        this.tourAttractionsName = dto.getTourAttractionsName();
+        this.tourAttractionsOutline = dto.getTourAttractionsOutline();
+        this.tourAttractionsLocation = dto.getTourAttractionsLocation();
+        this.tourAttractionsTelNumber = dto.getTourAttractionsTelNumber();
+        this.tourAttractionsHours = dto.getTourAttractionsHours();
+        this.tourAttractionsLat = dto.getTourAttractionsLat();
+        this.tourAttractionsLng = dto.getTourAttractionsLng();
     }
 }

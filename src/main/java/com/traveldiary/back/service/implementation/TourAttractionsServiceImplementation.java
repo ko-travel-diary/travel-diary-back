@@ -31,12 +31,15 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
     private final UserRepository userRepository;
 
     @Override
-    public ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList () {
+    public ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList (Double lat, Double lng) {
 
         List<GetTourAttractionsResultSet> resultSets = null;
 
         try {
-            resultSets = tourAttractionsRepository.getTourAttractionsList();
+            if (lat == null || lng == null)
+                resultSets = tourAttractionsRepository.getTourAttractionsList();
+            else
+                resultSets = tourAttractionsRepository.getTourAttractionsRangeList(lat, lng);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
