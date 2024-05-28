@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.traveldiary.back.dto.request.tourAttractions.PatchTourAttrcationsRequestDto;
 import com.traveldiary.back.dto.request.tourAttractions.PostTourAttractionsRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetSearchTourAttractionsListResponseDto;
@@ -143,6 +144,39 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
         }
 
         return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> patchTourAttractions(PatchTourAttrcationsRequestDto dto,
+            Integer tourAttractionsNumber, String userId) {
+        
+        UserEntity userEntity;
+        TourAttractionsEntity tourAttractionsEntity;
+
+        try {
+
+            userEntity = userRepository.findByUserId(userId);
+            String userRole = userEntity.getUserRole();
+            if (userRole == "ROLE_USER") return ResponseDto.authorizationFailed();
+
+            tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
+            if (tourAttractionsEntity == null) return ResponseDto.noExistData();
+
+            tourAttractionsEntity.update(dto);
+            tourAttractionsRepository.save(tourAttractionsEntity);
+
+            List<String> images = dto.getTourAttractionsImageUrl();
+            for (String image : images) {
+                TourAttractionsImageEntity tourAttractionsImageEntity = new TourAttractionsImageEntity(tourAttractionsNumber, image);
+                tourAttractionsImageRepository.save(tourAttractionsImageEntity);
+            }
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+    return ResponseDto.success();
     }
 
 

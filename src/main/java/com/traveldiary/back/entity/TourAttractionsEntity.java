@@ -1,5 +1,6 @@
 package com.traveldiary.back.entity;
 
+import com.traveldiary.back.dto.request.tourAttractions.PatchTourAttrcationsRequestDto;
 import com.traveldiary.back.dto.request.tourAttractions.PostTourAttractionsRequestDto;
 
 import jakarta.persistence.Entity;

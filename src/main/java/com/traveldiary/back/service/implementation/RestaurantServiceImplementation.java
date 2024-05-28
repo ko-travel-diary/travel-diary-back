@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.traveldiary.back.dto.request.restaurant.PatchRestaurantRequestDto;
 import com.traveldiary.back.dto.request.restaurant.PostRestaurantRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetRestaurantListResponseDto;
@@ -134,6 +135,38 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
             restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
             restaurantRepository.delete(restaurantEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+    }
+
+    @Override
+    public ResponseEntity<ResponseDto> patchRestaurant(PatchRestaurantRequestDto dto, Integer restaurantNumber, String userId) {
+
+        UserEntity userEntity;
+        RestaurantEntity restaurantEntity;
+        
+        try {
+
+            userEntity = userRepository.findByUserId(userId);
+            String userRole = userEntity.getUserRole();
+            if (userRole == "ROLE_USER") return ResponseDto.authorizationFailed();
+            
+            restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
+            if (restaurantEntity == null) return ResponseDto.noExistData();
+
+            restaurantEntity.update(dto);
+            restaurantRepository.save(restaurantEntity);
+            
+            List<String> images = dto.getRestaurantImageUrl();
+            for (String image : images) {
+                RestaurantImageEntity restaurantImageEntity = new RestaurantImageEntity(restaurantNumber, image);
+                restaurantImageRepository.save(restaurantImageEntity);
+            }
             
         } catch (Exception exception) {
             exception.printStackTrace();
