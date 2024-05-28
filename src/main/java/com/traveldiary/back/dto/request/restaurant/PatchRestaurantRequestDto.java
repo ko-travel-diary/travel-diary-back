@@ -18,6 +18,6 @@ public class PatchRestaurantRequestDto {
     private String restaurantOutline;
     private String restaurantMainMenu;
     private String restaurantServiceMenu;
-    private String restaurantLat;
-    private String restaurantLng;
+    private Double restaurantLat;
+    private Double restaurantLng;
 }
