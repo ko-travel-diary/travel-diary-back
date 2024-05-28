@@ -16,6 +16,6 @@ public class PatchTourAttrcationsRequestDto {
     private String tourAttractionsTelNumber;
     private String tourAttractionsHours;
     private String tourAttractionsOutline;
-    private String tourAttractionsLat;
-    private String tourAttractionsLng;
+    private Double tourAttractionsLat;
+    private Double tourAttractionsLng;
 }
