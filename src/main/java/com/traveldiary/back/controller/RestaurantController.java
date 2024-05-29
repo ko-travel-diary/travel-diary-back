@@ -36,7 +36,7 @@ public class RestaurantController {
         @RequestParam(name="lng", required=false) Double lng
     ) {
         ResponseEntity<? super GetRestaurantListResponseDto> response = restaurantService.getRestaurantList(lat, lng);
-        return response;
+        return response;    
     }
 
     @GetMapping("/restlist/search")

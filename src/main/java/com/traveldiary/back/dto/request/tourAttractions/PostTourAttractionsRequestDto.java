@@ -16,6 +16,6 @@ public class PostTourAttractionsRequestDto {
     private String tourAttractionsTelNumber;
     private String tourAttractionsHours;
     private String tourAttractionsOutline;
-    private double tourAttractionsLat;
-    private double tourAttractionsLng;
+    private Double tourAttractionsLat;
+    private Double tourAttractionsLng;
 }

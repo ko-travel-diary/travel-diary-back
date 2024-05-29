@@ -21,8 +21,8 @@ public class TourAttractionsListItem {
     private String tourAttractionsTelNumber;
     private String tourAttractionsHours;
     private String tourAttractionsOutline;
-    private double tourAttractionsLat;
-    private double tourAttractionsLng;
+    private Double tourAttractionsLat;
+    private Double tourAttractionsLng;
 
     private TourAttractionsListItem (GetTourAttractionsResultSet resultSet) {
         this.tourAttractionsNumber = resultSet.getTourAttractionsNumber();
@@ -32,8 +32,8 @@ public class TourAttractionsListItem {
         this.tourAttractionsTelNumber = resultSet.getTourAttractionsTelNumber();
         this.tourAttractionsHours = resultSet.getTourAttractionsHours();
         this.tourAttractionsOutline = resultSet.getTourAttractionsOutline();
-        this.tourAttractionsLat = resultSet.getTourAttractionsLat();
-        this.tourAttractionsLng = resultSet.getTourAttractionsLng();
+        this.tourAttractionsLat = resultSet.getTourAttractionsLat() != null ? resultSet.getTourAttractionsLat() : 0.0;
+        this.tourAttractionsLng = resultSet.getTourAttractionsLng() != null ? resultSet.getTourAttractionsLat() : 0.0;
     }
 
     public static List<TourAttractionsListItem> getTourAttractionsList(List<GetTourAttractionsResultSet> resultSets) {
