@@ -11,6 +11,5 @@ import lombok.Setter;
 public class PatchUserInfoRequestDto {
     @NotBlank
     private String nickName;
-    @NotBlank
     private String profileImage;
 }
