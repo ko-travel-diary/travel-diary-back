@@ -46,6 +46,7 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity, In
                 "r.restaurant_service_menu as restaurantServiceMenu, " + 
                 "r.restaurant_lat as restaurantLat, " + 
                 "r.restaurant_lng as restaurantLng, " + 
+                "r.restaurant_recommend_count as restaurantRecommendCount, " + 
                 "r.restaurant_hours as restaurantHours FROM restaurant r LEFT JOIN ( " +
             "SELECT restaurant_number, ANY_VALUE(restaurant_image_url) as image " +
             "FROM restaurant_image " +

@@ -10,4 +10,5 @@ public interface GetTourAttractionsResultSet {
     String getTourAttractionsHours();
     Double getTourAttractionsLat();
     Double getTourAttractionsLng();
+    Integer getTourAttractionsRecommendCount();
 }

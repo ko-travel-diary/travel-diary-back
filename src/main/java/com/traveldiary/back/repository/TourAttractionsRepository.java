@@ -42,6 +42,7 @@ public interface TourAttractionsRepository extends JpaRepository<TourAttractions
                 "t.tour_attractions_outline as tourAttractionsOutline,  " +
                 "t.tour_attractions_lat as tourAttractionsLat,  " +
                 "t.tour_attractions_lng as tourAttractionsLng,  " +
+                "t.tour_attractions_recommend_count as tourAttractionsRecommendCount,  " +
                 "t.tour_attractions_hours as tourAttractionsHours FROM tour_attractions t LEFT JOIN ( " +
             "SELECT tour_attractions_number, ANY_VALUE(tour_attractions_image_url) as image " +
             "FROM tour_attractions_image " +
