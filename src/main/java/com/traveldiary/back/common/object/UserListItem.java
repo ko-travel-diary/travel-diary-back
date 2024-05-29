@@ -12,12 +12,14 @@ public class UserListItem {
     private String userId;
     private String userEmail;
     private String joinDate;
+    private String nickName;
 
     private UserListItem(UserEntity userEntity) {
 
         this.userId = userEntity.getUserId();
         this.userEmail = userEntity.getUserEmail();
         this.joinDate = userEntity.getJoinDate();
+        this.nickName = userEntity.getNickName();
     }
 
     public static List<UserListItem> getUserList(List<UserEntity> entities) {
