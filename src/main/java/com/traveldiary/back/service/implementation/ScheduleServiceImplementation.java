@@ -36,27 +36,32 @@ public class ScheduleServiceImplementation implements ScheduleService{
     @Override
     public ResponseEntity<ResponseDto> postSchedule(PostScheduleRequestDto dto, String userId) {
 
+        UserEntity userEntity;
+        TravelScheduleEntity travelScheduleEntity;
+        List<ExpenditureListItem> expenditureListItems;
+        List<ScheduleListItem> scheduleListItems;
+
         try {
 
             boolean ifExist = userRepository.existsById(userId);
             if (!ifExist) return ResponseDto.authenticationFailed();
 
-            UserEntity userEntity = userRepository.findByUserId(userId);
+            userEntity = userRepository.findByUserId(userId);
             String role = userEntity.getUserRole();
             if (role == "ROLE_ADMIN") return ResponseDto.authorizationFailed();
 
-            TravelScheduleEntity travelScheduleEntity = new TravelScheduleEntity(dto, userId);     
+            travelScheduleEntity = new TravelScheduleEntity(dto, userId);     
             travelSchduleRepository.save(travelScheduleEntity);
             Integer travelScheduleNumber = travelScheduleEntity.getTravelScheduleNumber();
 
-            List<ExpenditureListItem> expenditureList = dto.getExpenditureList();
-            for (ExpenditureListItem item: expenditureList) {
+            expenditureListItems = dto.getExpenditureList();
+            for (ExpenditureListItem item: expenditureListItems) {
                 TravelScheduleExpenditureEntity travelScheduleExpenditureEntity = new TravelScheduleExpenditureEntity(item, travelScheduleNumber);
                 travelScheduleExpenditureRepository.save(travelScheduleExpenditureEntity);
             }
 
-            List<ScheduleListItem> scheduleList = dto.getScheduleList();
-            for (ScheduleListItem item: scheduleList) {
+            scheduleListItems = dto.getScheduleList();
+            for (ScheduleListItem item: scheduleListItems) {
                 ScheduleEntity scheduleEntity = new ScheduleEntity(item, travelScheduleNumber);
                 scheduleRepository.save(scheduleEntity);
             }
@@ -71,48 +76,56 @@ public class ScheduleServiceImplementation implements ScheduleService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchSchedule(PatchScheduleRequestDto dto, String userId,
-            Integer number) {
+    public ResponseEntity<ResponseDto> patchSchedule(PatchScheduleRequestDto dto, String userId, Integer number) {
         
-                try {
+        TravelScheduleEntity travelScheduleEntity;
+        List<ScheduleEntity> scheduleEntities;
+        List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities;
+        List<ExpenditureListItem> expenditureListItems;
+        List<ScheduleListItem> scheduleListItems;
 
-                    TravelScheduleEntity travelScheduleEntity = travelSchduleRepository.findByTravelScheduleNumber(number);
-                    if (travelScheduleEntity == null) return ResponseDto.noExistBoard();
+        try {
 
-                    travelScheduleEntity.update(dto);
-                    travelSchduleRepository.save(travelScheduleEntity);
+            travelScheduleEntity = travelSchduleRepository.findByTravelScheduleNumber(number);
+            if (travelScheduleEntity == null) return ResponseDto.noExistBoard();
 
-                    List<ScheduleEntity> scheduleEntities = scheduleRepository.findByTravelScheduleNumber(number);
-                    scheduleRepository.deleteAll(scheduleEntities);
+            travelScheduleEntity.update(dto);
+            travelSchduleRepository.save(travelScheduleEntity);
 
-                    List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(number);
-                    travelScheduleExpenditureRepository.deleteAll(travelScheduleExpenditureEntities);
+            scheduleEntities = scheduleRepository.findByTravelScheduleNumber(number);
+            scheduleRepository.deleteAll(scheduleEntities);
 
-                    List<ExpenditureListItem> expenditureList = dto.getExpenditureList();
-                    for (ExpenditureListItem item: expenditureList) {
-                        TravelScheduleExpenditureEntity travelScheduleExpenditureEntity = new TravelScheduleExpenditureEntity(item, number);
-                        travelScheduleExpenditureRepository.save(travelScheduleExpenditureEntity);
-                    }
+            travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(number);
+            travelScheduleExpenditureRepository.deleteAll(travelScheduleExpenditureEntities);
 
-                    List<ScheduleListItem> scheduleList = dto.getScheduleListItems();
-                    for (ScheduleListItem item: scheduleList) {
-                        ScheduleEntity scheduleEntity = new ScheduleEntity(item, number);
-                        scheduleRepository.save(scheduleEntity);
-                    }
+            expenditureListItems = dto.getExpenditureList();
+            for (ExpenditureListItem item: expenditureListItems) {
+                TravelScheduleExpenditureEntity travelScheduleExpenditureEntity = new TravelScheduleExpenditureEntity(item, number);
+                travelScheduleExpenditureRepository.save(travelScheduleExpenditureEntity);
+            }
 
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                    return ResponseDto.databaseError();
-                }
+            scheduleListItems = dto.getScheduleListItems();
+            for (ScheduleListItem item: scheduleListItems) {
+                ScheduleEntity scheduleEntity = new ScheduleEntity(item, number);
+                scheduleRepository.save(scheduleEntity);
+            }
 
-            return ResponseDto.success();
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
     }
 
     @Override
     public ResponseEntity<ResponseDto> deleteSchedule(String userId, Integer travelScheduleNumber) {
+
+        List<ScheduleEntity> scheduleEntities;
+
         try {
 
-            List<ScheduleEntity> scheduleEntities = scheduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
+            scheduleEntities = scheduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
             scheduleRepository.deleteAll(scheduleEntities);
 
             List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(travelScheduleNumber);
@@ -135,6 +148,7 @@ public class ScheduleServiceImplementation implements ScheduleService{
         List<TravelScheduleEntity> travelScheduleEntities;
 
         try {
+            
             travelScheduleEntities = travelSchduleRepository.findByTravelScheduleWriterId(userId);
 
         } catch (Exception exception) {
@@ -147,22 +161,23 @@ public class ScheduleServiceImplementation implements ScheduleService{
     }
 
     @Override
-    public ResponseEntity<? super GetScheduleDetailResponseDto> getScheduleDetail(String userId,
-            Integer travelScheduleNumber) {
+    public ResponseEntity<? super GetScheduleDetailResponseDto> getScheduleDetail(String userId, Integer travelScheduleNumber) {
         
+        TravelScheduleEntity travelScheduleEntity;
+        List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities;
+        List<ScheduleEntity> scheduleEntities;
+
         try {
 
-            TravelScheduleEntity travelScheduleEntity = travelSchduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
-            List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(travelScheduleNumber);
-            List<ScheduleEntity> scheduleEntities = scheduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
-
-            return GetScheduleDetailResponseDto.success(travelScheduleEntity, travelScheduleExpenditureEntities, scheduleEntities);
+            travelScheduleEntity = travelSchduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
+            travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(travelScheduleNumber);
+            scheduleEntities = scheduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
             
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
+        return GetScheduleDetailResponseDto.success(travelScheduleEntity, travelScheduleExpenditureEntities, scheduleEntities);
     }
-    
 }

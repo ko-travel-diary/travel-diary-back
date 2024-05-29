@@ -30,17 +30,20 @@ public class QnaServiceImplementation implements QnaService{
 
     @Override
     public ResponseEntity<ResponseDto> postQna(PostQnaRequestDto dto, String userId) {
+
+        UserEntity userEntity;
+        QnaEntity qnaEntity;
         
         try {
 
-            UserEntity userEntity = userRepository.findByUserId(userId);
+            userEntity = userRepository.findByUserId(userId);
             String role = userEntity.getUserRole();
             if (role == "ROLE_ADMIN") return ResponseDto.authorizationFailed();
 
             boolean ifExists = userRepository.existsById(userId);
             if (!ifExists) return ResponseDto.authenticationFailed();
 
-            QnaEntity qnaEntity = new QnaEntity(dto, userId);
+            qnaEntity = new QnaEntity(dto, userId);
             qnaRepository.save(qnaEntity);
             
 
@@ -55,56 +58,63 @@ public class QnaServiceImplementation implements QnaService{
     @Override
     public ResponseEntity<? super GetQnaBoardResponseDto> getQnaList() {
         
+        List<QnaEntity> qnaEntities;
+
         try {
             
-            List<QnaEntity> qnaEntities = qnaRepository.findByOrderByReceptionNumberDesc();
-
-            return GetQnaBoardResponseDto.success(qnaEntities);
+            qnaEntities = qnaRepository.findByOrderByReceptionNumberDesc();
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
+    return GetQnaBoardResponseDto.success(qnaEntities);
     }
 
     @Override
     public ResponseEntity<? super GetSearchQnaBoardResponseDto> getSearchQnaList(String searchWord) {
 
+        List<QnaEntity> qnaEntities;
+
         try {
 
-            List<QnaEntity> qnaEntities = qnaRepository.findByQnaTitleContainsOrderByReceptionNumberDesc(searchWord);
+            qnaEntities = qnaRepository.findByQnaTitleContainsOrderByReceptionNumberDesc(searchWord);
 
-            return GetSearchQnaBoardResponseDto.success(qnaEntities);
-            
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
+        return GetSearchQnaBoardResponseDto.success(qnaEntities);
     }
 
     @Override
     public ResponseEntity<? super GetQnaResponseDto> getQnaBoard(Integer receptionNumber) {
 
+        QnaEntity qnaEntity;
+
         try {
             
-            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
-            return GetQnaResponseDto.success(qnaEntity);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
+        return GetQnaResponseDto.success(qnaEntity);
     }
 
     @Override
     public ResponseEntity<ResponseDto> postQnaComment(PostQnaCommentRequestDto dto, Integer receptionNumber) {
     
+        QnaEntity qnaEntity;
+
         try {
 
-            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
             boolean status = qnaEntity.getQnaStatus();
@@ -127,9 +137,11 @@ public class QnaServiceImplementation implements QnaService{
     @Override
     public ResponseEntity<ResponseDto> patchQna(PatchQnaRequestDto dto, Integer receptionNumber, String userId) {
         
+        QnaEntity qnaEntity;
+
         try {
 
-            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
             String writerId = qnaEntity.getQnaWriterId();
@@ -142,8 +154,7 @@ public class QnaServiceImplementation implements QnaService{
             qnaEntity.update(dto);
 
             qnaRepository.save(qnaEntity);
-
-            
+    
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -155,9 +166,11 @@ public class QnaServiceImplementation implements QnaService{
     @Override
     public ResponseEntity<ResponseDto> deleteQna(Integer receptionNumber, String userId) {
         
+        QnaEntity qnaEntity;
+
         try {
 
-            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
             String writerId = qnaEntity.getQnaWriterId();
@@ -177,9 +190,11 @@ public class QnaServiceImplementation implements QnaService{
     @Override
     public ResponseEntity<ResponseDto> patchQnaComment(PatchQnaCommentRequestDto dto, Integer receptionNumber) {
         
+        QnaEntity qnaEntity;
+
         try {
             
-            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
             boolean status = qnaEntity.getQnaStatus();
@@ -200,9 +215,11 @@ public class QnaServiceImplementation implements QnaService{
     @Override
     public ResponseEntity<ResponseDto> deleteQnaComment(Integer receptionNumber, String userId) {
         
+        QnaEntity qnaEntity;
+
         try {
 
-            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
             UserEntity userEntity = userRepository.findByUserId(userId);
