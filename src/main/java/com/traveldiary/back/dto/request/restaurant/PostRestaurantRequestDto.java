@@ -18,6 +18,6 @@ public class PostRestaurantRequestDto {
     private String restaurantOutline;
     private String restaurantMainMenu;
     private String restaurantServiceMenu;
-    private double restaurantLat;
-    private double restaurantLng;
+    private Double restaurantLat;
+    private Double restaurantLng;
 }

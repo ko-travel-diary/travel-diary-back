@@ -33,7 +33,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
     @Override
     public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(Double lat, Double lng) {
-        List<GetRestaurantResultSet> resultSets = null;
+        List<GetRestaurantResultSet> resultSets;
 
         try {
             if (lat == null || lng == null)
@@ -50,7 +50,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
     @Override
     public ResponseEntity<? super GetSearchRestaurantListResponseDto> getSearchRestaurantList(String searchWord) {
-        List<GetRestaurantResultSet> resultSets = null;
+        List<GetRestaurantResultSet> resultSets;
 
         try {
             resultSets = restaurantRepository.getSearchRestaurantList(searchWord);

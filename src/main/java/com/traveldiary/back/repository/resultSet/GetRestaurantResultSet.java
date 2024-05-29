@@ -12,4 +12,5 @@ public interface GetRestaurantResultSet {
     String getRestaurantServiceMenu();
     Double getRestaurantLat();
     Double getRestaurantLng();
+
 }
