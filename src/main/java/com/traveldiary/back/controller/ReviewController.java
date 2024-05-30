@@ -86,6 +86,15 @@ public class ReviewController {
     return response;
     }
 
+    @GetMapping("/post/list/search")
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewMyListSearchList(
+        @RequestParam("searchWord") String searchWord,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewMyListSearchList(searchWord, userId);
+        return response;
+    }
+
     @GetMapping("/{reviewNumber}/")
     public ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> getFavoriteStatus(
         @PathVariable("reviewNumber") int reviewNumber,

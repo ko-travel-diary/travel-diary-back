@@ -125,6 +125,9 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     public ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(String userId) {
         
         try {
+
+            boolean isExistUser = userRepository.existsByUserId(userId);
+            if(!isExistUser) return ResponseDto.authenticationFailed();
             
             List<GetTravelReviewResultSet> resultSets = travelReviewRepository.getReviewBoardList();
             if(resultSets == null) return ResponseDto.authorizationFailed();
@@ -135,6 +138,27 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+    }
+
+    
+    @Override
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewMyListSearchList(String userId, String searchWord) {
+
+        List<GetTravelReviewResultSet> resultSets;
+
+        try {
+
+            boolean isExistUser = userRepository.existsByUserId(userId);
+            if(!isExistUser) return ResponseDto.authenticationFailed();
+        
+            resultSets = travelReviewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
+            
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        
+        return GetTravelReviewSearchResponseDto.success(resultSets);
     }
 
     @Override
@@ -258,4 +282,5 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
         return ResponseDto.success();
     }
+
 }

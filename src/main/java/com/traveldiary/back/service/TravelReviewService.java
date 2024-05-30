@@ -19,6 +19,7 @@ public interface TravelReviewService {
     ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriteDateSearchList(String searchWord);
     ResponseEntity<? super GetTravelReviewDetailResponseDto> getReview(Integer reviewNumber);
     ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(String userId);
+    ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewMyListSearchList(String userId, String searchWord);
 
     ResponseEntity<? super PostTravelReviewResponseDto> postTravelReview(PostTravelReviewRequestDto dto, String userId);
 
