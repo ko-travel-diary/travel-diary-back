@@ -26,9 +26,9 @@ public class PostScheduleRequestDto {
     private Integer travelScheduleTotalMoney;
 
     @NotNull
-    private List<ExpenditureListItem> expenditureList;
+    private List<ExpenditureListItem> expenditureListItem;
 
     @NotNull
-    private List<ScheduleListItem> scheduleList;
+    private List<ScheduleListItem> scheduleListItem;
 
 }
