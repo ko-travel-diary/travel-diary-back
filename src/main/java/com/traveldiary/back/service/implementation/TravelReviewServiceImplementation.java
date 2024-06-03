@@ -129,7 +129,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             boolean isExistUser = userRepository.existsByUserId(userId);
             if(!isExistUser) return ResponseDto.authenticationFailed();
             
-            List<GetTravelReviewResultSet> resultSets = travelReviewRepository.getReviewBoardList();
+            List<GetTravelReviewResultSet> resultSets = travelReviewRepository.findByReviewWriterIdOrderByReviewNumberDesc(userId);
             if(resultSets == null) return ResponseDto.authorizationFailed();
 
             return GetTravelReviewMyListResponseDto.success(resultSets);
