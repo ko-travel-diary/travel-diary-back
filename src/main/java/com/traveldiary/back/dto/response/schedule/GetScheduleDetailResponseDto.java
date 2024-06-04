@@ -21,14 +21,14 @@ public class GetScheduleDetailResponseDto extends ResponseDto{
     
     private Integer travelSchedulePeople;
     private Integer travelScheduleTotalMoney;
-    private List<ExpenditureListItem> expendList;
+    private List<ExpenditureListItem> expenditureList;
     private List<ScheduleListItem> scheduleList;
 
     private GetScheduleDetailResponseDto(TravelScheduleEntity entity, List<TravelScheduleExpenditureEntity> expendEntities, List<ScheduleEntity> scheduleEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.travelSchedulePeople = entity.getTravelSchedulePeople();
         this.travelScheduleTotalMoney = entity.getTravelScheduleTotalMoney();
-        this.expendList = ExpenditureListItem.getExpenditure(expendEntities);
+        this.expenditureList = ExpenditureListItem.getExpenditure(expendEntities);
         this.scheduleList = ScheduleListItem.getSchedule(scheduleEntities);
     }
 

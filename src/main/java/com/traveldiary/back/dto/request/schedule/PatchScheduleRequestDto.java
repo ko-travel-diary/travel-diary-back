@@ -26,9 +26,9 @@ public class PatchScheduleRequestDto {
     private Integer travelScheduleTotalMoney;
 
     @NotNull
-    private List<ExpenditureListItem> expenditureListItem;
+    private List<ExpenditureListItem> expenditureList;
 
     @NotNull
-    private List<ScheduleListItem> scheduleListItem;
+    private List<ScheduleListItem> scheduleList;
 
 }
