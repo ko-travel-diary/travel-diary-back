@@ -14,5 +14,6 @@ public interface TravelCommentRepository extends JpaRepository<TravelCommentEnti
     TravelCommentEntity findByCommentNumber(Integer commentNumber);
 
     List<TravelCommentEntity> findByCommentReviewNumber(Integer commentReviewNumber);
+    List<TravelCommentEntity> findByCommentWriterId(String userId);
 
 }

@@ -15,4 +15,5 @@ public interface TravelFavoriteRepository extends JpaRepository<TravelFavoriteEn
     boolean existsByUserIdOrReviewNumber(String userId, Integer reviewNumber);
     List<TravelFavoriteEntity> findByReviewNumber(Integer reviewNumber);
     List<TravelFavoriteEntity> findByUserIdAndReviewNumber(String userId, Integer reviewNumber);
+    List<TravelFavoriteEntity> findByUserId(String userId);
 }

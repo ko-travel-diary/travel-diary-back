@@ -15,4 +15,6 @@ public interface EmailAuthNumberRepository extends JpaRepository<EmailAuthNumber
     void deleteByEmail (String email);
 
     boolean existsByEmailAndAuthNumber (String userEmail, String authNumber);
+
+    EmailAuthNumberEntity findByEmail(String email);
 }
