@@ -12,4 +12,5 @@ public interface TravelReviewImageRepository extends JpaRepository<TravelReviewI
     
     List<TravelReviewImageEntity> findByTravelReviewNumber(Integer travelReviewNumber);
     void deleteByTravelReviewNumber(Integer reviewNumber);
+    
 }

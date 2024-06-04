@@ -14,6 +14,8 @@ public interface QnaRepository extends JpaRepository<QnaEntity, Integer>{
 
     List<QnaEntity> findByQnaTitleContainsOrderByReceptionNumberDesc(String searchWord);
 
+    List<QnaEntity> findByQnaWriterId(String userId);
+
     QnaEntity findByReceptionNumber(Integer receptionNumber);
 
 }

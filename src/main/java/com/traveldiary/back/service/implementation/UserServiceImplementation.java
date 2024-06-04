@@ -16,8 +16,29 @@ import com.traveldiary.back.dto.response.user.GetSearchUserListResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserInfoResponseDto;
 import com.traveldiary.back.dto.response.user.GetUserListResponseDto;
 import com.traveldiary.back.dto.response.user.PostUserNickNameResponseDto;
+import com.traveldiary.back.entity.EmailAuthNumberEntity;
+import com.traveldiary.back.entity.QnaEntity;
+import com.traveldiary.back.entity.RestaurantRecommendEntity;
+import com.traveldiary.back.entity.ScheduleEntity;
+import com.traveldiary.back.entity.TourAttractionsRecommendEntity;
+import com.traveldiary.back.entity.TravelCommentEntity;
+import com.traveldiary.back.entity.TravelFavoriteEntity;
+import com.traveldiary.back.entity.TravelReviewEntity;
+import com.traveldiary.back.entity.TravelReviewImageEntity;
+import com.traveldiary.back.entity.TravelScheduleEntity;
+import com.traveldiary.back.entity.TravelScheduleExpenditureEntity;
 import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.EmailAuthNumberRepository;
+import com.traveldiary.back.repository.QnaRepository;
+import com.traveldiary.back.repository.RestaurantRecommendRepository;
+import com.traveldiary.back.repository.ScheduleRepository;
+import com.traveldiary.back.repository.TourAttractionsRecommendRepository;
+import com.traveldiary.back.repository.TravelCommentRepository;
+import com.traveldiary.back.repository.TravelFavoriteRepository;
+import com.traveldiary.back.repository.TravelReviewImageRepository;
+import com.traveldiary.back.repository.TravelReviewRepository;
+import com.traveldiary.back.repository.TravelScheduleExpenditureRepository;
+import com.traveldiary.back.repository.TravelScheduleRepository;
 import com.traveldiary.back.repository.UserRepository;
 import com.traveldiary.back.service.UserService;
 
@@ -29,6 +50,19 @@ public class UserServiceImplementation implements UserService{
 
     private final UserRepository userRepository;
     private final EmailAuthNumberRepository emailAuthNumberRepository;
+    private final TourAttractionsRecommendRepository tourAttractionsRecommendRepository;
+    private final RestaurantRecommendRepository restaurantRecommendRepository;
+    private final QnaRepository qnaRepository;
+
+    private final TravelCommentRepository travelCommentRepository;
+
+    private final TravelReviewRepository travelReviewRepository;
+    private final TravelReviewImageRepository travelReviewImageRepository;
+    private final TravelFavoriteRepository travelFavoriteRepository;
+    
+    private final TravelScheduleRepository travelScheduleRepository;
+    private final ScheduleRepository scheduleRepository;
+    private final TravelScheduleExpenditureRepository travelScheduleExpenditureRepository;
 
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -190,19 +224,83 @@ public class UserServiceImplementation implements UserService{
         UserEntity adminEntity;
         UserEntity userEntity;
 
+        EmailAuthNumberEntity emailAuthNumberEntity;
+
+        List<TourAttractionsRecommendEntity> tourAttractionsRecommendEntities;
+        List<RestaurantRecommendEntity> restaurantRecommendEntities;
+        List<TravelCommentEntity> travelCommentEntities;
+        List<QnaEntity> qnaEntities;
+
+        List<TravelReviewEntity> travelReviewEntities;
+        List<TravelReviewImageEntity> travelReviewImageEntities;
+        List<TravelFavoriteEntity> travelFavoriteEntities;
+
+        List<TravelScheduleEntity> travelScheduleEntities;
+        List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities;
+        List<ScheduleEntity> scheduleEntities;
+
+        Integer reviewNumber;
+        Integer travelScheduleNumber;
+
+        String email;
+        String deleteUserId;
+
+
         try {
+
             adminEntity = userRepository.findByUserId(userId);
             String userRole = adminEntity.getUserRole();
             if(userRole == "ROLE_USER") return ResponseDto.authenticationFailed();
 
-            String deleteAdminUserId = dto.getDeleteToUserId();
-            userEntity = userRepository.findByUserId(deleteAdminUserId);
+            deleteUserId = dto.getDeleteToUserId();
+            userEntity = userRepository.findByUserId(deleteUserId);
             if(userEntity == null) return ResponseDto.noExistUser();
 
-            String userEmail = userEntity.getUserEmail();
+            // 댓글 및 답글 삭제
+            tourAttractionsRecommendEntities = tourAttractionsRecommendRepository.findByUserId(deleteUserId);
+            tourAttractionsRecommendRepository.deleteAll(tourAttractionsRecommendEntities);
+
+            // 관광지 좋아요 삭제
+            restaurantRecommendEntities = restaurantRecommendRepository.findByUserId(deleteUserId);
+            restaurantRecommendRepository.deleteAll(restaurantRecommendEntities);
+
+            // 식당 좋아요 삭제
+            travelCommentEntities = travelCommentRepository.findByCommentWriterId(deleteUserId);
+            travelCommentRepository.deleteAll(travelCommentEntities);
+            
+            // QnA 삭제
+            qnaEntities = qnaRepository.findByQnaWriterId(deleteUserId);
+            qnaRepository.deleteAll(qnaEntities);
+            
+            // Review 삭제
+            travelFavoriteEntities = travelFavoriteRepository.findByUserId(deleteUserId);
+            travelFavoriteRepository.deleteAll(travelFavoriteEntities);
+
+            travelReviewEntities = travelReviewRepository.findByReviewWriterId(deleteUserId);
+            for (TravelReviewEntity travelReviewEntity : travelReviewEntities) {
+                reviewNumber = travelReviewEntity.getReviewNumber();
+                travelReviewImageEntities = travelReviewImageRepository.findByTravelReviewNumber(reviewNumber);
+                travelReviewImageRepository.deleteAll(travelReviewImageEntities);
+            }
+            travelReviewRepository.deleteAll(travelReviewEntities);
+
+            // Schedule 삭제
+            travelScheduleEntities = travelScheduleRepository.findByTravelScheduleWriterId(deleteUserId);
+            for (TravelScheduleEntity travelScheduleEntity: travelScheduleEntities) {
+                travelScheduleNumber = travelScheduleEntity.getTravelScheduleNumber();
+
+                travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(travelScheduleNumber);
+                travelScheduleExpenditureRepository.deleteAll(travelScheduleExpenditureEntities);
+
+                scheduleEntities = scheduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
+                scheduleRepository.deleteAll(scheduleEntities);
+            }
 
             userRepository.delete(userEntity);
-            emailAuthNumberRepository.deleteByEmail(userEmail);
+
+            email = userEntity.getUserEmail();
+            emailAuthNumberEntity = emailAuthNumberRepository.findByEmail(email);
+            emailAuthNumberRepository.delete(emailAuthNumberEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();
