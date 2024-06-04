@@ -54,13 +54,13 @@ public class ScheduleServiceImplementation implements ScheduleService{
             travelSchduleRepository.save(travelScheduleEntity);
             Integer travelScheduleNumber = travelScheduleEntity.getTravelScheduleNumber();
 
-            expenditureListItems = dto.getExpenditureListItem();
+            expenditureListItems = dto.getExpenditureList();
             for (ExpenditureListItem item: expenditureListItems) {
                 TravelScheduleExpenditureEntity travelScheduleExpenditureEntity = new TravelScheduleExpenditureEntity(item, travelScheduleNumber);
                 travelScheduleExpenditureRepository.save(travelScheduleExpenditureEntity);
             }
 
-            scheduleListItems = dto.getScheduleListItem();
+            scheduleListItems = dto.getScheduleList();
             for (ScheduleListItem item: scheduleListItems) {
                 ScheduleEntity scheduleEntity = new ScheduleEntity(item, travelScheduleNumber);
                 scheduleRepository.save(scheduleEntity);
@@ -98,13 +98,13 @@ public class ScheduleServiceImplementation implements ScheduleService{
             travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(number);
             travelScheduleExpenditureRepository.deleteAll(travelScheduleExpenditureEntities);
 
-            expenditureListItems = dto.getExpenditureListItem();
+            expenditureListItems = dto.getExpenditureList();
             for (ExpenditureListItem item: expenditureListItems) {
                 TravelScheduleExpenditureEntity travelScheduleExpenditureEntity = new TravelScheduleExpenditureEntity(item, number);
                 travelScheduleExpenditureRepository.save(travelScheduleExpenditureEntity);
             }
 
-            scheduleListItems = dto.getScheduleListItem();
+            scheduleListItems = dto.getScheduleList();
             for (ScheduleListItem item: scheduleListItems) {
                 ScheduleEntity scheduleEntity = new ScheduleEntity(item, number);
                 scheduleRepository.save(scheduleEntity);
