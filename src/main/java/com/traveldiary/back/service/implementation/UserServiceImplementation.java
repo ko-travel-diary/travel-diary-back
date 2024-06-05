@@ -188,6 +188,27 @@ public class UserServiceImplementation implements UserService{
 
         UserEntity userEntity;
 
+        EmailAuthNumberEntity emailAuthNumberEntity;
+
+        List<TourAttractionsRecommendEntity> tourAttractionsRecommendEntities;
+        List<RestaurantRecommendEntity> restaurantRecommendEntities;
+        List<TravelCommentEntity> travelCommentEntities;
+        List<QnaEntity> qnaEntities;
+
+        List<TravelReviewEntity> travelReviewEntities;
+        List<TravelReviewImageEntity> travelReviewImageEntities;
+        List<TravelFavoriteEntity> travelFavoriteEntities;
+
+        List<TravelScheduleEntity> travelScheduleEntities;
+        List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities;
+        List<ScheduleEntity> scheduleEntities;
+
+        Integer reviewNumber;
+        Integer travelScheduleNumber;
+
+        String email;
+        String deleteUserId;
+
         try {
 
             userEntity = userRepository.findByUserId(userId);
@@ -204,10 +225,51 @@ public class UserServiceImplementation implements UserService{
             boolean isMatchedUserPassword = passwordEncoder.matches(userPassword, encodedPassword);
             if(!isMatchedUserPassword) return ResponseDto.authenticationFailed();
 
-            String userEmail = userEntity.getUserEmail();
+            // 댓글 및 답글 삭제
+            tourAttractionsRecommendEntities = tourAttractionsRecommendRepository.findByUserId(userId);
+            tourAttractionsRecommendRepository.deleteAll(tourAttractionsRecommendEntities);
+
+            // 관광지 좋아요 삭제
+            restaurantRecommendEntities = restaurantRecommendRepository.findByUserId(userId);
+            restaurantRecommendRepository.deleteAll(restaurantRecommendEntities);
+
+            // 식당 좋아요 삭제
+            travelCommentEntities = travelCommentRepository.findByCommentWriterId(userId);
+            travelCommentRepository.deleteAll(travelCommentEntities);
+            
+            // QnA 삭제
+            qnaEntities = qnaRepository.findByQnaWriterId(userId);
+            qnaRepository.deleteAll(qnaEntities);
+            
+            // Review 삭제
+            travelFavoriteEntities = travelFavoriteRepository.findByUserId(userId);
+            travelFavoriteRepository.deleteAll(travelFavoriteEntities);
+
+            travelReviewEntities = travelReviewRepository.findByReviewWriterId(userId);
+            for (TravelReviewEntity travelReviewEntity : travelReviewEntities) {
+                reviewNumber = travelReviewEntity.getReviewNumber();
+                travelReviewImageEntities = travelReviewImageRepository.findByTravelReviewNumber(reviewNumber);
+                travelReviewImageRepository.deleteAll(travelReviewImageEntities);
+            }
+            travelReviewRepository.deleteAll(travelReviewEntities);
+
+            // Schedule 삭제
+            travelScheduleEntities = travelScheduleRepository.findByTravelScheduleWriterId(userId);
+            for (TravelScheduleEntity travelScheduleEntity: travelScheduleEntities) {
+                travelScheduleNumber = travelScheduleEntity.getTravelScheduleNumber();
+
+                travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(travelScheduleNumber);
+                travelScheduleExpenditureRepository.deleteAll(travelScheduleExpenditureEntities);
+
+                scheduleEntities = scheduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
+                scheduleRepository.deleteAll(scheduleEntities);
+            }
 
             userRepository.delete(userEntity);
-            emailAuthNumberRepository.deleteByEmail(userEmail);
+
+            email = userEntity.getUserEmail();
+            emailAuthNumberEntity = emailAuthNumberRepository.findByEmail(email);
+            emailAuthNumberRepository.delete(emailAuthNumberEntity);
 
         } catch (Exception exception) {
             exception.printStackTrace();
