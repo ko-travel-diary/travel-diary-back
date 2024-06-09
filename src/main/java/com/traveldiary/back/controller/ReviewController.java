@@ -91,8 +91,8 @@ public class ReviewController {
         @RequestParam("searchWord") String searchWord,
         @AuthenticationPrincipal String userId
     ) {
-        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewMyListSearchList(searchWord, userId);
-        return response;
+    ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewMyListSearchList(searchWord, userId);
+    return response;
     }
 
     @GetMapping("/{reviewNumber}/")

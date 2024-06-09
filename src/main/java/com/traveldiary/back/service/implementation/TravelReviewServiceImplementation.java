@@ -142,23 +142,24 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
     
     @Override
-    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewMyListSearchList(String userId, String searchWord) {
-
-        List<GetTravelReviewResultSet> resultSets;
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewMyListSearchList(String searchWord, String userId) {
 
         try {
 
             boolean isExistUser = userRepository.existsByUserId(userId);
+
             if(!isExistUser) return ResponseDto.authenticationFailed();
         
-            resultSets = travelReviewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
+            List<GetTravelReviewResultSet> resultSets = travelReviewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
             
+            System.out.println(resultSets);
+            
+            return GetTravelReviewSearchResponseDto.success(resultSets);
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         
-        return GetTravelReviewSearchResponseDto.success(resultSets);
     }
 
     @Override
