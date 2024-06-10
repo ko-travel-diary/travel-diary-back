@@ -66,4 +66,12 @@ public class RestaurantEntity {
         this.restaurantLat = dto.getRestaurantLat();
         this.restaurantLng = dto.getRestaurantLng();
     }
+
+    public void increaseRecommendCount() {
+        this.restaurantRecommendCount += 1;
+    }
+
+    public void decreaseRecommendCount() {
+        this.restaurantRecommendCount -= 1;
+    }
 }

@@ -16,8 +16,10 @@ import com.traveldiary.back.dto.request.restaurant.PatchRestaurantRequestDto;
 import com.traveldiary.back.dto.request.restaurant.PostRestaurantRequestDto;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetRestaurantListResponseDto;
+import com.traveldiary.back.dto.response.restaurant.GetRestaurantRecommendStatusResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetSearchRestaurantListResponseDto;
+import com.traveldiary.back.service.RestaurantRecommendService;
 import com.traveldiary.back.service.RestaurantService;
 
 import jakarta.validation.Valid;
@@ -29,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class RestaurantController {
 
     private final RestaurantService restaurantService;
+    private final RestaurantRecommendService restaurantRecommendService;
 
     @GetMapping("/restlist")
     public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList (
@@ -80,6 +83,24 @@ public class RestaurantController {
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<ResponseDto> response = restaurantService.patchRestaurant(requestBody, restaurantNumber, userId);
+        return response;
+    }
+
+    @GetMapping("/{restaurantNumber}/")
+    public ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> getRecoomendStatus(
+        @PathVariable("restaurantNumber") int restaurantNumber,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> response = restaurantRecommendService.getRestRecommendStatus(restaurantNumber, userId);
+        return response;
+    }
+
+    @PatchMapping("/{restaurantNumber}/recommend")
+    public ResponseEntity<ResponseDto> patchRestRecommend (
+        @PathVariable("restaurantNumber") int restaurantNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = restaurantRecommendService.patchRestRecommend(restaurantNumber, userId);
         return response;
     }
 }

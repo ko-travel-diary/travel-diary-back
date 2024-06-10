@@ -59,4 +59,12 @@ public class TourAttractionsEntity {
         this.tourAttractionsLat = dto.getTourAttractionsLat();
         this.tourAttractionsLng = dto.getTourAttractionsLng();
     }
+
+    public void increaseRecommendCount() {
+        this.tourAttractionsRecommendCount += 1;
+    }
+
+    public void decreaseRecommendCount() {
+        this.tourAttractionsRecommendCount -= 1;
+    }
 }
