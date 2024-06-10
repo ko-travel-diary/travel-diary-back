@@ -12,7 +12,6 @@ import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetSearchTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsResponseDto;
-import com.traveldiary.back.entity.RestaurantImageEntity;
 import com.traveldiary.back.entity.TourAttractionsEntity;
 import com.traveldiary.back.entity.TourAttractionsImageEntity;
 import com.traveldiary.back.entity.UserEntity;
@@ -158,6 +157,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
         
         UserEntity userEntity;
         TourAttractionsEntity tourAttractionsEntity;
+        List<TourAttractionsImageEntity> tourAttractionsImageEntities;
 
         try {
 
@@ -165,8 +165,13 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
             String userRole = userEntity.getUserRole();
             if (userRole == "ROLE_USER") return ResponseDto.authorizationFailed();
 
+            tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
+            tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);
+
             tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
             if (tourAttractionsEntity == null) return ResponseDto.noExistData();
+
+            System.out.println(dto.getTourAttractionsImageUrl());
 
             tourAttractionsEntity.update(dto);
             tourAttractionsRepository.save(tourAttractionsEntity);
@@ -183,31 +188,6 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
         }
 
     return ResponseDto.success();
-    }
-
-    @Override
-    public ResponseEntity<ResponseDto> deleteTourAttrcationsImage(Integer tourAttractionsNumber, String userId) {
-
-        UserEntity userEntity;
-        List<TourAttractionsImageEntity> tourAttractionsImageEntities;
-        
-        try {
-
-            userEntity = userRepository.findByUserId(userId);
-            String userRole = userEntity.getUserRole();
-            if (userRole == "ROLE_USER") return ResponseDto.authorizationFailed();
-
-            // tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
-            // tourAttractionsEntity.getTourAttractionsNumber()
-            tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
-            tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);
-            
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-        
-        return ResponseDto.success();
     }
 
 

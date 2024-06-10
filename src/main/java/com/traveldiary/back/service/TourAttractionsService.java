@@ -16,5 +16,4 @@ public interface TourAttractionsService {
     ResponseEntity<ResponseDto> postTourAttractions (PostTourAttractionsRequestDto dto, String userId);
     ResponseEntity<ResponseDto> deleteTourAttractions (Integer tourAttractionsNumber, String userId);
     ResponseEntity<ResponseDto> patchTourAttractions (PatchTourAttrcationsRequestDto dto, Integer tourAttractionsNumber, String userId);
-    ResponseEntity<ResponseDto> deleteTourAttrcationsImage (Integer tourAttractionsNumber, String userId);
 }
