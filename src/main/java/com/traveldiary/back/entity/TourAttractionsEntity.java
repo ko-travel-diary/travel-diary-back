@@ -27,13 +27,10 @@ public class TourAttractionsEntity {
     private Integer tourAttractionsNumber;
     @NotBlank
     private String tourAttractionsName;
-    @NotBlank
     private String tourAttractionsOutline;
     @NotBlank
     private String tourAttractionsLocation;
-    @NotBlank
     private String tourAttractionsTelNumber;
-    @NotBlank
     private String tourAttractionsHours;
     @NotNull
     private Integer tourAttractionsRecommendCount;
@@ -62,12 +59,4 @@ public class TourAttractionsEntity {
         this.tourAttractionsLat = dto.getTourAttractionsLat();
         this.tourAttractionsLng = dto.getTourAttractionsLng();
     }
-
-    // public Double tourAttractionsLat () {
-    //     return tourAttractionsLat != null ? tourAttractionsLat : 0.0;
-    // }
-
-    // public Double getTourAttractionsLng () {
-    //     return tourAttractionsLng != null ? tourAttractionsLng : 0.0;
-    // }
 }

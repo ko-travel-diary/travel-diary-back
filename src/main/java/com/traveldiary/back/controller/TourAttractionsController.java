@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,7 +65,7 @@ public class TourAttractionsController {
             return response;
         }
 
-    @DeleteMapping("/tourlist/{tourattractionsNumber}")
+    @DeleteMapping("/tourlist/control/{tourattractionsNumber}")
     public ResponseEntity<ResponseDto> deleteTourAttractions (
         @PathVariable ("tourattractionsNumber") Integer tourattractionsNumber,
         @AuthenticationPrincipal String userId
@@ -73,7 +74,7 @@ public class TourAttractionsController {
         return response;
     }
 
-    @PatchMapping("/tourlist/{tourattractionsNumber}")
+    @PatchMapping("/tourlist/control/{tourattractionsNumber}")
     public ResponseEntity<ResponseDto> patchTourAttrcation (
         @RequestBody @Valid PatchTourAttrcationsRequestDto requestBody,
         @PathVariable("tourattractionsNumber") Integer tourattractionsNumber,
@@ -82,4 +83,13 @@ public class TourAttractionsController {
         ResponseEntity<ResponseDto> response = tourAttractionsService.patchTourAttractions(requestBody, tourattractionsNumber, userId);
         return response;
     }
+
+    @PutMapping("/tourlist/control/{tourattractionsNumber}")
+    public ResponseEntity<ResponseDto> putTourAttractionImage (
+        @PathVariable("tourattrationsNumber") Integer tourattractionsNumber,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = tourAttractionsService.deleteTourAttrcationsImage(tourattractionsNumber, userId);
+        return response;
+    };
 }
