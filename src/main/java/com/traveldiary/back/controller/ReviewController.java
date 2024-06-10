@@ -142,16 +142,16 @@ public class ReviewController {
     }
 
     @PatchMapping("/{reviewNumber}/favorite")
-    public ResponseEntity<ResponseDto> patchtravelFavorite(
+    public ResponseEntity<ResponseDto> patchTravelFavorite(
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<ResponseDto> response = travelFavoriteService.patchtravelFavorite(reviewNumber, userId);
+    ResponseEntity<ResponseDto> response = travelFavoriteService.patchTravelFavorite(reviewNumber, userId);
     return response;
     }
 
     @PatchMapping("/{reviewNumber}/view-count")
-    public ResponseEntity<ResponseDto> patchtravelView(
+    public ResponseEntity<ResponseDto> patchTravelView(
         @PathVariable("reviewNumber") int reviewNumber
     ) {
     ResponseEntity<ResponseDto> response = travelReviewService.patchTravelView(reviewNumber);

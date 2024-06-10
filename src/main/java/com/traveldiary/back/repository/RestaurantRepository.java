@@ -53,10 +53,10 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity, In
             "GROUP BY restaurant_number " +
         ") i " +
         "ON r.restaurant_number = i.restaurant_number " +
-        "WHERE r.restaurant_lat >= (:lat - 0.025) " +
-        "AND r.restaurant_lat <= (:lat + 0.025) " +
-        "AND r.restaurant_lng >= (:lng - 0.05) " +
-        "AND r.restaurant_lng <= (:lng + 0.05) ",
+        "WHERE r.restaurant_lat >= (:lat - 0.03) " +
+        "AND r.restaurant_lat <= (:lat + 0.03) " +
+        "AND r.restaurant_lng >= (:lng - 0.07) " +
+        "AND r.restaurant_lng <= (:lng + 0.07) ",
         nativeQuery=true
     )
     List<GetRestaurantResultSet> getRestaurantRangeList (

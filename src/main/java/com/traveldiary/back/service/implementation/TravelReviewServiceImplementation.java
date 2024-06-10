@@ -181,11 +181,6 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
                 TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(travelReviewNumber, image);
                 travelReviewImageRepository.save(imageEntity);
             }
-            if(images.isEmpty() || images.get(0) == null) {
-                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
-                TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(travelReviewNumber, image);
-                travelReviewImageRepository.save(imageEntity);
-            }
             
         } catch(Exception exception) {
             exception.printStackTrace();
@@ -216,11 +211,6 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
             List<String> images = dto.getTravelReviewImageUrl();
             for(String image: images) {
-                TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(reviewNumber, image);
-                travelReviewImageRepository.save(imageEntity);
-            }
-            if(images.isEmpty() || images.get(0) == null) {
-                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
                 TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(reviewNumber, image);
                 travelReviewImageRepository.save(imageEntity);
             }

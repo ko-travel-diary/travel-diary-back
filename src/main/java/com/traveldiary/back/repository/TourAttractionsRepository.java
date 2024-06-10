@@ -49,10 +49,10 @@ public interface TourAttractionsRepository extends JpaRepository<TourAttractions
             "GROUP BY tour_attractions_number " +
         ") i " +
         "ON t.tour_attractions_number = i.tour_attractions_number " +
-        "WHERE t.tour_attractions_lat >= (:lat - 0.025) " +
-        "AND t.tour_attractions_lat <= (:lat + 0.025) " +
-        "AND t.tour_attractions_lng >= (:lng - 0.05) " +
-        "AND t.tour_attractions_lng <= (:lng + 0.05) ",
+        "WHERE t.tour_attractions_lat >= (:lat - 0.03) " +
+        "AND t.tour_attractions_lat <= (:lat + 0.03) " +
+        "AND t.tour_attractions_lng >= (:lng - 0.07) " +
+        "AND t.tour_attractions_lng <= (:lng + 0.07) ",
         nativeQuery=true
     )
     List<GetTourAttractionsResultSet> getTourAttractionsRangeList (
