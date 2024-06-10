@@ -23,7 +23,7 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
     private final TravelFavoriteRepository travelFavoriteRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> patchtravelFavorite(int reviewNumber, String userId) {
+    public ResponseEntity<ResponseDto> patchTravelFavorite(int reviewNumber, String userId) {
         
         try {
 
