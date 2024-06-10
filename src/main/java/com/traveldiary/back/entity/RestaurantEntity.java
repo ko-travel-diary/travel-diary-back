@@ -27,13 +27,10 @@ public class RestaurantEntity {
     private Integer restaurantNumber;
     @NotBlank
     private String restaurantName;
-    @NotBlank
     private String restaurantOutline;
     @NotBlank
     private String restaurantLocation;
-    @NotBlank
     private String restaurantTelNumber;
-    @NotBlank
     private String restaurantHours;
     @NotBlank
     private String restaurantMainMenu;
@@ -69,12 +66,4 @@ public class RestaurantEntity {
         this.restaurantLat = dto.getRestaurantLat();
         this.restaurantLng = dto.getRestaurantLng();
     }
-
-    // public Double getRestaurantLat () {
-    //     return restaurantLat != null ? restaurantLat : 0.0;
-    // }
-
-    // public Double getRestaurantLng () {
-    //     return restaurantLng != null ? restaurantLng : 0.0;
-    // }
 }

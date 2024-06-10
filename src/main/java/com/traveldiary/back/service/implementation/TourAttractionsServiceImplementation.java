@@ -179,5 +179,30 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
     return ResponseDto.success();
     }
 
+    @Override
+    public ResponseEntity<ResponseDto> deleteTourAttrcationsImage(Integer tourAttractionsNumber, String userId) {
+
+        UserEntity userEntity;
+        List<TourAttractionsImageEntity> tourAttractionsImageEntities;
+        
+        try {
+
+            userEntity = userRepository.findByUserId(userId);
+            String userRole = userEntity.getUserRole();
+            if (userRole == "ROLE_USER") return ResponseDto.authorizationFailed();
+
+            // tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
+            // tourAttractionsEntity.getTourAttractionsNumber()
+            tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
+            tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        
+        return ResponseDto.success();
+    }
+
 
 }
