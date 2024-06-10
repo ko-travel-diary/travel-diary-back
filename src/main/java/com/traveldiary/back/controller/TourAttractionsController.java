@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +17,9 @@ import com.traveldiary.back.dto.request.tourAttractions.PostTourAttractionsReque
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetSearchTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsListResponseDto;
+import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsRecommendResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsResponseDto;
+import com.traveldiary.back.service.TourAttractionsRecommendService;
 import com.traveldiary.back.service.TourAttractionsService;
 
 import jakarta.validation.Valid;
@@ -30,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 public class TourAttractionsController {
     
     private final TourAttractionsService tourAttractionsService;
+    private final TourAttractionsRecommendService tourAttractionsRecommendService;
 
     @GetMapping("/tourlist")
     public ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList (
@@ -84,4 +86,21 @@ public class TourAttractionsController {
         return response;
     }
 
+    @GetMapping("/{tourattractionsNumber}/")
+    public ResponseEntity<? super GetTourAttractionsRecommendResponseDto> getRecoomendStatus(
+        @PathVariable("tourattractionsNumber") int tourattractionsNumber,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<? super GetTourAttractionsRecommendResponseDto> response = tourAttractionsRecommendService.getTourRecommendStatus(tourattractionsNumber, userId);
+        return response;
+    }
+
+    @PatchMapping("/{tourattractionsNumber}/recommend")
+    public ResponseEntity<ResponseDto> patchRestRecommend (
+        @PathVariable("tourattractionsNumber") int tourattractionsNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = tourAttractionsRecommendService.patchTourRecommend(tourattractionsNumber, userId);
+        return response;
+    }
 }
