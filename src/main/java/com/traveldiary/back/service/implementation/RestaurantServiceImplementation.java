@@ -14,6 +14,7 @@ import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetSearchRestaurantListResponseDto;
 import com.traveldiary.back.entity.RestaurantEntity;
 import com.traveldiary.back.entity.RestaurantImageEntity;
+import com.traveldiary.back.entity.TravelReviewImageEntity;
 import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.RestaurantImageRepository;
 import com.traveldiary.back.repository.RestaurantRepository;
@@ -106,6 +107,11 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
             List<String> images = dto.getRestaurantImageUrl();
             for(String image : images){
+                RestaurantImageEntity imageEntity = new RestaurantImageEntity(restaurantNumber, image);
+                restaurantImageRepository.save(imageEntity);
+            }
+            if(images.isEmpty() || images.get(0) == null) {
+                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
                 RestaurantImageEntity imageEntity = new RestaurantImageEntity(restaurantNumber, image);
                 restaurantImageRepository.save(imageEntity);
             }

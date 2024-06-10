@@ -12,6 +12,7 @@ import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetSearchTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsResponseDto;
+import com.traveldiary.back.entity.RestaurantImageEntity;
 import com.traveldiary.back.entity.TourAttractionsEntity;
 import com.traveldiary.back.entity.TourAttractionsImageEntity;
 import com.traveldiary.back.entity.UserEntity;
@@ -108,6 +109,11 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
 
             List<String> images = dto.getTourAttractionsImageUrl();
             for (String image : images) {
+                TourAttractionsImageEntity imageEntity = new TourAttractionsImageEntity(tourAttractionsNumber, image);
+                tourAttractionsImageRepository.save(imageEntity);
+            }
+            if(images.isEmpty() || images.get(0) == null) {
+                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
                 TourAttractionsImageEntity imageEntity = new TourAttractionsImageEntity(tourAttractionsNumber, image);
                 tourAttractionsImageRepository.save(imageEntity);
             }
