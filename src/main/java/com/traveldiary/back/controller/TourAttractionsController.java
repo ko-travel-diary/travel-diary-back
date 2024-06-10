@@ -84,12 +84,4 @@ public class TourAttractionsController {
         return response;
     }
 
-    @PutMapping("/tourlist/control/{tourattractionsNumber}")
-    public ResponseEntity<ResponseDto> putTourAttractionImage (
-        @PathVariable("tourattrationsNumber") Integer tourattractionsNumber,
-        @AuthenticationPrincipal String userId
-    ){
-        ResponseEntity<ResponseDto> response = tourAttractionsService.deleteTourAttrcationsImage(tourattractionsNumber, userId);
-        return response;
-    };
 }
