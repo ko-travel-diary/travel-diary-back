@@ -14,7 +14,6 @@ import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetSearchRestaurantListResponseDto;
 import com.traveldiary.back.entity.RestaurantEntity;
 import com.traveldiary.back.entity.RestaurantImageEntity;
-import com.traveldiary.back.entity.TravelReviewImageEntity;
 import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.RestaurantImageRepository;
 import com.traveldiary.back.repository.RestaurantRepository;
@@ -94,7 +93,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
             UserEntity userEntity = userRepository.findByUserId(userId);
             String userRole = userEntity.getUserRole();
             System.out.println(userRole);
-            if(userRole == "ROLE_USER") return ResponseDto.authenticationFailed();
+            if(userRole.equals("ROLE_USER")) return ResponseDto.authenticationFailed();
 
             String restaurantName = dto.getRestaurantName();
             boolean existsed = restaurantRepository.existsByRestaurantName(restaurantName);
@@ -134,7 +133,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
             userEntity = userRepository.findByUserId(userId);
             String role = userEntity.getUserRole();
-            if (role == "ROLE_USER") return ResponseDto.authorizationFailed();
+            if (role.equals("ROLE_USER")) return ResponseDto.authorizationFailed();
 
             restaurantImageEntities = restaurantImageRepository.findByRestaurantNumber(restaurantNumber);
             restaurantImageRepository.deleteAll(restaurantImageEntities);
@@ -155,12 +154,16 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
         UserEntity userEntity;
         RestaurantEntity restaurantEntity;
+        List<RestaurantImageEntity> restaurantImageEntities;
         
         try {
 
             userEntity = userRepository.findByUserId(userId);
             String userRole = userEntity.getUserRole();
-            if (userRole == "ROLE_USER") return ResponseDto.authorizationFailed();
+            if (userRole.equals("ROLE_USER")) return ResponseDto.authorizationFailed();
+
+            restaurantImageEntities = restaurantImageRepository.findByRestaurantNumber(restaurantNumber);
+            restaurantImageRepository.deleteAll(restaurantImageEntities);
             
             restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
             if (restaurantEntity == null) return ResponseDto.noExistData();
