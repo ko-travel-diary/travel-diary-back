@@ -19,6 +19,7 @@ import lombok.Getter;
 @Getter
 public class GetScheduleDetailResponseDto extends ResponseDto{
     
+    private String travelScheduleName;
     private Integer travelSchedulePeople;
     private Integer travelScheduleTotalMoney;
     private List<ExpenditureListItem> expenditureList;
@@ -26,6 +27,7 @@ public class GetScheduleDetailResponseDto extends ResponseDto{
 
     private GetScheduleDetailResponseDto(TravelScheduleEntity entity, List<TravelScheduleExpenditureEntity> expendEntities, List<ScheduleEntity> scheduleEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
+        this.travelScheduleName = entity.getTravelScheduleName();
         this.travelSchedulePeople = entity.getTravelSchedulePeople();
         this.travelScheduleTotalMoney = entity.getTravelScheduleTotalMoney();
         this.expenditureList = ExpenditureListItem.getExpenditure(expendEntities);
