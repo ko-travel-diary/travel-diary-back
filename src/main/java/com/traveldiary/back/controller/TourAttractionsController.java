@@ -86,7 +86,7 @@ public class TourAttractionsController {
         return response;
     }
 
-    @GetMapping("/{tourattractionsNumber}/")
+    @GetMapping("/{tourattractionsNumber}")
     public ResponseEntity<? super GetTourAttractionsRecommendResponseDto> getRecoomendStatus(
         @PathVariable("tourattractionsNumber") int tourattractionsNumber,
         @AuthenticationPrincipal String userId

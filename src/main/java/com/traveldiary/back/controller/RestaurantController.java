@@ -86,7 +86,7 @@ public class RestaurantController {
         return response;
     }
 
-    @GetMapping("/{restaurantNumber}/")
+    @GetMapping("/{restaurantNumber}")
     public ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> getRecoomendStatus(
         @PathVariable("restaurantNumber") int restaurantNumber,
         @AuthenticationPrincipal String userId

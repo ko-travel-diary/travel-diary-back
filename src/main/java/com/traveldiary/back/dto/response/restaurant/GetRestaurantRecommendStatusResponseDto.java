@@ -12,15 +12,15 @@ import lombok.Getter;
 @Getter
 public class GetRestaurantRecommendStatusResponseDto extends ResponseDto{
     
-    private boolean restRecommendeStatus;
+    private boolean restRecommendStatus;
 
-    private GetRestaurantRecommendStatusResponseDto (boolean restRecommendeStatus){
+    private GetRestaurantRecommendStatusResponseDto (boolean restRecommendStatus){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.restRecommendeStatus = restRecommendeStatus;
+        this.restRecommendStatus = restRecommendStatus;
     }
 
-    public static ResponseEntity<GetRestaurantRecommendStatusResponseDto> success (boolean restRecommendeStatus) {
-        GetRestaurantRecommendStatusResponseDto responseBody = new GetRestaurantRecommendStatusResponseDto(restRecommendeStatus);
+    public static ResponseEntity<GetRestaurantRecommendStatusResponseDto> success (boolean restRecommendStatus) {
+        GetRestaurantRecommendStatusResponseDto responseBody = new GetRestaurantRecommendStatusResponseDto(restRecommendStatus);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 }
