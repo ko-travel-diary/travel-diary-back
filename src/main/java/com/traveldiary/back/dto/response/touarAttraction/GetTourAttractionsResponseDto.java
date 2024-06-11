@@ -22,6 +22,7 @@ public class GetTourAttractionsResponseDto extends ResponseDto{
     private String tourAttractionsOutline;
     private double tourAttractionsLat;
     private double tourAttractionsLng;
+    private int tourAttractionsRecommendCount;
 
     private GetTourAttractionsResponseDto (TourAttractionsEntity tourAttractionsEntity, List<String> tourAttractionsImageUrl){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -33,6 +34,7 @@ public class GetTourAttractionsResponseDto extends ResponseDto{
         this.tourAttractionsOutline = tourAttractionsEntity.getTourAttractionsOutline();
         this.tourAttractionsLat = tourAttractionsEntity.getTourAttractionsLat();
         this.tourAttractionsLng = tourAttractionsEntity.getTourAttractionsLng();
+        this.tourAttractionsRecommendCount = tourAttractionsEntity.getTourAttractionsRecommendCount();
     }
 
     public static ResponseEntity<GetTourAttractionsResponseDto> success (TourAttractionsEntity tourAttractionsEntity, List<String> tourAttractionsImageUrl) {

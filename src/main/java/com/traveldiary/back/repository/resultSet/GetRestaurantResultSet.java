@@ -13,5 +13,4 @@ public interface GetRestaurantResultSet {
     Double getRestaurantLat();
     Double getRestaurantLng();
     Integer getRestaurantRecommendCount();
-
 }

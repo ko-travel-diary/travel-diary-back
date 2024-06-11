@@ -24,6 +24,7 @@ public class GetRestaurantResponseDto extends ResponseDto{
     private String restaurantServiceMenu;
     private double restaurantLat;
     private double restaurantLng;
+    private int restaurantRecommendCount;
 
     private GetRestaurantResponseDto (RestaurantEntity restaurantEntity, List<String> restaurantImageUrl){
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
@@ -37,6 +38,7 @@ public class GetRestaurantResponseDto extends ResponseDto{
         this.restaurantServiceMenu = restaurantEntity.getRestaurantServiceMenu();
         this.restaurantLat = restaurantEntity.getRestaurantLat();
         this.restaurantLng = restaurantEntity.getRestaurantLng();
+        this.restaurantRecommendCount = restaurantEntity.getRestaurantRecommendCount();
     }
 
     public static ResponseEntity<GetRestaurantResponseDto> success (RestaurantEntity restaurantEntity, List<String> restaurantImageUrl) {
