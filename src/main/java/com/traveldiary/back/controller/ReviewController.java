@@ -74,16 +74,16 @@ public class ReviewController {
     public ResponseEntity<? super GetTravelReviewDetailResponseDto> getReview(
         @PathVariable("reviewNumber") int reviewNumber
     ) {
-    ResponseEntity<? super GetTravelReviewDetailResponseDto> response = travelReviewService.getReview(reviewNumber);
-    return response;
+        ResponseEntity<? super GetTravelReviewDetailResponseDto> response = travelReviewService.getReview(reviewNumber);
+        return response;
     }
 
     @GetMapping("/post/list")
     public ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<? super GetTravelReviewMyListResponseDto> response = travelReviewService.getReviewMyList(userId);
-    return response;
+        ResponseEntity<? super GetTravelReviewMyListResponseDto> response = travelReviewService.getReviewMyList(userId);
+        return response;
     }
 
     @GetMapping("/post/list/search")
@@ -91,8 +91,8 @@ public class ReviewController {
         @RequestParam("searchWord") String searchWord,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewMyListSearchList(searchWord, userId);
-    return response;
+        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewMyListSearchList(searchWord, userId);
+        return response;
     }
 
     @GetMapping("/{reviewNumber}/")
@@ -100,16 +100,16 @@ public class ReviewController {
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> response = travelFavoriteService.getFavoriteStatus(reviewNumber, userId);
-    return response;
+        ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> response = travelFavoriteService.getFavoriteStatus(reviewNumber, userId);
+        return response;
     }
 
     @GetMapping("/{reviewNumber}/comment/list")
     public ResponseEntity<? super GetTravelReviewCommentListResponseDto> getReviewCommentList(
         @PathVariable("reviewNumber") int reviewNumber
     ) {
-    ResponseEntity<? super GetTravelReviewCommentListResponseDto> response = travelCommentService.getTravelCommentList(reviewNumber);
-    return response;
+        ResponseEntity<? super GetTravelReviewCommentListResponseDto> response = travelCommentService.getTravelCommentList(reviewNumber);
+        return response;
     }
 
     @PostMapping("/")
@@ -118,7 +118,7 @@ public class ReviewController {
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<? super PostTravelReviewResponseDto> response = travelReviewService.postTravelReview(responseBody, userId);
-    return response;
+        return response;
     }
 
     @PostMapping("/{reviewNumber}/comment")
@@ -127,8 +127,8 @@ public class ReviewController {
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<ResponseDto> response = travelCommentService.postTravelComment(responseBody, reviewNumber, userId);
-    return response;
+        ResponseEntity<ResponseDto> response = travelCommentService.postTravelComment(responseBody, reviewNumber, userId);
+        return response;
     }
 
     @PatchMapping("/{reviewNumber}")
@@ -137,8 +137,8 @@ public class ReviewController {
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<ResponseDto> response = travelReviewService.patchTravelReview(responseBody, reviewNumber, userId);
-    return response;
+        ResponseEntity<ResponseDto> response = travelReviewService.patchTravelReview(responseBody, reviewNumber, userId);
+        return response;
     }
 
     @PatchMapping("/{reviewNumber}/favorite")
@@ -146,16 +146,16 @@ public class ReviewController {
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<ResponseDto> response = travelFavoriteService.patchTravelFavorite(reviewNumber, userId);
-    return response;
+        ResponseEntity<ResponseDto> response = travelFavoriteService.patchTravelFavorite(reviewNumber, userId);
+        return response;
     }
 
     @PatchMapping("/{reviewNumber}/view-count")
     public ResponseEntity<ResponseDto> patchTravelView(
         @PathVariable("reviewNumber") int reviewNumber
     ) {
-    ResponseEntity<ResponseDto> response = travelReviewService.patchTravelView(reviewNumber);
-    return response;
+        ResponseEntity<ResponseDto> response = travelReviewService.patchTravelView(reviewNumber);
+        return response;
     }
 
     @PatchMapping("/{reviewNumber}/comment/{commentNumber}")
@@ -165,8 +165,8 @@ public class ReviewController {
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<ResponseDto> response = travelCommentService.patchTravelComment(responseBody, commentNumber, reviewNumber, userId);
-    return response;
+        ResponseEntity<ResponseDto> response = travelCommentService.patchTravelComment(responseBody, commentNumber, reviewNumber, userId);
+        return response;
     }
 
     @DeleteMapping("/delete/{reviewNumber}")
@@ -174,8 +174,8 @@ public class ReviewController {
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<ResponseDto> response = travelReviewService.deleteTravelReview(reviewNumber, userId);
-    return response;
+        ResponseEntity<ResponseDto> response = travelReviewService.deleteTravelReview(reviewNumber, userId);
+        return response;
     }
 
     @DeleteMapping("/{reviewNumber}/comment/{commentNumber}")
@@ -184,8 +184,8 @@ public class ReviewController {
         @PathVariable("commentNumber") int commentNumber,
         @AuthenticationPrincipal String userId
     ) {
-    ResponseEntity<ResponseDto> response = travelCommentService.deleteTravelComment(commentNumber, reviewNumber, userId);
-    return response;
+        ResponseEntity<ResponseDto> response = travelCommentService.deleteTravelComment(commentNumber, reviewNumber, userId);
+        return response;
     }
 }
 
