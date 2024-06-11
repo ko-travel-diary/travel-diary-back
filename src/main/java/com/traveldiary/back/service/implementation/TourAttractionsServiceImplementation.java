@@ -95,7 +95,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
             UserEntity userEntity = userRepository.findByUserId(userId);
             String userRole = userEntity.getUserRole();
             System.out.println(userRole);
-            if(userRole == "ROLE_USER") return ResponseDto.authenticationFailed();
+            if(userRole.equals("ROLE_USER")) return ResponseDto.authenticationFailed();
 
             String tourAttractionsName = dto.getTourAttractionsName();
             boolean existsed = tourAttractionsRepository.existsByTourAttractionsName(tourAttractionsName);
@@ -135,7 +135,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
 
             userEntity = userRepository.findByUserId(userId);
             String role = userEntity.getUserRole();
-            if (role == "ROLE_USER") return ResponseDto.authorizationFailed();
+            if (role.equals("ROLE_USER")) return ResponseDto.authorizationFailed();
 
             tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
             tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);
@@ -163,7 +163,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
 
             userEntity = userRepository.findByUserId(userId);
             String userRole = userEntity.getUserRole();
-            if (userRole == "ROLE_USER") return ResponseDto.authorizationFailed();
+            if (userRole.equals("ROLE_USER")) return ResponseDto.authorizationFailed();
 
             tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
             tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);

@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsRecommendResponseDto;
-import com.traveldiary.back.entity.RestaurantRecommendEntity;
 import com.traveldiary.back.entity.TourAttractionsEntity;
 import com.traveldiary.back.entity.TourAttractionsRecommendEntity;
 import com.traveldiary.back.repository.TourAttractionsRecommendRepository;
