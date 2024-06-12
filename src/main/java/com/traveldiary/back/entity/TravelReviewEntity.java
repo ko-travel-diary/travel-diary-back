@@ -1,9 +1,5 @@
 package com.traveldiary.back.entity;
 
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
-
 import com.traveldiary.back.common.util.ChangeDateFormatUtil;
 import com.traveldiary.back.dto.request.review.PatchTravelReviewRequestDto;
 import com.traveldiary.back.dto.request.review.PostTravelReviewRequestDto;

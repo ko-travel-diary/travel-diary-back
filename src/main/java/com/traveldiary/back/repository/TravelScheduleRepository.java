@@ -9,7 +9,7 @@ import com.traveldiary.back.entity.TravelScheduleEntity;
 
 @Repository
 public interface TravelScheduleRepository extends JpaRepository<TravelScheduleEntity, Integer>{
-    
+
     TravelScheduleEntity findByTravelScheduleNumber(Integer travelScheduleNumber);
     List<TravelScheduleEntity> findByTravelScheduleWriterId(String travelScheduleWriterId);
 

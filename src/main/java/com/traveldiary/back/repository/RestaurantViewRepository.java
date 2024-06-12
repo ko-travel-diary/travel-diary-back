@@ -15,29 +15,29 @@ public interface RestaurantViewRepository extends JpaRepository<RestaurantViewEn
 
     @Query(
         value=
-        "SELECT * " +
-        "FROM travel_diary.restaurant_view ",
+            "SELECT * " +
+            "FROM travel_diary.restaurant_view ",
         nativeQuery=true
     )
     List<GetRestaurantResultSet> getRestaurantList();
 
     @Query(
         value=
-        "SELECT * " +
-        "FROM travel_diary.restaurant_view " +
-        "WHERE r.restaurant_name LIKE %:searchWord% ",
+            "SELECT * " +
+            "FROM travel_diary.restaurant_view " +
+            "WHERE r.restaurant_name LIKE %:searchWord% ",
         nativeQuery=true
     )
     List<GetRestaurantResultSet> getSearchRestaurantList(String searchWord);
 
     @Query(
         value=
-        "SELECT * " +
-        "FROM travel_diary.restaurant_view " +
-        "WHERE r.restaurant_lat >= (:lat - 0.03) " +
-            "AND r.restaurant_lat <= (:lat + 0.03) " +
-            "AND r.restaurant_lng >= (:lng - 0.07) " +
-            "AND r.restaurant_lng <= (:lng + 0.07) ",
+            "SELECT * " +
+            "FROM travel_diary.restaurant_view " +
+            "WHERE r.restaurant_lat >= (:lat - 0.03) " +
+                "AND r.restaurant_lat <= (:lat + 0.03) " +
+                "AND r.restaurant_lng >= (:lng - 0.07) " +
+                "AND r.restaurant_lng <= (:lng + 0.07) ",
         nativeQuery=true
     )
     List<GetRestaurantResultSet> getRestaurantRangeList(
