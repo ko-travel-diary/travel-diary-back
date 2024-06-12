@@ -53,6 +53,7 @@ public class TravelReviewEntity {
     public void update(PatchTravelReviewRequestDto dto) {
         this.reviewTitle = dto.getReviewTitle();
         this.reviewContent = dto.getReviewContent();
+        this.travelScheduleNumber = dto.getTravelScheduleNumber();
     }
 
     public void increaseFavoriteCount() {
