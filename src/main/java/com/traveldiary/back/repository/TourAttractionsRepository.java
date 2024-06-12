@@ -83,6 +83,6 @@ public interface TourAttractionsRepository extends JpaRepository<TourAttractions
     List<GetTourAttractionsResultSet> getSearchTourAttractionsList (String searchWord);
 
     TourAttractionsEntity findByTourAttractionsNumber (Integer tourAttractionsNumber);
-
     boolean existsByTourAttractionsName (String tourAttractionsName);
+
 }

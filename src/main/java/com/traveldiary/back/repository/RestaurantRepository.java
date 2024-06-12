@@ -90,4 +90,5 @@ public interface RestaurantRepository extends JpaRepository<RestaurantEntity, In
 
     RestaurantEntity findByRestaurantNumber (Integer RestaurantNumber);
     boolean existsByRestaurantName (String restaurantName);
+
 }

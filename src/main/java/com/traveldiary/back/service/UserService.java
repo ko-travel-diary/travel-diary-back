@@ -14,10 +14,10 @@ import com.traveldiary.back.dto.response.user.PostUserNickNameResponseDto;
 
 public interface UserService {
     ResponseEntity<? super GetUserListResponseDto> getUserList (String userId);
-    ResponseEntity<? super PostUserNickNameResponseDto> getUserNickName (PostUserNickNameRequestDto dto);
     ResponseEntity<? super GetUserInfoResponseDto> getUserInfo (String userId);
+    ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList (String userId, String searchWord);
+    ResponseEntity<? super PostUserNickNameResponseDto> postUserNickName (PostUserNickNameRequestDto dto);
     ResponseEntity<ResponseDto> patchUserInfo (PatchUserInfoRequestDto dto, String userId);
     ResponseEntity<ResponseDto> deleteUser (DeleteUserRequestDto dto, String userId);
     ResponseEntity<ResponseDto> deleteAdminUser (DeleteAdminUserRequestDto dto, String userId);
-    ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserList (String userId, String searchWord);
 }
