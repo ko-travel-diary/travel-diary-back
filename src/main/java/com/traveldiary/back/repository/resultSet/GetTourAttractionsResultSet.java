@@ -1,6 +1,7 @@
 package com.traveldiary.back.repository.resultSet;
 
 public interface GetTourAttractionsResultSet {
+
     Integer getTourAttractionsNumber();
     String getImage();
     String getTourAttractionsName();
@@ -11,4 +12,5 @@ public interface GetTourAttractionsResultSet {
     Double getTourAttractionsLat();
     Double getTourAttractionsLng();
     Integer getTourAttractionsRecommendCount();
+
 }

@@ -9,8 +9,9 @@ import com.traveldiary.back.entity.TravelReviewImageEntity;
 
 @Repository
 public interface TravelReviewImageRepository extends JpaRepository<TravelReviewImageEntity, Integer>{
-    
+
     List<TravelReviewImageEntity> findByTravelReviewNumber(Integer travelReviewNumber);
+
     void deleteByTravelReviewNumber(Integer reviewNumber);
-    
+
 }

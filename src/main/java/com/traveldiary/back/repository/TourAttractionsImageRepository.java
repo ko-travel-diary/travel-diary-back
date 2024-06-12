@@ -10,6 +10,6 @@ import com.traveldiary.back.entity.TourAttractionsImageEntity;
 @Repository
 public interface TourAttractionsImageRepository extends JpaRepository<TourAttractionsImageEntity, Integer>{
 
-    List<TourAttractionsImageEntity> findByTourAttractionsNumber (Integer TourAttractionsNumber);
+    List<TourAttractionsImageEntity> findByTourAttractionsNumber(Integer TourAttractionsNumber);
 
 }

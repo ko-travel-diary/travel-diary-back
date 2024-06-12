@@ -11,10 +11,10 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface EmailAuthNumberRepository extends JpaRepository<EmailAuthNumberEntity, String>{
 
+    EmailAuthNumberEntity findByEmail(String email);
+    boolean existsByEmailAndAuthNumber (String userEmail, String authNumber);
+
     @Transactional
     void deleteByEmail (String email);
 
-    boolean existsByEmailAndAuthNumber (String userEmail, String authNumber);
-
-    EmailAuthNumberEntity findByEmail(String email);
 }

@@ -24,8 +24,6 @@ public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity
                 "r.review_view_count as reviewViewCount, " +
                 "r.review_favorite_count as reviewFavoriteCount FROM travel_review r LEFT JOIN ( " +
             "SELECT travel_review_number, ANY_VALUE(travel_review_image_url) as image " +
-
-            
             "FROM travel_review_image " +
             "GROUP BY travel_review_number " +
         ") i " +
