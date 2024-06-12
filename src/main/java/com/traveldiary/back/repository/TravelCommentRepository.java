@@ -10,10 +10,9 @@ import com.traveldiary.back.entity.TravelCommentEntity;
 @Repository
 public interface TravelCommentRepository extends JpaRepository<TravelCommentEntity, Integer>{
 
-    boolean existsByCommentNumber(Integer commentNumber);
     TravelCommentEntity findByCommentNumber(Integer commentNumber);
-
     List<TravelCommentEntity> findByCommentReviewNumber(Integer commentReviewNumber);
     List<TravelCommentEntity> findByCommentWriterId(String userId);
+    boolean existsByCommentNumber(Integer commentNumber);
 
 }

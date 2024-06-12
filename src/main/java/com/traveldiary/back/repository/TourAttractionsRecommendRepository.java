@@ -10,7 +10,8 @@ import com.traveldiary.back.entity.pk.TourRecommendPk;
 
 @Repository
 public interface TourAttractionsRecommendRepository extends JpaRepository<TourAttractionsRecommendEntity, TourRecommendPk>{
-    
+
     List<TourAttractionsRecommendEntity> findByUserId(String userId);
     boolean existsByUserIdAndTourAttractionsNumber(String userId, Integer tourAttractionsNumber);
+
 }

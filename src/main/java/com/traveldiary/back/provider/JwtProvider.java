@@ -41,9 +41,11 @@ public class JwtProvider {
         }
 
         return jwt;
+
     }
 
     public String validate (String jwt) {
+
         Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
         String userId = null;
 
@@ -59,7 +61,9 @@ public class JwtProvider {
             exception.printStackTrace();
             return null;
         }
+
         return userId;
+
     }
 
 }

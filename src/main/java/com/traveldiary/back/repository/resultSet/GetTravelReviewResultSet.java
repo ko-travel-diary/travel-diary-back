@@ -1,6 +1,7 @@
 package com.traveldiary.back.repository.resultSet;
 
 public interface GetTravelReviewResultSet {
+
     Integer getReviewNumber();
     String getReviewTitle();
     String getReviewContent();
@@ -9,4 +10,5 @@ public interface GetTravelReviewResultSet {
     Integer getReviewViewCount();
     Integer getReviewFavoriteCount();
     String getImage();
+
 }
