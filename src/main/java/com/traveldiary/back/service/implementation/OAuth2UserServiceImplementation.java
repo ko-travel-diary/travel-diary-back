@@ -61,9 +61,11 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             UserEntity userEntity = new UserEntity(userId, password, userEmail, nickName, profileImage, oauthClientName, "ROLE_USER", joinDate);
 
             userRepository.save(userEntity);
+
         }
 
         return new CustomOAuth2User(userId, oAuth2User.getAttributes());
+
     }
 
     private String getId(OAuth2User oAuth2User, String oauthClientName) {
@@ -82,7 +84,9 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             String StringId = (String) oAuth2User.getAttributes().get("sub");
             id = StringId;
         }
+
         return id;
+
     }
 
     private String getNickName(OAuth2User oAuth2User, String oauthClientName) {
@@ -101,7 +105,9 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             String StringNickName = (String) oAuth2User.getAttributes().get("name");
             nickName = StringNickName;
         }
+
         return nickName;
+
     }
 
     private String getProfileImage(OAuth2User oAuth2User, String oauthClientName) {
@@ -120,7 +126,9 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
             String StringImage = (String) oAuth2User.getAttributes().get("picture");
             profileImage = StringImage;
         }
+
         return profileImage;
+        
     }
 
 }

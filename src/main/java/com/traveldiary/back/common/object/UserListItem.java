@@ -9,13 +9,13 @@ import lombok.Getter;
 
 @Getter
 public class UserListItem {
+
     private String userId;
     private String userEmail;
     private String joinDate;
     private String nickName;
 
     private UserListItem(UserEntity userEntity) {
-
         this.userId = userEntity.getUserId();
         this.userEmail = userEntity.getUserEmail();
         this.joinDate = userEntity.getJoinDate();
@@ -23,6 +23,7 @@ public class UserListItem {
     }
 
     public static List<UserListItem> getUserList(List<UserEntity> entities) {
+
         List<UserListItem> userList = new ArrayList<>();
 
         for (UserEntity userEntity : entities) {
@@ -31,5 +32,7 @@ public class UserListItem {
         }
 
         return userList;
+
     }
+
 }

@@ -20,7 +20,6 @@ public class ReviewBoardListItem {
     private Integer reviewFavoriteCount;
 
     public ReviewBoardListItem(GetTravelReviewResultSet resultSet) {
-
         this.reviewNumber = resultSet.getReviewNumber();
         this.reviewTitle = resultSet.getReviewTitle();
         this.reviewContent = resultSet.getReviewContent();
@@ -32,6 +31,7 @@ public class ReviewBoardListItem {
     }
 
     public static List<ReviewBoardListItem> getReviewList(List<GetTravelReviewResultSet> resultSets) {
+
         List<ReviewBoardListItem> reviewBoardList = new ArrayList<>();
 
         for(GetTravelReviewResultSet resultSet: resultSets) {
@@ -40,5 +40,7 @@ public class ReviewBoardListItem {
         }
 
         return reviewBoardList;
+
     }
+
 }

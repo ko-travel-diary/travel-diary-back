@@ -23,6 +23,7 @@ public class ReviewCommentListItem {
     }
 
     public static List<ReviewCommentListItem> getCommentList(List<TravelCommentEntity> travelCommentEntities) {
+
         List<ReviewCommentListItem> reviewCommentList = new ArrayList<>();
 
         for(TravelCommentEntity travelCommentEntity: travelCommentEntities) {
@@ -31,5 +32,7 @@ public class ReviewCommentListItem {
         }
 
         return reviewCommentList;
+
     }
+
 }

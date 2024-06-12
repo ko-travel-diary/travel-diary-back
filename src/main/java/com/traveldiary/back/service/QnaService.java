@@ -14,12 +14,15 @@ import com.traveldiary.back.dto.response.qna.GetSearchQnaBoardResponseDto;
 public interface QnaService {
     
     ResponseEntity<ResponseDto> postQna(PostQnaRequestDto dto, String userId);
+    ResponseEntity<ResponseDto> postQnaComment(PostQnaCommentRequestDto dto, Integer receptionNumber);
+
     ResponseEntity<? super GetQnaBoardResponseDto> getQnaList();
     ResponseEntity<? super GetSearchQnaBoardResponseDto> getSearchQnaList(String searchWord);
     ResponseEntity<? super GetQnaResponseDto> getQnaBoard(Integer receptionNumber);
-    ResponseEntity<ResponseDto> postQnaComment(PostQnaCommentRequestDto dto, Integer receptionNumber);
+
     ResponseEntity<ResponseDto> patchQna(PatchQnaRequestDto dto, Integer receptionNumber, String userId);
     ResponseEntity<ResponseDto> patchQnaComment(PatchQnaCommentRequestDto dto, Integer receptionNumber);
+    
     ResponseEntity<ResponseDto> deleteQna(Integer receptionNumber, String userId);
     ResponseEntity<ResponseDto> deleteQnaComment(Integer receptionNumber, String userId);
     

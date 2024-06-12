@@ -20,7 +20,7 @@ public class AddressController {
     private final AddressService addressService;
     
     @GetMapping("/search")
-    public JsonNode getLatLng (
+    public JsonNode getLatLng(
         @RequestParam("query") String query
     ) throws UnsupportedEncodingException {
         JsonNode response = addressService.SearchCoordinate(query);
@@ -28,7 +28,7 @@ public class AddressController {
     };
 
     @GetMapping("/query")
-    public JsonNode getAddress (
+    public JsonNode getAddress(
         @RequestParam("query") String query, Integer size, Integer page
     ) throws UnsupportedEncodingException{
         JsonNode response = addressService.SearchAddress(query, size, page);

@@ -20,7 +20,7 @@ public class ExpenditureListItem {
         this.travelScheduleExpenditure = travelScheduleExpenditureEntity.getTravelScheduleExpenditure();
     }
 
-    public static List<ExpenditureListItem> getExpenditure (List<TravelScheduleExpenditureEntity> entities) {
+    public static List<ExpenditureListItem> getExpenditure(List<TravelScheduleExpenditureEntity> entities) {
 
         List<ExpenditureListItem> expenditureList = new ArrayList<>();
 
@@ -30,6 +30,7 @@ public class ExpenditureListItem {
         }
 
         return expenditureList;
+
     }
     
 }

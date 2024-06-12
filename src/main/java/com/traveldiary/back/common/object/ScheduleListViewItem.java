@@ -15,21 +15,26 @@ public class ScheduleListViewItem {
     private String travelScheduleName;
     private Integer travelScheduleNumber;
 
-    private ScheduleListViewItem (TravelScheduleEntity travelScheduleEntity) {
+    private ScheduleListViewItem(TravelScheduleEntity travelScheduleEntity) {
+
         this.travelScheduleName = travelScheduleEntity.getTravelScheduleName();
         this.travelScheduleNumber = travelScheduleEntity.getTravelScheduleNumber();
+
     }
 
-    public static List<ScheduleListViewItem> getScheduleViewList (List<TravelScheduleEntity> entities) {
+    public static List<ScheduleListViewItem> getScheduleViewList(List<TravelScheduleEntity> entities) {
         
         List<ScheduleListViewItem> viewList = new ArrayList<>();
 
         for (TravelScheduleEntity entity: entities) {
+            
             ScheduleListViewItem scheduleListViewItem = new ScheduleListViewItem(entity);
             viewList.add(scheduleListViewItem);
+
         }
 
         return viewList;
+
     }
 
 }

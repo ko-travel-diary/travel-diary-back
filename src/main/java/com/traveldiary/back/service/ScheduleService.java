@@ -11,9 +11,12 @@ import com.traveldiary.back.dto.response.schedule.GetScheduleListResponseDto;
 public interface ScheduleService {
     
     ResponseEntity<ResponseDto> postSchedule(PostScheduleRequestDto dto, String userId);
-    ResponseEntity<ResponseDto> patchSchedule(PatchScheduleRequestDto dto, String userId, Integer number);
-    ResponseEntity<ResponseDto> deleteSchedule(String userId, Integer travelScheduleWriterId);
+
     ResponseEntity<? super GetScheduleListResponseDto> getScheduleList(String userId);
     ResponseEntity<? super GetScheduleDetailResponseDto> getScheduleDetail(String userId, Integer travelScheduleNumber);
+
+    ResponseEntity<ResponseDto> patchSchedule(PatchScheduleRequestDto dto, String userId, Integer number);
+    
+    ResponseEntity<ResponseDto> deleteSchedule(String userId, Integer travelScheduleWriterId);
 
 }

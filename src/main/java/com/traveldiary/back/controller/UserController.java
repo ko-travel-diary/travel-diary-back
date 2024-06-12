@@ -33,7 +33,7 @@ public class UserController {
     private final UserService userService;
     
     @GetMapping("/userlist")
-    public ResponseEntity<? super GetUserListResponseDto> getUserList (
+    public ResponseEntity<? super GetUserListResponseDto> getUserList(
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<? super GetUserListResponseDto> response = userService.getUserList(userId);
@@ -41,7 +41,7 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<? super GetUserInfoResponseDto> getUserInfo (
+    public ResponseEntity<? super GetUserInfoResponseDto> getUserInfo(
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<? super GetUserInfoResponseDto> response = userService.getUserInfo(userId);
@@ -66,7 +66,7 @@ public class UserController {
     }
 
     @PatchMapping("/edit")
-    public ResponseEntity<ResponseDto> patchUserInfo (
+    public ResponseEntity<ResponseDto> patchUserInfo(
         @RequestBody @Valid PatchUserInfoRequestDto requestBody,
         @AuthenticationPrincipal String userId
     ) {
@@ -75,7 +75,7 @@ public class UserController {
     }
 
     @PutMapping("/cancle-account")
-    public ResponseEntity<ResponseDto> deleteUser (
+    public ResponseEntity<ResponseDto> deleteUser(
         @RequestBody @Valid DeleteUserRequestDto requestBody,
         @AuthenticationPrincipal String userId
     ) {
@@ -84,11 +84,12 @@ public class UserController {
     }
 
     @PutMapping("/userlist/cancle-account")
-    public ResponseEntity<ResponseDto> deleteAdminUser (
+    public ResponseEntity<ResponseDto> deleteAdminUser(
         @RequestBody @Valid DeleteAdminUserRequestDto requestBody,
         @AuthenticationPrincipal String deleteToUserId
     ) {
         ResponseEntity<ResponseDto> response = userService.deleteAdminUser(requestBody, deleteToUserId);
         return response;
     }
+
 }

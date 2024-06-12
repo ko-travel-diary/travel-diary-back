@@ -33,9 +33,11 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
     @Override
     public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(Double lat, Double lng) {
-        List<GetRestaurantResultSet> resultSets;
+
+        List<GetRestaurantResultSet> resultSets = new ArrayList<>();
 
         try {
+            
             if (lat == null || lng == null)
                 resultSets = restaurantRepository.getRestaurantList();
             else
@@ -45,12 +47,15 @@ public class RestaurantServiceImplementation implements RestaurantService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
     return GetRestaurantListResponseDto.success(resultSets);
+
     }
 
     @Override
     public ResponseEntity<? super GetSearchRestaurantListResponseDto> getSearchRestaurantList(String searchWord) {
-        List<GetRestaurantResultSet> resultSets;
+
+        List<GetRestaurantResultSet> resultSets = new ArrayList<>();
 
         try {
             resultSets = restaurantRepository.getSearchRestaurantList(searchWord);
@@ -58,14 +63,16 @@ public class RestaurantServiceImplementation implements RestaurantService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
     return GetSearchRestaurantListResponseDto.success(resultSets);
+
     }
 
     @Override
     public ResponseEntity<? super GetRestaurantResponseDto> getRestaurant(Integer restaurantNumber) {
 
-        RestaurantEntity restaurantEntity;
-        List<String> restaurantImageUrl;
+        RestaurantEntity restaurantEntity = null;
+        List<String> restaurantImageUrl = new ArrayList<>();
 
         try{
 
@@ -83,17 +90,15 @@ public class RestaurantServiceImplementation implements RestaurantService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
         return GetRestaurantResponseDto.success(restaurantEntity, restaurantImageUrl);
+
     }
 
     @Override
     public ResponseEntity<ResponseDto> postRestaurant(PostRestaurantRequestDto dto, String userId) {
-        try{
 
-            UserEntity userEntity = userRepository.findByUserId(userId);
-            String userRole = userEntity.getUserRole();
-            System.out.println(userRole);
-            if(userRole.equals("ROLE_USER")) return ResponseDto.authenticationFailed();
+        try{
 
             String restaurantName = dto.getRestaurantName();
             boolean existsed = restaurantRepository.existsByRestaurantName(restaurantName);
@@ -119,26 +124,20 @@ public class RestaurantServiceImplementation implements RestaurantService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
         return ResponseDto.success();
+
     }
 
     @Override
     public ResponseEntity<ResponseDto> deleteRestaurant(Integer restaurantNumber, String userId) {
 
-        UserEntity userEntity;
-        RestaurantEntity restaurantEntity;
-        List<RestaurantImageEntity> restaurantImageEntities;
-
         try {
 
-            userEntity = userRepository.findByUserId(userId);
-            String role = userEntity.getUserRole();
-            if (role.equals("ROLE_USER")) return ResponseDto.authorizationFailed();
-
-            restaurantImageEntities = restaurantImageRepository.findByRestaurantNumber(restaurantNumber);
+            List<RestaurantImageEntity> restaurantImageEntities = restaurantImageRepository.findByRestaurantNumber(restaurantNumber);
             restaurantImageRepository.deleteAll(restaurantImageEntities);
 
-            restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
+            RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
             restaurantRepository.delete(restaurantEntity);
             
         } catch (Exception exception) {
@@ -147,25 +146,18 @@ public class RestaurantServiceImplementation implements RestaurantService{
         }
 
         return ResponseDto.success();
+        
     }
 
     @Override
     public ResponseEntity<ResponseDto> patchRestaurant(PatchRestaurantRequestDto dto, Integer restaurantNumber, String userId) {
-
-        UserEntity userEntity;
-        RestaurantEntity restaurantEntity;
-        List<RestaurantImageEntity> restaurantImageEntities;
         
         try {
 
-            userEntity = userRepository.findByUserId(userId);
-            String userRole = userEntity.getUserRole();
-            if (userRole.equals("ROLE_USER")) return ResponseDto.authorizationFailed();
-
-            restaurantImageEntities = restaurantImageRepository.findByRestaurantNumber(restaurantNumber);
+            List<RestaurantImageEntity> restaurantImageEntities = restaurantImageRepository.findByRestaurantNumber(restaurantNumber);
             restaurantImageRepository.deleteAll(restaurantImageEntities);
             
-            restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
+            RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
             if (restaurantEntity == null) return ResponseDto.noExistData();
 
             restaurantEntity.update(dto);
@@ -183,5 +175,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
         }
 
         return ResponseDto.success();
+
     }
+
 }

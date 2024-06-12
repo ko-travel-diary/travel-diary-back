@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.core.io.Resource;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 import com.traveldiary.back.service.FileService;
 
@@ -23,7 +24,7 @@ public class ImageUploadController {
     private final FileService fileService;
 
     @PostMapping("/upload")
-    public String upload (
+    public String upload(
         @RequestParam("file") MultipartFile file
     ){
         String url = fileService.postUpload(file);
@@ -31,10 +32,11 @@ public class ImageUploadController {
     }
 
     @GetMapping(value = "/file/{fileName}", produces = {MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE})
-    public Resource getFile (
+    public Resource getFile(
         @PathVariable("fileName") String fileName
     ){
         Resource resource = fileService.getFile(fileName);
         return resource;
     }
+
 }

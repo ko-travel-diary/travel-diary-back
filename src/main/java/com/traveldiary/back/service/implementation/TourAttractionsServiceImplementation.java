@@ -37,15 +37,19 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
         List<GetTourAttractionsResultSet> resultSets = null;
 
         try {
+
             if (lat == null || lng == null)
                 resultSets = tourAttractionsRepository.getTourAttractionsList();
             else
                 resultSets = tourAttractionsRepository.getTourAttractionsRangeList(lat, lng);
+                
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
     return GetTourAttractionsListResponseDto.success(resultSets);
+
     }
 
     @Override
@@ -61,13 +65,17 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
     return GetSearchTourAttractionsListResponseDto.success(resultSets);
+
     }
 
     @Override
     public ResponseEntity<? super GetTourAttractionsResponseDto> getTourAttractions(Integer tourAttractionsNumber) {
-        TourAttractionsEntity tourAttractionsEntity;
-        List<String> tourAttractionsImageUrl;
+        
+        TourAttractionsEntity tourAttractionsEntity = null;
+        List<String> tourAttractionsImageUrl = new ArrayList<>();
+
         try{
             
             tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
@@ -84,18 +92,15 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
         return GetTourAttractionsResponseDto.success(tourAttractionsEntity, tourAttractionsImageUrl);
+
     }
 
     @Override
     public ResponseEntity<ResponseDto> postTourAttractions(PostTourAttractionsRequestDto dto, String userId) {
 
         try{
-
-            UserEntity userEntity = userRepository.findByUserId(userId);
-            String userRole = userEntity.getUserRole();
-            System.out.println(userRole);
-            if(userRole.equals("ROLE_USER")) return ResponseDto.authenticationFailed();
 
             String tourAttractionsName = dto.getTourAttractionsName();
             boolean existsed = tourAttractionsRepository.existsByTourAttractionsName(tourAttractionsName);
@@ -121,26 +126,20 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
         return ResponseDto.success();
+
     }
 
     @Override
     public ResponseEntity<ResponseDto> deleteTourAttractions(Integer tourAttractionsNumber, String userId) {
-        
-        UserEntity userEntity;
-        TourAttractionsEntity tourAttractionsEntity;
-        List<TourAttractionsImageEntity> tourAttractionsImageEntities;
 
         try {
 
-            userEntity = userRepository.findByUserId(userId);
-            String role = userEntity.getUserRole();
-            if (role.equals("ROLE_USER")) return ResponseDto.authorizationFailed();
-
-            tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
+            List<TourAttractionsImageEntity> tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
             tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);
 
-            tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
+            TourAttractionsEntity tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
             tourAttractionsRepository.delete(tourAttractionsEntity);
             
         } catch (Exception exception) {
@@ -149,29 +148,19 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
         }
 
         return ResponseDto.success();
+
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchTourAttractions(PatchTourAttrcationsRequestDto dto,
-            Integer tourAttractionsNumber, String userId) {
-        
-        UserEntity userEntity;
-        TourAttractionsEntity tourAttractionsEntity;
-        List<TourAttractionsImageEntity> tourAttractionsImageEntities;
+    public ResponseEntity<ResponseDto> patchTourAttractions(PatchTourAttrcationsRequestDto dto, Integer tourAttractionsNumber, String userId) {
 
         try {
 
-            userEntity = userRepository.findByUserId(userId);
-            String userRole = userEntity.getUserRole();
-            if (userRole.equals("ROLE_USER")) return ResponseDto.authorizationFailed();
-
-            tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
+            List<TourAttractionsImageEntity> tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
             tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);
 
-            tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
+            TourAttractionsEntity tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
             if (tourAttractionsEntity == null) return ResponseDto.noExistData();
-
-            System.out.println(dto.getTourAttractionsImageUrl());
 
             tourAttractionsEntity.update(dto);
             tourAttractionsRepository.save(tourAttractionsEntity);
@@ -188,7 +177,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
         }
 
     return ResponseDto.success();
-    }
 
+    }
 
 }

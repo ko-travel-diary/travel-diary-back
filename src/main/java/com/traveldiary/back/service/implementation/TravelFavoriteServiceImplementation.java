@@ -23,7 +23,7 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
     private final TravelFavoriteRepository travelFavoriteRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> patchTravelFavorite(int reviewNumber, String userId) {
+    public ResponseEntity<ResponseDto> patchTravelFavorite(Integer reviewNumber, String userId) {
         
         try {
 
@@ -54,12 +54,13 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
         }
 
         return ResponseDto.success();
+
     }
 
-    
     @Override
     public ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> getFavoriteStatus(Integer reviewNumber, String userId) {
-        boolean existsFavorite;
+
+        boolean existsFavorite = false;
         
         try {
 
@@ -74,6 +75,7 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
         }
 
         return GetTravelReviewFavoriteStatusResponseDto.success(existsFavorite);
+
     }
     
 }

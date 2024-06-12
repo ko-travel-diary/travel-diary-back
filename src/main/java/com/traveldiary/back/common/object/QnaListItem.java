@@ -17,18 +17,17 @@ public class QnaListItem {
     private String qnaDatetime;
     private Boolean qnaStatus;
     
-    public QnaListItem (QnaEntity entity) {
-
+    public QnaListItem(QnaEntity entity) {
         this.receptionNumber = entity.getReceptionNumber();
         this.qnaTitle = entity.getQnaTitle();
         this.qnaContent = entity.getQnaContent();
         this.qnaWriterId = entity.getQnaWriterId();
         this.qnaDatetime = entity.getQnaDatetime();
         this.qnaStatus = entity.getQnaStatus();
-
     }
 
-    public static List<QnaListItem> getQnaList (List<QnaEntity> entities) {
+    public static List<QnaListItem> getQnaList(List<QnaEntity> entities) {
+
         List<QnaListItem> qnaList = new ArrayList<>();
 
         for (QnaEntity qnaEntity: entities) {
@@ -37,5 +36,7 @@ public class QnaListItem {
         }
 
         return qnaList;
+
     }
+
 }

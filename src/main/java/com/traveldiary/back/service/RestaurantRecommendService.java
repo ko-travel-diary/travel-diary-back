@@ -7,6 +7,8 @@ import com.traveldiary.back.dto.response.restaurant.GetRestaurantRecommendStatus
 
 public interface RestaurantRecommendService {
 
-    ResponseEntity<ResponseDto> patchRestRecommend(int restaurantNumber, String userId);
-    ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> getRestRecommendStatus (Integer restaurantNumber, String userId);
+    ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> getRestRecommendStatus(Integer restaurantNumber, String userId);
+
+    ResponseEntity<ResponseDto> patchRestRecommend(Integer restaurantNumber, String userId);
+
 }

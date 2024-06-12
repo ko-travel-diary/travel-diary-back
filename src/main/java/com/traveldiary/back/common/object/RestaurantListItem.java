@@ -13,6 +13,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class RestaurantListItem {
+
     private Integer restaurantNumber;
     private String restaurantImageUrl;
     private String restaurantName;
@@ -26,7 +27,7 @@ public class RestaurantListItem {
     private Double restaurantLng;
     private Integer restaurantRecommendCount;
 
-    private RestaurantListItem (GetRestaurantResultSet resultSet) {
+    private RestaurantListItem(GetRestaurantResultSet resultSet) {
         this.restaurantNumber = resultSet.getRestaurantNumber();
         this.restaurantImageUrl = resultSet.getImage();
         this.restaurantName = resultSet.getRestaurantName();
@@ -41,12 +42,19 @@ public class RestaurantListItem {
         this.restaurantRecommendCount = resultSet.getRestaurantRecommendCount();
     }
 
-    public static List<RestaurantListItem> getRestaurantList (List<GetRestaurantResultSet> resultSets) {
+    public static List<RestaurantListItem> getRestaurantList(List<GetRestaurantResultSet> resultSets) {
+
         List<RestaurantListItem> restaurantList = new ArrayList<>();
+
         for(GetRestaurantResultSet resultSet : resultSets){
+
             RestaurantListItem tRestaurantListItem = new RestaurantListItem(resultSet);
             restaurantList.add(tRestaurantListItem);
+
         }
+
         return restaurantList;
+
     }
+
 }

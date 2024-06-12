@@ -10,10 +10,15 @@ import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetSearchRestaurantListResponseDto;
 
 public interface RestaurantService {
-    ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList (Double lat, Double lng);
+
+    ResponseEntity<ResponseDto> postRestaurant(PostRestaurantRequestDto dto, String userId);
+
+    ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(Double lat, Double lng);
     ResponseEntity<? super GetSearchRestaurantListResponseDto> getSearchRestaurantList (String searchWord);
-    ResponseEntity<? super GetRestaurantResponseDto> getRestaurant (Integer restaurantNumber);
-    ResponseEntity<ResponseDto> postRestaurant (PostRestaurantRequestDto dto, String userId);
-    ResponseEntity<ResponseDto> deleteRestaurant (Integer restaurantNumber, String userId);
-    ResponseEntity<ResponseDto> patchRestaurant (PatchRestaurantRequestDto dto, Integer restaurantNumber, String userId);
+    ResponseEntity<? super GetRestaurantResponseDto> getRestaurant(Integer restaurantNumber);
+
+    ResponseEntity<ResponseDto> patchRestaurant(PatchRestaurantRequestDto dto, Integer restaurantNumber, String userId);
+
+    ResponseEntity<ResponseDto> deleteRestaurant(Integer restaurantNumber, String userId);
+
 }

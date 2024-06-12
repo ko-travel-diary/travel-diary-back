@@ -1,5 +1,6 @@
 package com.traveldiary.back.service.implementation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class TravelCommentServiceImplementation implements TravelCommentService{
     private final TravelCommentRepository travelCommentRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> postTravelComment(PostTravelCommentRequestDto dto, int reviewNumber, String userId) {
+    public ResponseEntity<ResponseDto> postTravelComment(PostTravelCommentRequestDto dto, Integer reviewNumber, String userId) {
         
         try {
 
@@ -52,11 +53,11 @@ public class TravelCommentServiceImplementation implements TravelCommentService{
         }
 
         return ResponseDto.success();
+
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchTravelComment(PatchTravelCommentRequestDto dto, int commentNumber, int reviewNumber,
-            String userId) {
+    public ResponseEntity<ResponseDto> patchTravelComment(PatchTravelCommentRequestDto dto, Integer commentNumber, Integer reviewNumber, String userId) {
         
         try {
 
@@ -78,10 +79,11 @@ public class TravelCommentServiceImplementation implements TravelCommentService{
         }
 
         return ResponseDto.success();
+
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteTravelComment(int commentNumber, int reviewNumber, String userId) {
+    public ResponseEntity<ResponseDto> deleteTravelComment(Integer commentNumber, Integer reviewNumber, String userId) {
         
         try {
 
@@ -103,20 +105,26 @@ public class TravelCommentServiceImplementation implements TravelCommentService{
         }
 
         return ResponseDto.success();
+        
     }
 
     @Override
-    public ResponseEntity<? super GetTravelReviewCommentListResponseDto> getTravelCommentList(int reviewNumber) {
+    public ResponseEntity<? super GetTravelReviewCommentListResponseDto> getTravelCommentList(Integer reviewNumber) {
+
+        List<TravelCommentEntity> travelCommentEntities = new ArrayList<>();
         
         try {
         
-            List<TravelCommentEntity> travelCommentEntities = travelCommentRepository.findByCommentReviewNumber(reviewNumber);
+            travelCommentEntities = travelCommentRepository.findByCommentReviewNumber(reviewNumber);
             if(travelCommentEntities == null) return ResponseDto.noExistBoard();
 
-            return GetTravelReviewCommentListResponseDto.success(travelCommentEntities);
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
+        return GetTravelReviewCommentListResponseDto.success(travelCommentEntities);
+
     }
+
 }        

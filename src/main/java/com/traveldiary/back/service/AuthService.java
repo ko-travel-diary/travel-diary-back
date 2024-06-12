@@ -12,10 +12,12 @@ import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.auth.SignInResponseDto;
 
 public interface AuthService {
-    ResponseEntity<? super SignInResponseDto> signIn (SignInRequestDto dto);
-    ResponseEntity<ResponseDto> idCheck (IdCheckRequestDto dto);
-    ResponseEntity<ResponseDto> nickNameCheck (NickNameCheckRequestDto dto);
-    ResponseEntity<ResponseDto> eamilAuth (EmailAuthRequestDto dto);
-    ResponseEntity<ResponseDto> eamilAuthCheck (EmailAuthCheckRequestDto dto);
+
     ResponseEntity<ResponseDto> signUp(SignUpRequestDto dto);
+    ResponseEntity<? super SignInResponseDto> signIn(SignInRequestDto dto);
+    ResponseEntity<ResponseDto> idCheck(IdCheckRequestDto dto);
+    ResponseEntity<ResponseDto> nickNameCheck(NickNameCheckRequestDto dto);
+    ResponseEntity<ResponseDto> eamilAuth(EmailAuthRequestDto dto);
+    ResponseEntity<ResponseDto> eamilAuthCheck(EmailAuthCheckRequestDto dto);
+
 }

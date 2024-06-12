@@ -33,8 +33,17 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
     private final RestaurantRecommendService restaurantRecommendService;
 
+    @PostMapping("/addRestaurant")
+    public ResponseEntity<ResponseDto> postRestaurant(
+        @RequestBody @Valid PostRestaurantRequestDto responseBody,
+        @AuthenticationPrincipal String userId
+    ){
+        ResponseEntity<ResponseDto> response = restaurantService.postRestaurant(responseBody, userId);
+        return response;
+    }
+
     @GetMapping("/restlist")
-    public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList (
+    public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(
         @RequestParam(name="lat", required=false) Double lat,
         @RequestParam(name="lng", required=false) Double lng
     ) {
@@ -43,7 +52,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/restlist/search")
-    public ResponseEntity<? super GetSearchRestaurantListResponseDto> getSearchRestaurantList (
+    public ResponseEntity<? super GetSearchRestaurantListResponseDto> getSearchRestaurantList(
         @RequestParam ("searchWord") String searchWord
     ){
         ResponseEntity<? super GetSearchRestaurantListResponseDto> response = restaurantService.getSearchRestaurantList(searchWord);
@@ -51,38 +60,10 @@ public class RestaurantController {
     }
 
     @GetMapping("/restlist/{restaurantNumber}")
-    public ResponseEntity<? super GetRestaurantResponseDto> getRestaurant (
+    public ResponseEntity<? super GetRestaurantResponseDto> getRestaurant(
         @PathVariable ("restaurantNumber") Integer restaurantNumber
     ) {
         ResponseEntity<? super GetRestaurantResponseDto> response = restaurantService.getRestaurant(restaurantNumber);
-        return response;
-    }
-
-    @PostMapping("/addRestaurant")
-    public ResponseEntity<ResponseDto> postRestaurant (
-        @RequestBody @Valid PostRestaurantRequestDto responseBody,
-        @AuthenticationPrincipal String userId
-    ){
-        ResponseEntity<ResponseDto> response = restaurantService.postRestaurant(responseBody, userId);
-        return response;
-    }
-
-    @DeleteMapping("/restlist/{restaurantNumber}")
-    public ResponseEntity<ResponseDto> deleteRestaurant (
-        @PathVariable ("restaurantNumber") Integer restaurantNumber,
-        @AuthenticationPrincipal String userId
-    ) {
-        ResponseEntity<ResponseDto> response = restaurantService.deleteRestaurant(restaurantNumber, userId);
-        return response;
-    }
-
-    @PatchMapping("/restlist/{restaurantNumber}")
-    public ResponseEntity<ResponseDto> patchRestaurant (
-        @RequestBody @Valid PatchRestaurantRequestDto requestBody,
-        @PathVariable ("restaurantNumber") Integer restaurantNumber,
-        @AuthenticationPrincipal String userId
-    ) {
-        ResponseEntity<ResponseDto> response = restaurantService.patchRestaurant(requestBody, restaurantNumber, userId);
         return response;
     }
 
@@ -95,12 +76,32 @@ public class RestaurantController {
         return response;
     }
 
+    @PatchMapping("/restlist/{restaurantNumber}")
+    public ResponseEntity<ResponseDto> patchRestaurant(
+        @RequestBody @Valid PatchRestaurantRequestDto requestBody,
+        @PathVariable ("restaurantNumber") Integer restaurantNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = restaurantService.patchRestaurant(requestBody, restaurantNumber, userId);
+        return response;
+    }
+
     @PatchMapping("/{restaurantNumber}/recommend")
-    public ResponseEntity<ResponseDto> patchRestRecommend (
+    public ResponseEntity<ResponseDto> patchRestRecommend(
         @PathVariable("restaurantNumber") int restaurantNumber,
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<ResponseDto> response = restaurantRecommendService.patchRestRecommend(restaurantNumber, userId);
         return response;
     }
+
+    @DeleteMapping("/restlist/{restaurantNumber}")
+    public ResponseEntity<ResponseDto> deleteRestaurant(
+        @PathVariable ("restaurantNumber") Integer restaurantNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = restaurantService.deleteRestaurant(restaurantNumber, userId);
+        return response;
+    }
+
 }

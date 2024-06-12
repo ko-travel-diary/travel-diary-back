@@ -9,9 +9,12 @@ import com.traveldiary.back.dto.response.review.GetTravelReviewCommentListRespon
 
 public interface TravelCommentService {
     
-    ResponseEntity<ResponseDto> postTravelComment(PostTravelCommentRequestDto dto, int reviewNumber, String userId);
-    ResponseEntity<ResponseDto> patchTravelComment(PatchTravelCommentRequestDto dto, int commentNumber, int reviewNumber, String userId);
-    ResponseEntity<ResponseDto> deleteTravelComment(int commentNumber, int reviewNumber, String userId);
-    ResponseEntity<? super GetTravelReviewCommentListResponseDto> getTravelCommentList(int reviewNumber);
+    ResponseEntity<ResponseDto> postTravelComment(PostTravelCommentRequestDto dto, Integer reviewNumber, String userId);
+    
+    ResponseEntity<? super GetTravelReviewCommentListResponseDto> getTravelCommentList(Integer reviewNumber);
+
+    ResponseEntity<ResponseDto> patchTravelComment(PatchTravelCommentRequestDto dto, Integer commentNumber, Integer reviewNumber, String userId);
+
+    ResponseEntity<ResponseDto> deleteTravelComment(Integer commentNumber, Integer reviewNumber, String userId);
     
 }
