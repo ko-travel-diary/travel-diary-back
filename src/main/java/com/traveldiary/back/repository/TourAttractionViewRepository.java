@@ -15,8 +15,8 @@ public interface TourAttractionViewRepository extends JpaRepository<TourAttracti
 
     @Query(
         value=
-        "SELECT * " +
-        "FROM travel_diary.tour_attraction_view",
+            "SELECT * " +
+            "FROM travel_diary.tour_attraction_view",
         nativeQuery=true
     )
     List<GetTourAttractionsResultSet> getTourAttractionsList();
@@ -24,21 +24,21 @@ public interface TourAttractionViewRepository extends JpaRepository<TourAttracti
     
     @Query(
         value=
-        "SELECT * " +
-        "FROM travel_diary.tour_attraction_view " +
-        "WHERE t.tour_attractions_name LIKE %:searchWord%",
+            "SELECT * " +
+            "FROM travel_diary.tour_attraction_view " +
+            "WHERE t.tour_attractions_name LIKE %:searchWord%",
         nativeQuery=true
     )
     List<GetTourAttractionsResultSet> getSearchTourAttractionsList(String searchWord);
 
     @Query(
         value=
-        "SELECT * " +
-        "FROM travel_diary.tour_attraction_view " +
-        "WHERE t.tour_attractions_lat >= (:lat - 0.03) " +
-            "AND t.tour_attractions_lat <= (:lat + 0.03) " +
-            "AND t.tour_attractions_lng >= (:lng - 0.07) " +
-            "AND t.tour_attractions_lng <= (:lng + 0.07) ",
+            "SELECT * " +
+            "FROM travel_diary.tour_attraction_view " +
+            "WHERE t.tour_attractions_lat >= (:lat - 0.03) " +
+                "AND t.tour_attractions_lat <= (:lat + 0.03) " +
+                "AND t.tour_attractions_lng >= (:lng - 0.07) " +
+                "AND t.tour_attractions_lng <= (:lng + 0.07) ",
         nativeQuery=true
     )
     List<GetTourAttractionsResultSet> getTourAttractionsRangeList(
