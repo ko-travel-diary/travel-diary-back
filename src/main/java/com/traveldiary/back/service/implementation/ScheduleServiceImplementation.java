@@ -15,7 +15,6 @@ import com.traveldiary.back.dto.response.schedule.GetScheduleListResponseDto;
 import com.traveldiary.back.entity.ScheduleEntity;
 import com.traveldiary.back.entity.TravelScheduleEntity;
 import com.traveldiary.back.entity.TravelScheduleExpenditureEntity;
-import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.ScheduleRepository;
 import com.traveldiary.back.repository.TravelScheduleRepository;
 import com.traveldiary.back.repository.TravelScheduleExpenditureRepository;
