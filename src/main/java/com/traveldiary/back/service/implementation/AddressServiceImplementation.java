@@ -20,7 +20,7 @@ public class AddressServiceImplementation implements AddressService{
     @Value("${kakao.rest-api-key}") private String restKey;
 
     @Override
-    public JsonNode  SearchAddress(String query) throws UnsupportedEncodingException{
+    public JsonNode  SearchCoordinate(String query) throws UnsupportedEncodingException{
 
     String url = "http://dapi.kakao.com/v2/local/search/address.json?query=";
     String key = "KakaoAK " + restKey;
@@ -55,5 +55,40 @@ public class AddressServiceImplementation implements AddressService{
             exception.printStackTrace();
             return null;                                                                                                                                         
         }
-    } 
-}
+    }
+
+
+    @Override
+    public JsonNode SearchAddress(String query, Integer size, Integer page) {
+
+        String url = "http://dapi.kakao.com/v2/local/search/keyword.json?query=";
+        String key = "KakaoAK " + restKey;
+        String encode;
+
+        URL searchUrl;
+        
+        try {
+
+            encode = URLEncoder.encode(query, "UTF-8"); 
+            searchUrl = new URL(url + encode + "&size=" + size + "&page=" + page);
+            
+            HttpURLConnection con = (HttpURLConnection)searchUrl.openConnection();
+
+            con.setRequestMethod("GET");
+            con.setRequestProperty("Authorization", key);
+            con.setRequestProperty("content-type", "application/json");
+
+            InputStream inputStream = con.getInputStream();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode response = objectMapper.readTree(inputStream);
+
+            return response;
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return null;
+        }
+        
+    }
+
+} 
+

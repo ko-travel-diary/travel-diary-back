@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public interface AddressService {
 
-    JsonNode SearchAddress (String query) throws UnsupportedEncodingException;
+    JsonNode SearchCoordinate (String query) throws UnsupportedEncodingException;
+    JsonNode SearchAddress (String query, Integer page, Integer size) throws UnsupportedEncodingException;
 
 }
