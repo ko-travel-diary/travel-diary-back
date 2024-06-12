@@ -12,6 +12,5 @@ public class PostUserNickNameRequestDto {
 
     @NotNull
     private String userId;
-    private String writerId;
 
 }
