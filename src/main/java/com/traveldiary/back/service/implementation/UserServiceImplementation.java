@@ -225,29 +225,29 @@ public class UserServiceImplementation implements UserService{
             boolean isMatchedUserPassword = passwordEncoder.matches(userPassword, encodedPassword);
             if(!isMatchedUserPassword) return ResponseDto.authenticationFailed();
 
-            // 댓글 및 답글 삭제
+            // 관광지 좋아요 삭제
             tourAttractionsRecommendEntities = tourAttractionsRecommendRepository.findByUserId(userId);
             tourAttractionsRecommendRepository.deleteAll(tourAttractionsRecommendEntities);
 
-            // 관광지 좋아요 삭제
+            // 식당 좋아요 삭제
             restaurantRecommendEntities = restaurantRecommendRepository.findByUserId(userId);
             restaurantRecommendRepository.deleteAll(restaurantRecommendEntities);
-
-            // 식당 좋아요 삭제
-            travelCommentEntities = travelCommentRepository.findByCommentWriterId(userId);
-            travelCommentRepository.deleteAll(travelCommentEntities);
             
             // QnA 삭제
             qnaEntities = qnaRepository.findByQnaWriterId(userId);
             qnaRepository.deleteAll(qnaEntities);
             
-            // Review 삭제
+            // Review 및 관련 테이블 삭제
             travelFavoriteEntities = travelFavoriteRepository.findByUserId(userId);
             travelFavoriteRepository.deleteAll(travelFavoriteEntities);
 
             travelReviewEntities = travelReviewRepository.findByReviewWriterId(userId);
             for (TravelReviewEntity travelReviewEntity : travelReviewEntities) {
+                // Review Comment 삭제
                 reviewNumber = travelReviewEntity.getReviewNumber();
+                travelCommentEntities = travelCommentRepository.findByCommentReviewNumber(reviewNumber);
+                travelCommentRepository.deleteAll(travelCommentEntities);
+                // Review Image 삭제
                 travelReviewImageEntities = travelReviewImageRepository.findByTravelReviewNumber(reviewNumber);
                 travelReviewImageRepository.deleteAll(travelReviewImageEntities);
             }
@@ -307,7 +307,6 @@ public class UserServiceImplementation implements UserService{
         String email;
         String deleteUserId;
 
-
         try {
 
             adminEntity = userRepository.findByUserId(userId);
@@ -318,18 +317,14 @@ public class UserServiceImplementation implements UserService{
             userEntity = userRepository.findByUserId(deleteUserId);
             if(userEntity == null) return ResponseDto.noExistUser();
 
-            // 댓글 및 답글 삭제
+            // 관광지 좋아요 삭제
             tourAttractionsRecommendEntities = tourAttractionsRecommendRepository.findByUserId(deleteUserId);
             tourAttractionsRecommendRepository.deleteAll(tourAttractionsRecommendEntities);
 
-            // 관광지 좋아요 삭제
+            // 식당 좋아요 삭제
             restaurantRecommendEntities = restaurantRecommendRepository.findByUserId(deleteUserId);
             restaurantRecommendRepository.deleteAll(restaurantRecommendEntities);
 
-            // 식당 좋아요 삭제
-            travelCommentEntities = travelCommentRepository.findByCommentWriterId(deleteUserId);
-            travelCommentRepository.deleteAll(travelCommentEntities);
-            
             // QnA 삭제
             qnaEntities = qnaRepository.findByQnaWriterId(deleteUserId);
             qnaRepository.deleteAll(qnaEntities);
@@ -338,9 +333,14 @@ public class UserServiceImplementation implements UserService{
             travelFavoriteEntities = travelFavoriteRepository.findByUserId(deleteUserId);
             travelFavoriteRepository.deleteAll(travelFavoriteEntities);
 
-            travelReviewEntities = travelReviewRepository.findByReviewWriterId(deleteUserId);
+            // Review 삭제
+            travelReviewEntities = travelReviewRepository.findByReviewWriterId(userId);
             for (TravelReviewEntity travelReviewEntity : travelReviewEntities) {
+                // Review Comment 삭제
                 reviewNumber = travelReviewEntity.getReviewNumber();
+                travelCommentEntities = travelCommentRepository.findByCommentReviewNumber(reviewNumber);
+                travelCommentRepository.deleteAll(travelCommentEntities);
+                // Review Image 삭제
                 travelReviewImageEntities = travelReviewImageRepository.findByTravelReviewNumber(reviewNumber);
                 travelReviewImageRepository.deleteAll(travelReviewImageEntities);
             }
