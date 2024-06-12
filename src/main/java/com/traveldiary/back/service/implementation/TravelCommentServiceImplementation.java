@@ -57,6 +57,25 @@ public class TravelCommentServiceImplementation implements TravelCommentService{
     }
 
     @Override
+    public ResponseEntity<? super GetTravelReviewCommentListResponseDto> getTravelCommentList(Integer reviewNumber) {
+
+        List<TravelCommentEntity> travelCommentEntities = new ArrayList<>();
+        
+        try {
+        
+            travelCommentEntities = travelCommentRepository.findByCommentReviewNumber(reviewNumber);
+            if(travelCommentEntities == null) return ResponseDto.noExistBoard();
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetTravelReviewCommentListResponseDto.success(travelCommentEntities);
+
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> patchTravelComment(PatchTravelCommentRequestDto dto, Integer commentNumber, Integer reviewNumber, String userId) {
         
         try {
@@ -106,25 +125,6 @@ public class TravelCommentServiceImplementation implements TravelCommentService{
 
         return ResponseDto.success();
         
-    }
-
-    @Override
-    public ResponseEntity<? super GetTravelReviewCommentListResponseDto> getTravelCommentList(Integer reviewNumber) {
-
-        List<TravelCommentEntity> travelCommentEntities = new ArrayList<>();
-        
-        try {
-        
-            travelCommentEntities = travelCommentRepository.findByCommentReviewNumber(reviewNumber);
-            if(travelCommentEntities == null) return ResponseDto.noExistBoard();
-
-        } catch(Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return GetTravelReviewCommentListResponseDto.success(travelCommentEntities);
-
     }
 
 }        

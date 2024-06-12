@@ -39,6 +39,36 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     private final TravelFavoriteRepository travelFavoriteRepository;
 
     @Override
+    public ResponseEntity<? super PostTravelReviewResponseDto> postTravelReview(PostTravelReviewRequestDto dto, String userId) {
+
+        Integer travelReviewNumber = null;
+
+        try {
+
+            boolean isExistUser = userRepository.existsByUserId(userId);
+            if(!isExistUser) return ResponseDto.authenticationFailed();
+            
+            TravelReviewEntity travelReviewEntity = new TravelReviewEntity(dto, userId);
+            travelReviewRepository.save(travelReviewEntity);
+            
+            travelReviewNumber = travelReviewEntity.getReviewNumber();
+
+            List<String> images = dto.getTravelReviewImageUrl();
+            for(String image: images) {
+                TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(travelReviewNumber, image);
+                travelReviewImageRepository.save(imageEntity);
+            }
+            
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return PostTravelReviewResponseDto.success(travelReviewNumber);
+
+    }
+
+    @Override
     public ResponseEntity<? super GetTravelReviewBoardResponseDto> getReviewBoardList() {
 
         List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
@@ -180,36 +210,6 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
         return GetTravelReviewSearchResponseDto.success(resultSets);
         
-    }
-
-    @Override
-    public ResponseEntity<? super PostTravelReviewResponseDto> postTravelReview(PostTravelReviewRequestDto dto, String userId) {
-
-        Integer travelReviewNumber = null;
-
-        try {
-
-            boolean isExistUser = userRepository.existsByUserId(userId);
-            if(!isExistUser) return ResponseDto.authenticationFailed();
-            
-            TravelReviewEntity travelReviewEntity = new TravelReviewEntity(dto, userId);
-            travelReviewRepository.save(travelReviewEntity);
-            
-            travelReviewNumber = travelReviewEntity.getReviewNumber();
-
-            List<String> images = dto.getTravelReviewImageUrl();
-            for(String image: images) {
-                TravelReviewImageEntity imageEntity = new TravelReviewImageEntity(travelReviewNumber, image);
-                travelReviewImageRepository.save(imageEntity);
-            }
-            
-        } catch(Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return PostTravelReviewResponseDto.success(travelReviewNumber);
-
     }
 
     @Override
