@@ -18,7 +18,7 @@ public class GetTourAttractionsListResponseDto extends ResponseDto {
 
     private List<TourAttractionsListItem> tourAttractionsListItem;
 
-    private GetTourAttractionsListResponseDto (List<GetTourAttractionsResultSet> resultSets) {
+    private GetTourAttractionsListResponseDto(List<GetTourAttractionsResultSet> resultSets) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.tourAttractionsListItem = TourAttractionsListItem.getTourAttractionsList(resultSets);
     };
@@ -27,4 +27,5 @@ public class GetTourAttractionsListResponseDto extends ResponseDto {
         GetTourAttractionsListResponseDto responseBody = new GetTourAttractionsListResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+
 }

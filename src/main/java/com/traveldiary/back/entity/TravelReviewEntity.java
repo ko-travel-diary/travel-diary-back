@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+import com.traveldiary.back.common.util.ChangeDateFormatUtil;
 import com.traveldiary.back.dto.request.review.PatchTravelReviewRequestDto;
 import com.traveldiary.back.dto.request.review.PostTravelReviewRequestDto;
 
@@ -24,9 +25,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TravelReviewEntity {
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer reviewNumber;
+
     private String reviewTitle;
     private String reviewContent;
     private String reviewDatetime;
@@ -35,15 +38,13 @@ public class TravelReviewEntity {
     private Integer reviewViewCount;
     private Integer travelScheduleNumber;
 
-    public TravelReviewEntity(PostTravelReviewRequestDto dto, String userId) {
+    public TravelReviewEntity(PostTravelReviewRequestDto dto, String userId) throws Exception {
 
-        Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
-        String writeDatetime = simpleDateFormat.format(now);
+        String dateTime = ChangeDateFormatUtil.nowDate();
 
         this.reviewTitle = dto.getReviewTitle();
         this.reviewContent = dto.getReviewContent();
-        this.reviewDatetime = writeDatetime;
+        this.reviewDatetime = dateTime;
         this.reviewWriterId = userId;
         this.reviewFavoriteCount = 0;
         this.reviewViewCount = 0;
@@ -57,15 +58,15 @@ public class TravelReviewEntity {
     }
 
     public void increaseFavoriteCount() {
-        this.reviewFavoriteCount += 1;
+        this.reviewFavoriteCount++;
     }
 
     public void decreaseFavoriteCount() {
-        this.reviewFavoriteCount -= 1;
+        this.reviewFavoriteCount--;
     }
 
     public void increaseViewCount() {
         this.reviewViewCount++;
     }
-}
 
+}

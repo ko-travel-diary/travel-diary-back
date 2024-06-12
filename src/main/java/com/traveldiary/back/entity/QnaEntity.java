@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+import com.traveldiary.back.common.util.ChangeDateFormatUtil;
 import com.traveldiary.back.dto.request.qna.PatchQnaCommentRequestDto;
 import com.traveldiary.back.dto.request.qna.PatchQnaRequestDto;
 import com.traveldiary.back.dto.request.qna.PostQnaRequestDto;
@@ -29,6 +30,7 @@ public class QnaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer receptionNumber;
+
     private String qnaTitle;
     private String qnaContent;
     private String qnaDatetime;
@@ -36,10 +38,9 @@ public class QnaEntity {
     private String qnaWriterId;
     private String qnaComment;
 
-    public QnaEntity (PostQnaRequestDto dto, String userId) {
-        Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd");
-        String dateTime = simpleDateFormat.format(now);
+    public QnaEntity(PostQnaRequestDto dto, String userId) throws Exception {
+
+        String dateTime = ChangeDateFormatUtil.nowDate();
 
         this.qnaTitle = dto.getQnaTitle();
         this.qnaContent = dto.getQnaContent();
@@ -48,12 +49,12 @@ public class QnaEntity {
         this.qnaWriterId = userId;
     }
 
-    public void update (PatchQnaRequestDto dto) {
+    public void update(PatchQnaRequestDto dto) {
         this.qnaTitle = dto.getQnaTitle();
         this.qnaContent = dto.getQnaContent();
     }
 
-    public void updateComment (PatchQnaCommentRequestDto dto) {
+    public void updateComment(PatchQnaCommentRequestDto dto) {
         this.qnaComment = dto.getQnaComment();
     }
 

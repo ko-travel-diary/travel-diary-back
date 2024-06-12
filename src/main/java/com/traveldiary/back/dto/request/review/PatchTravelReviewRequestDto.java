@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 게시물 수정 Request Body Dto
 @Getter
 @Setter
 @NoArgsConstructor
@@ -15,8 +14,10 @@ public class PatchTravelReviewRequestDto {
     
     @NotBlank
     private String reviewTitle;
+
     @NotBlank
     private String reviewContent;
-    private List<String> travelReviewImageUrl;
+
     private Integer travelScheduleNumber;
+    private List<String> travelReviewImageUrl;
 }

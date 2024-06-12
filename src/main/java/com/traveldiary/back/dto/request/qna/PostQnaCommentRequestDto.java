@@ -14,4 +14,3 @@ public class PostQnaCommentRequestDto {
     private String qnaComment;
 
 }
-    

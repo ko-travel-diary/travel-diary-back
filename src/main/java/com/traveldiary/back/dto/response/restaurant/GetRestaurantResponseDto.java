@@ -13,7 +13,8 @@ import com.traveldiary.back.entity.RestaurantEntity;
 import lombok.Getter;
 
 @Getter
-public class GetRestaurantResponseDto extends ResponseDto{
+public class GetRestaurantResponseDto extends ResponseDto {
+
     private List<String> restaurantImageUrl;
     private String restaurantName;
     private String restaurantLocation;
@@ -24,9 +25,9 @@ public class GetRestaurantResponseDto extends ResponseDto{
     private String restaurantServiceMenu;
     private double restaurantLat;
     private double restaurantLng;
-    private int restaurantRecommendCount;
+    private Integer restaurantRecommendCount;
 
-    private GetRestaurantResponseDto (RestaurantEntity restaurantEntity, List<String> restaurantImageUrl){
+    private GetRestaurantResponseDto(RestaurantEntity restaurantEntity, List<String> restaurantImageUrl) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.restaurantImageUrl = restaurantImageUrl;
         this.restaurantName = restaurantEntity.getRestaurantName();
@@ -41,8 +42,9 @@ public class GetRestaurantResponseDto extends ResponseDto{
         this.restaurantRecommendCount = restaurantEntity.getRestaurantRecommendCount();
     }
 
-    public static ResponseEntity<GetRestaurantResponseDto> success (RestaurantEntity restaurantEntity, List<String> restaurantImageUrl) {
+    public static ResponseEntity<GetRestaurantResponseDto> success(RestaurantEntity restaurantEntity, List<String> restaurantImageUrl) {
         GetRestaurantResponseDto responseBody = new GetRestaurantResponseDto(restaurantEntity, restaurantImageUrl);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+
 }

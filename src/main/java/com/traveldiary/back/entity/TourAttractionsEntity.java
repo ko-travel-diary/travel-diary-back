@@ -22,24 +22,32 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TourAttractionsEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tourAttractionsNumber;
+
     @NotBlank
     private String tourAttractionsName;
-    private String tourAttractionsOutline;
+
     @NotBlank
     private String tourAttractionsLocation;
-    private String tourAttractionsTelNumber;
-    private String tourAttractionsHours;
+
     @NotNull
     private Integer tourAttractionsRecommendCount;
+
     @NotNull
     private double tourAttractionsLat;
+
     @NotNull
     private double tourAttractionsLng;
+    
+    private String tourAttractionsTelNumber;
+    private String tourAttractionsHours;
+    private String tourAttractionsOutline;
 
-    public TourAttractionsEntity (PostTourAttractionsRequestDto dto){
+
+    public TourAttractionsEntity(PostTourAttractionsRequestDto dto) {
         this.tourAttractionsName = dto.getTourAttractionsName();
         this.tourAttractionsOutline = dto.getTourAttractionsOutline();
         this.tourAttractionsLocation = dto.getTourAttractionsLocation();
@@ -50,7 +58,7 @@ public class TourAttractionsEntity {
         this.tourAttractionsRecommendCount = 0;
     }
 
-    public void update (PatchTourAttrcationsRequestDto dto) {
+    public void update(PatchTourAttrcationsRequestDto dto) {
         this.tourAttractionsName = dto.getTourAttractionsName();
         this.tourAttractionsOutline = dto.getTourAttractionsOutline();
         this.tourAttractionsLocation = dto.getTourAttractionsLocation();
@@ -61,10 +69,11 @@ public class TourAttractionsEntity {
     }
 
     public void increaseRecommendCount() {
-        this.tourAttractionsRecommendCount += 1;
+        this.tourAttractionsRecommendCount++;
     }
 
     public void decreaseRecommendCount() {
-        this.tourAttractionsRecommendCount -= 1;
+        this.tourAttractionsRecommendCount--;
     }
+
 }

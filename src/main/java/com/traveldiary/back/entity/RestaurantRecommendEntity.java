@@ -19,8 +19,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @IdClass(RestRecommendPk.class)
 public class RestaurantRecommendEntity {
+
     @Id
     private Integer restaurantNumber;
+
     @Id
     private String userId;
+
 }

@@ -14,10 +14,11 @@ import com.traveldiary.back.repository.resultSet.GetTourAttractionsResultSet;
 import lombok.Getter;
 
 @Getter
-public class GetSearchTourAttractionsListResponseDto extends ResponseDto{
-        private List<TourAttractionsListItem> tourAttractionsListItem;
+public class GetSearchTourAttractionsListResponseDto extends ResponseDto {
 
-    private GetSearchTourAttractionsListResponseDto (List<GetTourAttractionsResultSet> resultSets) {
+    private List<TourAttractionsListItem> tourAttractionsListItem;
+
+    private GetSearchTourAttractionsListResponseDto(List<GetTourAttractionsResultSet> resultSets) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.tourAttractionsListItem = TourAttractionsListItem.getTourAttractionsList(resultSets);
     };
@@ -26,4 +27,5 @@ public class GetSearchTourAttractionsListResponseDto extends ResponseDto{
         GetSearchTourAttractionsListResponseDto responseBody = new GetSearchTourAttractionsListResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+
 }

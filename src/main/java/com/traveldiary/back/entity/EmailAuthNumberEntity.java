@@ -15,7 +15,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmailAuthNumberEntity {
+
     @Id
     private String email;
+
     private String authNumber;
+
 }

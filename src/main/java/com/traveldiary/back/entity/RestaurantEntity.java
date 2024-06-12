@@ -22,27 +22,35 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RestaurantEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer restaurantNumber;
+
     @NotBlank
     private String restaurantName;
-    private String restaurantOutline;
+
     @NotBlank
     private String restaurantLocation;
-    private String restaurantTelNumber;
-    private String restaurantHours;
+    
     @NotBlank
     private String restaurantMainMenu;
-    private String restaurantServiceMenu;
+
     @NotNull
     private Integer restaurantRecommendCount;
+
     @NotNull
     private double restaurantLat;
+
     @NotNull
     private double restaurantLng;
 
-    public RestaurantEntity (PostRestaurantRequestDto dto){
+    private String restaurantTelNumber;
+    private String restaurantHours;
+    private String restaurantServiceMenu;
+    private String restaurantOutline;
+    
+    public RestaurantEntity(PostRestaurantRequestDto dto) {
         this.restaurantName = dto.getRestaurantName();
         this.restaurantOutline = dto.getRestaurantOutline();
         this.restaurantLocation = dto.getRestaurantLocation();
@@ -55,7 +63,7 @@ public class RestaurantEntity {
         this.restaurantLng = dto.getRestaurantLng();
     }
 
-    public void update (PatchRestaurantRequestDto dto) {
+    public void update(PatchRestaurantRequestDto dto) {
         this.restaurantName = dto.getRestaurantName();
         this.restaurantOutline = dto.getRestaurantOutline();
         this.restaurantLocation = dto.getRestaurantLocation();
@@ -68,10 +76,11 @@ public class RestaurantEntity {
     }
 
     public void increaseRecommendCount() {
-        this.restaurantRecommendCount += 1;
+        this.restaurantRecommendCount++;
     }
 
     public void decreaseRecommendCount() {
-        this.restaurantRecommendCount -= 1;
+        this.restaurantRecommendCount--;
     }
+    
 }

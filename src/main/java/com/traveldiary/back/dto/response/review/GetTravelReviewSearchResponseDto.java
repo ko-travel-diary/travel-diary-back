@@ -13,9 +13,8 @@ import com.traveldiary.back.repository.resultSet.GetTravelReviewResultSet;
 
 import lombok.Getter;
 
-// 검색 리스트 불러오기 Response Body Dto
 @Getter
-public class GetTravelReviewSearchResponseDto extends ResponseDto{
+public class GetTravelReviewSearchResponseDto extends ResponseDto {
 
     private List<ReviewBoardListItem> reviewSearchList;
 

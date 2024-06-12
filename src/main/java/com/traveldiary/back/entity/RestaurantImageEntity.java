@@ -18,16 +18,20 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RestaurantImageEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer restaurantImageNumber;
+
     @NotNull
     private Integer restaurantNumber;
+
     @NotNull
     private String restaurantImageUrl;
 
-    public RestaurantImageEntity (Integer restaurantNumber, String restaurantImageUrl){
+    public RestaurantImageEntity(Integer restaurantNumber, String restaurantImageUrl) {
         this.restaurantNumber = restaurantNumber;
         this.restaurantImageUrl = restaurantImageUrl;
     }
+
 }

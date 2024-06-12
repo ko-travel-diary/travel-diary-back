@@ -19,8 +19,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @IdClass(TourRecommendPk.class)
 public class TourAttractionsRecommendEntity {
+
     @Id
     private Integer tourAttractionsNumber;
+
     @Id
     private String userId;
+
 }

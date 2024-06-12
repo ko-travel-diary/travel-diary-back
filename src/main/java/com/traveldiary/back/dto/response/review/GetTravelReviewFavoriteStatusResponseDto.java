@@ -10,11 +10,11 @@ import com.traveldiary.back.dto.response.ResponseMessage;
 import lombok.Getter;
 
 @Getter
-public class GetTravelReviewFavoriteStatusResponseDto extends ResponseDto{
+public class GetTravelReviewFavoriteStatusResponseDto extends ResponseDto {
 
     private boolean favoriteStatus;
 
-    private GetTravelReviewFavoriteStatusResponseDto (boolean favoriteStatus){
+    private GetTravelReviewFavoriteStatusResponseDto(boolean favoriteStatus) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.favoriteStatus = favoriteStatus;
     }

@@ -5,13 +5,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// 로그인 Request Body Dto
 @Getter
 @Setter
 @NoArgsConstructor
 public class SignInRequestDto {
+
     @NotBlank
     private String userId;
+
     @NotBlank
     private String userPassword;
+    
 }

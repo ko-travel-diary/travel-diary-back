@@ -9,6 +9,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PostUserNickNameRequestDto {
+
     @NotNull
     private String userId;
+    private String writerId;
+
 }

@@ -19,9 +19,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TravelScheduleExpenditureEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer travelScheduleExpenditureNumber;
+
     private String travelScheduleExpenditureDetail;
     private Integer travelScheduleExpenditure;
     private Integer travelScheduleNumber;

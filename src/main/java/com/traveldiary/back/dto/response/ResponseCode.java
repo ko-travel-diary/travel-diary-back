@@ -1,7 +1,7 @@
 package com.traveldiary.back.dto.response;
 
-// Response의 공통된 code 값
 public interface ResponseCode {
+
     String SUCCESS = "SU";
     String VARIDATION_FAILED = "VF";
     String DUPLICATED_ID = "DI";
@@ -21,4 +21,5 @@ public interface ResponseCode {
     String TOKEN_CREATION_FAILED = "TF";
     String MAIL_SEND_FAILED = "MF";
     String DATABASE_ERROR = "DBE";
+
 }

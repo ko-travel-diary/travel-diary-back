@@ -28,5 +28,4 @@ public class GetSearchQnaBoardResponseDto extends ResponseDto {
         return ResponseEntity.status(HttpStatus.OK).body(responsebody);
     }
 
-
 }

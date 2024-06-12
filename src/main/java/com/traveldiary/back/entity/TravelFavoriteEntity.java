@@ -20,10 +20,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @IdClass(FavoritePk.class)
 public class TravelFavoriteEntity {
+
     @Id
     private String userId;
+
     @Id
     private Integer reviewNumber;
+    
 }
-
-

@@ -12,6 +12,7 @@ public class PostQnaRequestDto{
 
     @NotBlank
     private String qnaTitle;
+    
     @NotBlank
     private String qnaContent;
 

@@ -2,6 +2,7 @@ package com.traveldiary.back.dto.request.restaurant;
 
 import java.util.List;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,14 +11,26 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PostRestaurantRequestDto {
-    private List<String> restaurantImageUrl;
+
+    @NotNull
     private String restaurantName;
+
+    @NotNull
     private String restaurantLocation;
+
+    @NotNull
+    private String restaurantMainMenu;
+
+    @NotNull
+    private Double restaurantLat;
+    
+    @NotNull
+    private Double restaurantLng;
+    
     private String restaurantTelNumber;
     private String restaurantHours;
-    private String restaurantOutline;
-    private String restaurantMainMenu;
     private String restaurantServiceMenu;
-    private Double restaurantLat;
-    private Double restaurantLng;
+    private String restaurantOutline;
+    private List<String> restaurantImageUrl;
+
 }

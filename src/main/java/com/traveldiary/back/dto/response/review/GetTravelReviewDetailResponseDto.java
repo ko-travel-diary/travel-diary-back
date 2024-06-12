@@ -14,9 +14,8 @@ import com.traveldiary.back.entity.TravelReviewEntity;
 
 import lombok.Getter;
 
-// 게시물 상세보기 Response Body Dto
 @Getter
-public class GetTravelReviewDetailResponseDto extends ResponseDto{
+public class GetTravelReviewDetailResponseDto extends ResponseDto {
 
     private Integer reviewNumber;
     private String reviewTitle;

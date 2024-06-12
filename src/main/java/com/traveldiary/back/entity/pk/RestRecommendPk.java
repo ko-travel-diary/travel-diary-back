@@ -13,8 +13,11 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RestRecommendPk implements Serializable {
+
     @Column(name = "user_id")
     private String userId;
+
     @Column(name = "restaurant_number")
     private Integer restaurantNumber;
+
 }

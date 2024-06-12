@@ -14,7 +14,7 @@ import com.traveldiary.back.entity.QnaEntity;
 import lombok.Getter;
 
 @Getter
-public class GetQnaBoardResponseDto extends ResponseDto{
+public class GetQnaBoardResponseDto extends ResponseDto {
 
     private List<QnaListItem> qnaList;
 
@@ -23,8 +23,9 @@ public class GetQnaBoardResponseDto extends ResponseDto{
         this.qnaList = QnaListItem.getQnaList(qnaEntities);
     }
     
-    public static ResponseEntity<GetQnaBoardResponseDto> success (List<QnaEntity> qnaEntities) {
+    public static ResponseEntity<GetQnaBoardResponseDto> success(List<QnaEntity> qnaEntities) {
         GetQnaBoardResponseDto reponseBody = new GetQnaBoardResponseDto(qnaEntities);
         return ResponseEntity.status(HttpStatus.OK).body(reponseBody);
     }
+
 }
