@@ -17,7 +17,7 @@ import com.traveldiary.back.entity.TravelScheduleExpenditureEntity;
 import lombok.Getter;
 
 @Getter
-public class GetScheduleDetailResponseDto extends ResponseDto{
+public class GetScheduleDetailResponseDto extends ResponseDto {
     
     private String travelScheduleName;
     private Integer travelSchedulePeople;
@@ -34,8 +34,9 @@ public class GetScheduleDetailResponseDto extends ResponseDto{
         this.scheduleList = ScheduleListItem.getSchedule(scheduleEntities);
     }
 
-    public static ResponseEntity<GetScheduleDetailResponseDto> success (TravelScheduleEntity entity, List<TravelScheduleExpenditureEntity> expendEntities, List<ScheduleEntity> scheduleEntities) {
+    public static ResponseEntity<GetScheduleDetailResponseDto> success(TravelScheduleEntity entity, List<TravelScheduleExpenditureEntity> expendEntities, List<ScheduleEntity> scheduleEntities) {
         GetScheduleDetailResponseDto response = new GetScheduleDetailResponseDto(entity, expendEntities, scheduleEntities);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
 }

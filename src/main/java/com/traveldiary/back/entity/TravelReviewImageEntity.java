@@ -18,15 +18,19 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TravelReviewImageEntity {
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer travelReviewImageNumber;
+
     @NotNull
     private Integer travelReviewNumber;
+
     private String travelReviewImageUrl;
 
     public TravelReviewImageEntity(Integer travelReviewNumber, String travelReviewImageUrl) {
         this.travelReviewNumber = travelReviewNumber;
         this.travelReviewImageUrl = travelReviewImageUrl;
     }
+
 }

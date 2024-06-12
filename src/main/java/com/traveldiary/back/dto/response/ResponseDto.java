@@ -6,104 +6,104 @@ import org.springframework.http.ResponseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-// Response의 공통 형태
 @Getter
 @AllArgsConstructor
 public class ResponseDto {
+
     private String code;
     private String message;
 
-    public static ResponseEntity<ResponseDto> success () {
+    public static ResponseEntity<ResponseDto> success() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> validationFailed () {
+    public static ResponseEntity<ResponseDto> validationFailed() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.VARIDATION_FAILED, ResponseMessage.VARIDATION_FAILED);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     }
 
-    public static ResponseEntity<ResponseDto> duplicatedEmail () {
+    public static ResponseEntity<ResponseDto> duplicatedEmail() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_EMAIL, ResponseMessage.DUPLICATED_EMAIL);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> duplicatedNickName () {
+    public static ResponseEntity<ResponseDto> duplicatedNickName() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_NICK_NAME, ResponseMessage.DUPLICATED_NICK_NAME);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> duplicatedTourAttractions () {
+    public static ResponseEntity<ResponseDto> duplicatedTourAttractions() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_TOUR_ATTRACTIONS, ResponseMessage.DUPLICATED_TOUR_ATTRACTIONS);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> duplicatedRestaurant () {
+    public static ResponseEntity<ResponseDto> duplicatedRestaurant() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_RESTAURANT, ResponseMessage.DUPLICATED_RESTAURANT);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> noExistBoard () {
+    public static ResponseEntity<ResponseDto> noExistBoard() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_BOARD, ResponseMessage.NO_EXIST_BOARD);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> noExistData () {
+    public static ResponseEntity<ResponseDto> noExistData() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_DATA, ResponseMessage.NO_EXIST_DATA);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> noExistComment () {
+    public static ResponseEntity<ResponseDto> noExistComment() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_COMMENT, ResponseMessage.NO_EXIST_COMMENT);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> noExistUser () {
+    public static ResponseEntity<ResponseDto> noExistUser() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NO_EXIST_USER, ResponseMessage.NO_EXIST_USER);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> writtenComment () {
+    public static ResponseEntity<ResponseDto> writtenComment() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.WRITTEN_COMMENT, ResponseMessage.WRITTEN_COMMENT);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> duplicatedId () {
+    public static ResponseEntity<ResponseDto> duplicatedId() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.DUPLICATED_ID, ResponseMessage.DUPLICATED_ID);
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> signInFailed () {
+    public static ResponseEntity<ResponseDto> signInFailed() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.SIGN_IN_FAILED, ResponseMessage.SIGN_IN_FAILED);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> authenticationFailed () {
+    public static ResponseEntity<ResponseDto> authenticationFailed() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.AUTHENTICATION_FAILED, ResponseMessage.AUTHENTICATION_FAILED);
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> authorizationFailed () {
+    public static ResponseEntity<ResponseDto> authorizationFailed() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.AUTHORIZATION_FAILED, ResponseMessage.AUTHORIZATION_FAILED);
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> notFound () {
+    public static ResponseEntity<ResponseDto> notFound() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.NOT_FOUND, ResponseMessage.NOT_FOUND);
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> TokenCreationFailed () {
+    public static ResponseEntity<ResponseDto> TokenCreationFailed() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.TOKEN_CREATION_FAILED, ResponseMessage.TOKEN_CREATION_FAILED);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> mailSendFailed () {
+    public static ResponseEntity<ResponseDto> mailSendFailed() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.MAIL_SEND_FAILED, ResponseMessage.MAIL_SEND_FAILED);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseBody);
     };
 
-    public static ResponseEntity<ResponseDto> databaseError () {
+    public static ResponseEntity<ResponseDto> databaseError() {
         ResponseDto responseBody = new ResponseDto(ResponseCode.DATABASE_ERROR, ResponseMessage.DATABASE_ERROR);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(responseBody);
     };

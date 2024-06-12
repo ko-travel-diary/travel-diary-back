@@ -13,7 +13,8 @@ import com.traveldiary.back.entity.TourAttractionsEntity;
 import lombok.Getter;
 
 @Getter
-public class GetTourAttractionsResponseDto extends ResponseDto{
+public class GetTourAttractionsResponseDto extends ResponseDto {
+
     private List<String> tourAttractionsImageUrl;
     private String tourAttractionsName;
     private String tourAttractionsLocation;
@@ -22,9 +23,9 @@ public class GetTourAttractionsResponseDto extends ResponseDto{
     private String tourAttractionsOutline;
     private double tourAttractionsLat;
     private double tourAttractionsLng;
-    private int tourAttractionsRecommendCount;
+    private Integer tourAttractionsRecommendCount;
 
-    private GetTourAttractionsResponseDto (TourAttractionsEntity tourAttractionsEntity, List<String> tourAttractionsImageUrl){
+    private GetTourAttractionsResponseDto(TourAttractionsEntity tourAttractionsEntity, List<String> tourAttractionsImageUrl) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.tourAttractionsImageUrl = tourAttractionsImageUrl;
         this.tourAttractionsName = tourAttractionsEntity.getTourAttractionsName();
@@ -37,8 +38,9 @@ public class GetTourAttractionsResponseDto extends ResponseDto{
         this.tourAttractionsRecommendCount = tourAttractionsEntity.getTourAttractionsRecommendCount();
     }
 
-    public static ResponseEntity<GetTourAttractionsResponseDto> success (TourAttractionsEntity tourAttractionsEntity, List<String> tourAttractionsImageUrl) {
+    public static ResponseEntity<GetTourAttractionsResponseDto> success(TourAttractionsEntity tourAttractionsEntity, List<String> tourAttractionsImageUrl) {
         GetTourAttractionsResponseDto responseBody = new GetTourAttractionsResponseDto(tourAttractionsEntity, tourAttractionsImageUrl);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+
 }

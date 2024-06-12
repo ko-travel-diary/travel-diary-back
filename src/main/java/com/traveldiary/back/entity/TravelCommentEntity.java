@@ -20,9 +20,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TravelCommentEntity {
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer commentNumber;
+
     private String commentContent;
     private String commentWriterId;
     private Integer commentReviewNumber;
@@ -45,4 +47,5 @@ public class TravelCommentEntity {
     public void update(PatchTravelCommentRequestDto dto) {
         this.commentContent = dto.getCommentContent();
     }
+
 }

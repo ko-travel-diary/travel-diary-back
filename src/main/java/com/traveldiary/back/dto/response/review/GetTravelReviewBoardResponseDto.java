@@ -13,9 +13,8 @@ import com.traveldiary.back.repository.resultSet.GetTravelReviewResultSet;
 
 import lombok.Getter;
 
-// 게시물 리스트보기 Response Body Dto
 @Getter
-public class GetTravelReviewBoardResponseDto extends ResponseDto{
+public class GetTravelReviewBoardResponseDto extends ResponseDto {
 
     private List<ReviewBoardListItem> reviewBoardList;
 
@@ -29,6 +28,4 @@ public class GetTravelReviewBoardResponseDto extends ResponseDto{
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
 
-
-    
 }

@@ -14,16 +14,18 @@ import com.traveldiary.back.repository.resultSet.GetRestaurantResultSet;
 import lombok.Getter;
 
 @Getter
-public class GetSearchRestaurantListResponseDto extends ResponseDto{
-        private List<RestaurantListItem> restaurantListItem;
+public class GetSearchRestaurantListResponseDto extends ResponseDto {
 
-    private GetSearchRestaurantListResponseDto (List<GetRestaurantResultSet> resultSets){
+    private List<RestaurantListItem> restaurantListItem;
+
+    private GetSearchRestaurantListResponseDto(List<GetRestaurantResultSet> resultSets) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.restaurantListItem = RestaurantListItem.getRestaurantList(resultSets);
     }
 
-    public static ResponseEntity<GetSearchRestaurantListResponseDto> success (List<GetRestaurantResultSet> resultSets) {
+    public static ResponseEntity<GetSearchRestaurantListResponseDto> success(List<GetRestaurantResultSet> resultSets) {
         GetSearchRestaurantListResponseDto responseBody = new GetSearchRestaurantListResponseDto(resultSets);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+
 }

@@ -11,10 +11,10 @@ import com.traveldiary.back.entity.QnaEntity;
 import lombok.Getter;
 
 @Getter
-public class GetQnaResponseDto extends ResponseDto{
+public class GetQnaResponseDto extends ResponseDto {
 
     private Integer receptionNumber;
-    private Boolean qnaStatus;
+    private boolean qnaStatus;
     private String qnaTitle;
     private String qnaContent;
     private String qnaWriterId;
@@ -32,8 +32,9 @@ public class GetQnaResponseDto extends ResponseDto{
         this.qnaComment = qnaEntity.getQnaComment();
     }
 
-    public static ResponseEntity<GetQnaResponseDto> success (QnaEntity qnaEntity) {
+    public static ResponseEntity<GetQnaResponseDto> success(QnaEntity qnaEntity) {
         GetQnaResponseDto responseBody = new GetQnaResponseDto(qnaEntity);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+
 }

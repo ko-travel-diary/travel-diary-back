@@ -19,9 +19,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ScheduleEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer scheduleNumber;
+
     private String scheduleDate;
     private String scheduleContent;
     private String scheduleStartTime;
@@ -35,4 +37,5 @@ public class ScheduleEntity {
         this.scheduleEndTime = item.getScheduleEndTime();
         this.travelScheduleNumber = travelScheduleNumber;
     }
+
 }

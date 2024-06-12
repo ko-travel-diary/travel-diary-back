@@ -9,6 +9,8 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class DeleteUserRequestDto {
+
     @NotBlank
     private String userPassword;
+
 }

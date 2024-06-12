@@ -12,9 +12,12 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TourRecommendPk implements Serializable{
+public class TourRecommendPk implements Serializable {
+
     @Column(name = "tour_attractions_number")
     private Integer tourAttractionsNumber;
+
     @Column(name = "user_id")
     private String userId;
+
 }

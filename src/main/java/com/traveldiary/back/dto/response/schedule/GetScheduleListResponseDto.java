@@ -23,7 +23,7 @@ public class GetScheduleListResponseDto extends ResponseDto {
         this.scheduleListViewItems = ScheduleListViewItem.getScheduleViewList(travelScheduleEntities);
     }
 
-    public static ResponseEntity<GetScheduleListResponseDto> success (List<TravelScheduleEntity> travelScheduleEntities) {
+    public static ResponseEntity<GetScheduleListResponseDto> success(List<TravelScheduleEntity> travelScheduleEntities) {
         GetScheduleListResponseDto reponseBody = new GetScheduleListResponseDto(travelScheduleEntities);
         return ResponseEntity.status(HttpStatus.OK).body(reponseBody);
     }

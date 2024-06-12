@@ -11,15 +11,17 @@ import lombok.Getter;
 
 @Getter
 public class GetTourAttractionsRecommendResponseDto extends ResponseDto {
+
     private boolean tourRecommendStatus;
 
-    private GetTourAttractionsRecommendResponseDto (boolean tourRecommendStatus){
+    private GetTourAttractionsRecommendResponseDto(boolean tourRecommendStatus) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
         this.tourRecommendStatus = tourRecommendStatus;
     }
 
-    public static ResponseEntity<GetTourAttractionsRecommendResponseDto> success (boolean tourRecommendStatus) {
+    public static ResponseEntity<GetTourAttractionsRecommendResponseDto> success(boolean tourRecommendStatus) {
         GetTourAttractionsRecommendResponseDto responseBody = new GetTourAttractionsRecommendResponseDto(tourRecommendStatus);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+
 }

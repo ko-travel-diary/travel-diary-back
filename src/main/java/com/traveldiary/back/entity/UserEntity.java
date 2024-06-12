@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 
+import com.traveldiary.back.common.util.ChangeDateFormatUtil;
 import com.traveldiary.back.dto.request.auth.SignUpRequestDto;
 import com.traveldiary.back.dto.request.user.PatchUserInfoRequestDto;
 
@@ -22,8 +23,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserEntity {
+
     @Id
     private String userId;
+
     private String userPassword;
     private String userEmail;
     private String nickName;
@@ -32,10 +35,9 @@ public class UserEntity {
     private String userRole;
     private String joinDate;
 
-    public UserEntity(SignUpRequestDto dto) {
-        Date now = Date.from(Instant.now());
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
-        String dateTime = simpleDateFormat.format(now);
+    public UserEntity(SignUpRequestDto dto) throws Exception {
+
+        String dateTime = ChangeDateFormatUtil.nowDate();
 
         this.userId = dto.getUserId();
         this.userPassword = dto.getUserPassword();
@@ -51,4 +53,5 @@ public class UserEntity {
         this.nickName = dto.getNickName();
         this.profileImage = dto.getProfileImage();
     }
+
 }

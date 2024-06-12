@@ -2,6 +2,7 @@ package com.traveldiary.back.dto.request.tourAttractions;
 
 import java.util.List;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,12 +11,22 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class PostTourAttractionsRequestDto {
-    private List<String> tourAttractionsImageUrl;
+
+    @NotNull
     private String tourAttractionsName;
+
+    @NotNull
     private String tourAttractionsLocation;
+
+    @NotNull
+    private Double tourAttractionsLat;
+
+    @NotNull
+    private Double tourAttractionsLng;
+
     private String tourAttractionsTelNumber;
     private String tourAttractionsHours;
     private String tourAttractionsOutline;
-    private Double tourAttractionsLat;
-    private Double tourAttractionsLng;
+    private List<String> tourAttractionsImageUrl;
+
 }

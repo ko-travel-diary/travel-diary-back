@@ -10,7 +10,8 @@ import com.traveldiary.back.dto.response.ResponseMessage;
 import lombok.Getter;
 
 @Getter
-public class PostTravelReviewResponseDto extends ResponseDto{
+public class PostTravelReviewResponseDto extends ResponseDto {
+
     private Integer reviewNumber;
 
     public PostTravelReviewResponseDto(Integer reviewNumber) {
@@ -22,4 +23,5 @@ public class PostTravelReviewResponseDto extends ResponseDto{
         PostTravelReviewResponseDto responseBody = new PostTravelReviewResponseDto(reviewNumber);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
+
 }

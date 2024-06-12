@@ -13,9 +13,8 @@ import com.traveldiary.back.entity.TravelCommentEntity;
 
 import lombok.Getter;
 
-// 게시물의 댓글 리스트 보기 Response Body Dto
 @Getter
-public class GetTravelReviewCommentListResponseDto extends ResponseDto{
+public class GetTravelReviewCommentListResponseDto extends ResponseDto {
 
     private List<ReviewCommentListItem> reviewCommentList;
 
