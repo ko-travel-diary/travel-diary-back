@@ -23,6 +23,27 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
     private final TravelFavoriteRepository travelFavoriteRepository;
 
     @Override
+    public ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> getFavoriteStatus(Integer reviewNumber, String userId) {
+
+        boolean existsFavorite = false;
+        
+        try {
+
+            if(reviewNumber == null) return ResponseDto.noExistBoard();
+            if(userId == null) return ResponseDto.authenticationFailed();
+            
+            existsFavorite = travelFavoriteRepository.existsByUserIdAndReviewNumber(userId, reviewNumber);
+
+        } catch(Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetTravelReviewFavoriteStatusResponseDto.success(existsFavorite);
+
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> patchTravelFavorite(Integer reviewNumber, String userId) {
         
         try {
@@ -57,25 +78,4 @@ public class TravelFavoriteServiceImplementation implements TravelFavoriteServic
 
     }
 
-    @Override
-    public ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> getFavoriteStatus(Integer reviewNumber, String userId) {
-
-        boolean existsFavorite = false;
-        
-        try {
-
-            if(reviewNumber == null) return ResponseDto.noExistBoard();
-            if(userId == null) return ResponseDto.authenticationFailed();
-            
-            existsFavorite = travelFavoriteRepository.existsByUserIdAndReviewNumber(userId, reviewNumber);
-
-        } catch(Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return GetTravelReviewFavoriteStatusResponseDto.success(existsFavorite);
-
-    }
-    
 }
