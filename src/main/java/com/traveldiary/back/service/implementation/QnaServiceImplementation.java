@@ -3,6 +3,7 @@ package com.traveldiary.back.service.implementation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.traveldiary.back.dto.request.qna.PatchQnaCommentRequestDto;
@@ -30,20 +31,13 @@ public class QnaServiceImplementation implements QnaService{
 
     @Override
     public ResponseEntity<ResponseDto> postQna(PostQnaRequestDto dto, String userId) {
-
-        UserEntity userEntity;
-        QnaEntity qnaEntity;
         
         try {
-
-            userEntity = userRepository.findByUserId(userId);
-            String role = userEntity.getUserRole();
-            if (role == "ROLE_ADMIN") return ResponseDto.authorizationFailed();
 
             boolean ifExists = userRepository.existsById(userId);
             if (!ifExists) return ResponseDto.authenticationFailed();
 
-            qnaEntity = new QnaEntity(dto, userId);
+            QnaEntity qnaEntity = new QnaEntity(dto, userId);
             qnaRepository.save(qnaEntity);
             
 
@@ -53,12 +47,13 @@ public class QnaServiceImplementation implements QnaService{
         }
 
         return ResponseDto.success();
+
     }
 
     @Override
     public ResponseEntity<? super GetQnaBoardResponseDto> getQnaList() {
         
-        List<QnaEntity> qnaEntities;
+        List<QnaEntity> qnaEntities = new ArrayList<>();
 
         try {
             
@@ -70,12 +65,13 @@ public class QnaServiceImplementation implements QnaService{
         }
 
     return GetQnaBoardResponseDto.success(qnaEntities);
+
     }
 
     @Override
     public ResponseEntity<? super GetSearchQnaBoardResponseDto> getSearchQnaList(String searchWord) {
 
-        List<QnaEntity> qnaEntities;
+        List<QnaEntity> qnaEntities = new ArrayList<>();
 
         try {
 
@@ -87,12 +83,13 @@ public class QnaServiceImplementation implements QnaService{
         }
 
         return GetSearchQnaBoardResponseDto.success(qnaEntities);
+
     }
 
     @Override
     public ResponseEntity<? super GetQnaResponseDto> getQnaBoard(Integer receptionNumber) {
 
-        QnaEntity qnaEntity;
+        QnaEntity qnaEntity = null;
 
         try {
             
@@ -105,16 +102,15 @@ public class QnaServiceImplementation implements QnaService{
         }
 
         return GetQnaResponseDto.success(qnaEntity);
+
     }
 
     @Override
     public ResponseEntity<ResponseDto> postQnaComment(PostQnaCommentRequestDto dto, Integer receptionNumber) {
-    
-        QnaEntity qnaEntity;
 
         try {
 
-            qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
             boolean status = qnaEntity.getQnaStatus();
@@ -132,16 +128,15 @@ public class QnaServiceImplementation implements QnaService{
         }
 
         return ResponseDto.success();
+
     }
 
     @Override
     public ResponseEntity<ResponseDto> patchQna(PatchQnaRequestDto dto, Integer receptionNumber, String userId) {
         
-        QnaEntity qnaEntity;
-
         try {
 
-            qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
             String writerId = qnaEntity.getQnaWriterId();
@@ -165,12 +160,10 @@ public class QnaServiceImplementation implements QnaService{
 
     @Override
     public ResponseEntity<ResponseDto> deleteQna(Integer receptionNumber, String userId) {
-        
-        QnaEntity qnaEntity;
 
         try {
 
-            qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
             String writerId = qnaEntity.getQnaWriterId();
@@ -190,11 +183,9 @@ public class QnaServiceImplementation implements QnaService{
     @Override
     public ResponseEntity<ResponseDto> patchQnaComment(PatchQnaCommentRequestDto dto, Integer receptionNumber) {
         
-        QnaEntity qnaEntity;
-
         try {
             
-            qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
 
             boolean status = qnaEntity.getQnaStatus();
@@ -215,16 +206,12 @@ public class QnaServiceImplementation implements QnaService{
     @Override
     public ResponseEntity<ResponseDto> deleteQnaComment(Integer receptionNumber, String userId) {
         
-        QnaEntity qnaEntity;
+        QnaEntity qnaEntity = null;
 
         try {
 
             qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if (qnaEntity == null) return ResponseDto.noExistBoard();
-
-            UserEntity userEntity = userRepository.findByUserId(userId);
-            String role = userEntity.getUserRole();
-            if (role == "ROLE_USER") return ResponseDto.authenticationFailed();
 
             qnaEntity.setQnaStatus(false);
             qnaEntity.setQnaComment(null);

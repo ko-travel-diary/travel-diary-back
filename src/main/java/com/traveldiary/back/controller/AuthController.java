@@ -25,9 +25,17 @@ import lombok.RequiredArgsConstructor;
 public class AuthController {
 
     private final AuthService authService;
+
+    @PostMapping("/sign-up")
+    public ResponseEntity<ResponseDto> signUp(
+        @RequestBody @Valid SignUpRequestDto requestBody
+    ) {
+        ResponseEntity<ResponseDto> response = authService.signUp(requestBody);
+        return response;
+    }
     
     @PostMapping("/sign-in")
-    public ResponseEntity<? super SignInResponseDto> signIn (
+    public ResponseEntity<? super SignInResponseDto> signIn(
         @RequestBody @Valid SignInRequestDto requestBody
     ) {
         ResponseEntity<? super SignInResponseDto> response = authService.signIn(requestBody);
@@ -35,7 +43,7 @@ public class AuthController {
     }
 
     @PostMapping("/id-check")
-    public ResponseEntity<ResponseDto> idcheck (
+    public ResponseEntity<ResponseDto> idcheck(
         @RequestBody @Valid IdCheckRequestDto requestBody
     ) {
         ResponseEntity<ResponseDto> response = authService.idCheck(requestBody);
@@ -43,7 +51,7 @@ public class AuthController {
     }
 
     @PostMapping("/nickname-check")
-    public ResponseEntity<ResponseDto> nickNameCheck (
+    public ResponseEntity<ResponseDto> nickNameCheck(
         @RequestBody @Valid NickNameCheckRequestDto requestBody
     ) {
         ResponseEntity<ResponseDto> response = authService.nickNameCheck(requestBody);
@@ -51,7 +59,7 @@ public class AuthController {
     }
 
     @PostMapping("/email-auth")
-    public ResponseEntity<ResponseDto> emailAuth (
+    public ResponseEntity<ResponseDto> emailAuth(
         @RequestBody @Valid EmailAuthRequestDto requestBody
     ) {
         ResponseEntity<ResponseDto> response = authService.eamilAuth(requestBody);
@@ -59,18 +67,11 @@ public class AuthController {
     }
 
     @PostMapping("/email-auth-check")
-    public ResponseEntity<ResponseDto> emailAuthCheck (
+    public ResponseEntity<ResponseDto> emailAuthCheck(
         @RequestBody @Valid EmailAuthCheckRequestDto requestBody
     ) {
         ResponseEntity<ResponseDto> response = authService.eamilAuthCheck(requestBody);
         return response;
     }
 
-    @PostMapping("/sign-up")
-    public ResponseEntity<ResponseDto> signUp (
-        @RequestBody @Valid SignUpRequestDto requestBody
-    ) {
-        ResponseEntity<ResponseDto> response = authService.signUp(requestBody);
-        return response;
-    }
 }

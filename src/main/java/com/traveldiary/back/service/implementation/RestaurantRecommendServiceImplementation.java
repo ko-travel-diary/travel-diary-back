@@ -23,7 +23,8 @@ public class RestaurantRecommendServiceImplementation implements RestaurantRecom
     private final RestaurantRecommendRepository restaurantRecommendRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> patchRestRecommend(int restaurantNumber, String userId) {
+    public ResponseEntity<ResponseDto> patchRestRecommend(Integer restaurantNumber, String userId) {
+
         try{
 
             RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
@@ -57,7 +58,9 @@ public class RestaurantRecommendServiceImplementation implements RestaurantRecom
 
     @Override
     public ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> getRestRecommendStatus(Integer restaurantNumber, String userId) {
-        boolean existsRecommend;
+
+        boolean existsRecommend = false;
+
         try{
 
             if(restaurantNumber == null) return ResponseDto.noExistBoard();
@@ -71,5 +74,7 @@ public class RestaurantRecommendServiceImplementation implements RestaurantRecom
         }
 
         return GetRestaurantRecommendStatusResponseDto.success(existsRecommend);
+
     }
+
 }

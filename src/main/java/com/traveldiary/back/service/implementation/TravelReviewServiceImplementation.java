@@ -38,22 +38,27 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
     @Override
     public ResponseEntity<? super GetTravelReviewBoardResponseDto> getReviewBoardList() {
+
+        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
         
         try {
 
-            List<GetTravelReviewResultSet> resultSets = travelReviewRepository.getReviewBoardList();
-            return GetTravelReviewBoardResponseDto.success(resultSets);
-
+            resultSets = travelReviewRepository.getReviewBoardList();
 
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
+        return GetTravelReviewBoardResponseDto.success(resultSets);
+
     }
 
     @Override
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewTitleAndContentSearchList(String searchWord) {
-        List<GetTravelReviewResultSet> resultSets;
+        
+        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
+
         try {
         
             resultSets = travelReviewRepository.getReivewTitleOrReviewContent(searchWord);
@@ -64,11 +69,14 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
         }
         
         return GetTravelReviewSearchResponseDto.success(resultSets);
+
     }
 
     @Override
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriterSearchList(String searchWord) {
-        List<GetTravelReviewResultSet> resultSets;
+
+        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
+
         try {
         
             resultSets = travelReviewRepository.getReviewWriter(searchWord);
@@ -79,11 +87,14 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
         }
         
         return GetTravelReviewSearchResponseDto.success(resultSets);
+
     }
 
     @Override
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriteDateSearchList(String searchWord) {
-        List<GetTravelReviewResultSet> resultSets;
+
+        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
+
         try {
         
             resultSets = travelReviewRepository.getReviewDatetime(searchWord);
@@ -94,13 +105,14 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
         }
         
         return GetTravelReviewSearchResponseDto.success(resultSets);
+
     }
 
     @Override
     public ResponseEntity<? super GetTravelReviewDetailResponseDto> getReview(Integer reviewNumber) {
         
-        TravelReviewEntity travelReviewEntity;
-        List<String> travelReviewImageUrl;
+        TravelReviewEntity travelReviewEntity = null;
+        List<String> travelReviewImageUrl = new ArrayList<>();
 
         try {
 
@@ -118,53 +130,60 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
         return GetTravelReviewDetailResponseDto.success(travelReviewEntity, travelReviewImageUrl);
+
     }
 
     @Override
     public ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(String userId) {
+
+        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
         
         try {
 
             boolean isExistUser = userRepository.existsByUserId(userId);
             if(!isExistUser) return ResponseDto.authenticationFailed();
             
-            List<GetTravelReviewResultSet> resultSets = travelReviewRepository.findByReviewWriterIdOrderByReviewNumberDesc(userId);
+            resultSets = travelReviewRepository.findByReviewWriterIdOrderByReviewNumberDesc(userId);
             if(resultSets == null) return ResponseDto.authorizationFailed();
-
-            return GetTravelReviewMyListResponseDto.success(resultSets);
             
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
+        return GetTravelReviewMyListResponseDto.success(resultSets);
+
     }
 
     
     @Override
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewMyListSearchList(String searchWord, String userId) {
 
+        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
+
         try {
 
             boolean isExistUser = userRepository.existsByUserId(userId);
-
             if(!isExistUser) return ResponseDto.authenticationFailed();
         
-            List<GetTravelReviewResultSet> resultSets = travelReviewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
+            resultSets = travelReviewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
             
-            System.out.println(resultSets);
-            
-            return GetTravelReviewSearchResponseDto.success(resultSets);
+
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
+        return GetTravelReviewSearchResponseDto.success(resultSets);
         
     }
 
     @Override
     public ResponseEntity<? super PostTravelReviewResponseDto> postTravelReview(PostTravelReviewRequestDto dto, String userId) {
-        int travelReviewNumber;
+
+        Integer travelReviewNumber = null;
 
         try {
 
@@ -188,11 +207,11 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
         }
 
         return PostTravelReviewResponseDto.success(travelReviewNumber);
+
     }
 
     @Override
-    public ResponseEntity<ResponseDto> patchTravelReview(PatchTravelReviewRequestDto dto, int reviewNumber,
-            String userId) {
+    public ResponseEntity<ResponseDto> patchTravelReview(PatchTravelReviewRequestDto dto, Integer reviewNumber, String userId) {
         
         try {
 
@@ -219,7 +238,9 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
         return ResponseDto.success();
+
     }
 
     @Override
@@ -239,6 +260,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
         }
 
         return ResponseDto.success();
+
     }
 
     @Override
@@ -272,6 +294,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
         }
 
         return ResponseDto.success();
+
     }
 
 }

@@ -25,7 +25,7 @@ public class TourAttractionsListItem {
     private Double tourAttractionsLng;
     private Integer tourAttractionsRecommendCount;    
 
-    private TourAttractionsListItem (GetTourAttractionsResultSet resultSet) {
+    private TourAttractionsListItem(GetTourAttractionsResultSet resultSet) {
         this.tourAttractionsNumber = resultSet.getTourAttractionsNumber();
         this.tourAttractionsImageUrl = resultSet.getImage();
         this.tourAttractionsName = resultSet.getTourAttractionsName();
@@ -39,12 +39,16 @@ public class TourAttractionsListItem {
     }
 
     public static List<TourAttractionsListItem> getTourAttractionsList(List<GetTourAttractionsResultSet> resultSets) {
+
         List<TourAttractionsListItem> tourAttractionsList = new ArrayList<>();
+
         for(GetTourAttractionsResultSet resultSet : resultSets){
             TourAttractionsListItem tourAttractionsListItem = new TourAttractionsListItem(resultSet);
             tourAttractionsList.add(tourAttractionsListItem);
         }
+
         return tourAttractionsList;
+
     }
 
 }

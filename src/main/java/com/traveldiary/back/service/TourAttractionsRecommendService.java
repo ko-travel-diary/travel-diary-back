@@ -7,6 +7,8 @@ import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsRecom
 
 public interface TourAttractionsRecommendService {
 
-    ResponseEntity<ResponseDto> patchTourRecommend(int tourAttractionNumber, String userId);
-    ResponseEntity<? super GetTourAttractionsRecommendResponseDto> getTourRecommendStatus (Integer tourAttractionNumber, String userId);
+    ResponseEntity<? super GetTourAttractionsRecommendResponseDto> getTourRecommendStatus(Integer tourAttractionNumber, String userId);
+
+    ResponseEntity<ResponseDto> patchTourRecommend(Integer tourAttractionNumber, String userId);
+
 }

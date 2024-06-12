@@ -30,26 +30,37 @@ public class FileServiceImplementation implements FileService{
         String uuid = UUID.randomUUID().toString();
         String saveFileName = uuid + extension;
         String savePath = filePath + saveFileName;
+
         try{
+
             file.transferTo(new File(savePath));
+
         }catch(Exception exception){
             exception.printStackTrace();
             return null;
         }
+
         String url = fileUrl + saveFileName;
         return url;
+
     }
 
     @Override
     public Resource getFile(String fileName) {
+
         Resource resource = null;
 
         try{
+
             resource = new UrlResource("file:" + filePath + fileName);
+            
         }catch(Exception exception){
             exception.printStackTrace();
             return null;
         }
+
         return resource;
+
     }
+    
 }

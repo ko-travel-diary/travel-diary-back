@@ -33,7 +33,7 @@ public class QnaController {
     private final QnaService qnaService;
 
     @PostMapping("/")
-    public ResponseEntity<ResponseDto> postQna (
+    public ResponseEntity<ResponseDto> postQna(
         @RequestBody @Valid PostQnaRequestDto responseBody,
         @AuthenticationPrincipal String userId
     ) {
@@ -41,14 +41,24 @@ public class QnaController {
         return response;
     }
 
+    @PostMapping("/{receptionNumber}/comment")
+    public ResponseEntity<ResponseDto> postQnaComment(
+        @RequestBody @Valid PostQnaCommentRequestDto requestBody,
+        @PathVariable("receptionNumber") Integer receptionNumber,
+        @AuthenticationPrincipal String userID
+    ) {
+        ResponseEntity<ResponseDto> response = qnaService.postQnaComment(requestBody, receptionNumber) ;
+        return response;
+    }
+
     @GetMapping("/list")
-    public ResponseEntity<? super GetQnaBoardResponseDto> getQnaList () {
+    public ResponseEntity<? super GetQnaBoardResponseDto> getQnaList() {
         ResponseEntity<? super GetQnaBoardResponseDto> response = qnaService.getQnaList();
         return response;
     }
 
     @GetMapping("/list/search")
-    public ResponseEntity<? super GetSearchQnaBoardResponseDto> getSearchQnaList (
+    public ResponseEntity<? super GetSearchQnaBoardResponseDto> getSearchQnaList(
         @RequestParam("word") String word
     ) {
         ResponseEntity<? super GetSearchQnaBoardResponseDto> response = qnaService.getSearchQnaList(word);
@@ -56,20 +66,10 @@ public class QnaController {
     }
 
     @GetMapping("/list/{receptionNumber}")
-    public ResponseEntity<? super GetQnaResponseDto> getQna (
+    public ResponseEntity<? super GetQnaResponseDto> getQna(
         @PathVariable("receptionNumber") Integer receptionNumber
     ) {
         ResponseEntity<? super GetQnaResponseDto> response = qnaService.getQnaBoard(receptionNumber);
-        return response;
-    }
-
-    @PostMapping("/{receptionNumber}/comment")
-    public ResponseEntity<ResponseDto> postQnaComment (
-        @RequestBody @Valid PostQnaCommentRequestDto requestBody,
-        @PathVariable("receptionNumber") Integer receptionNumber,
-        @AuthenticationPrincipal String userID
-    ) {
-        ResponseEntity<ResponseDto> response = qnaService.postQnaComment(requestBody, receptionNumber) ;
         return response;
     }
 

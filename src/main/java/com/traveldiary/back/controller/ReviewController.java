@@ -40,6 +40,25 @@ public class ReviewController {
     private final TravelFavoriteService travelFavoriteService;
     private final TravelCommentService travelCommentService;
 
+    @PostMapping("/")
+    public ResponseEntity<? super PostTravelReviewResponseDto> postTravelReview(
+        @RequestBody @Valid PostTravelReviewRequestDto responseBody,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<? super PostTravelReviewResponseDto> response = travelReviewService.postTravelReview(responseBody, userId);
+        return response;
+    }
+
+    @PostMapping("/{reviewNumber}/comment")
+    public ResponseEntity<ResponseDto> postTravelComment(
+        @RequestBody @Valid PostTravelCommentRequestDto responseBody,
+        @PathVariable("reviewNumber") int reviewNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<ResponseDto> response = travelCommentService.postTravelComment(responseBody, reviewNumber, userId);
+        return response;
+    }
+
     @GetMapping("/list")
     public ResponseEntity<? super GetTravelReviewBoardResponseDto> getBoardList() {
         ResponseEntity<? super GetTravelReviewBoardResponseDto> response = travelReviewService.getReviewBoardList();
@@ -109,25 +128,6 @@ public class ReviewController {
         @PathVariable("reviewNumber") int reviewNumber
     ) {
         ResponseEntity<? super GetTravelReviewCommentListResponseDto> response = travelCommentService.getTravelCommentList(reviewNumber);
-        return response;
-    }
-
-    @PostMapping("/")
-    public ResponseEntity<? super PostTravelReviewResponseDto> postTravelReview(
-        @RequestBody @Valid PostTravelReviewRequestDto responseBody,
-        @AuthenticationPrincipal String userId
-    ) {
-        ResponseEntity<? super PostTravelReviewResponseDto> response = travelReviewService.postTravelReview(responseBody, userId);
-        return response;
-    }
-
-    @PostMapping("/{reviewNumber}/comment")
-    public ResponseEntity<ResponseDto> postTravelComment(
-        @RequestBody @Valid PostTravelCommentRequestDto responseBody,
-        @PathVariable("reviewNumber") int reviewNumber,
-        @AuthenticationPrincipal String userId
-    ) {
-        ResponseEntity<ResponseDto> response = travelCommentService.postTravelComment(responseBody, reviewNumber, userId);
         return response;
     }
 

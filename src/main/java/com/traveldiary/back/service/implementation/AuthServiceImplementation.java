@@ -61,11 +61,14 @@ public class AuthServiceImplementation implements AuthService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
         return SignInResponseDto.success(accessToken);
+
     }
 
     @Override
     public ResponseEntity<ResponseDto> idCheck(IdCheckRequestDto dto) {
+
         try{
 
             String userId = dto.getUserId();
@@ -79,11 +82,13 @@ public class AuthServiceImplementation implements AuthService{
         }
 
         return ResponseDto.success();
+
     }
 
     
     @Override
     public ResponseEntity<ResponseDto> nickNameCheck(NickNameCheckRequestDto dto) {
+
         try{
 
             String nickName = dto.getNickName();
@@ -97,15 +102,17 @@ public class AuthServiceImplementation implements AuthService{
         }
 
         return ResponseDto.success();
+        
     }
 
     @Override
     public ResponseEntity<ResponseDto> eamilAuth(EmailAuthRequestDto dto) {
         
-        String userEmail = dto.getUserEmail();
+        String userEmail = null;
 
         try{
 
+            userEmail = dto.getUserEmail();
             boolean existedEmail = userRepository.existsByUserEmail(userEmail);
             if(existedEmail) return ResponseDto.duplicatedEmail();
 
@@ -127,10 +134,12 @@ public class AuthServiceImplementation implements AuthService{
         }
 
         return ResponseDto.success();
+
     }
 
     @Override
     public ResponseEntity<ResponseDto> eamilAuthCheck(EmailAuthCheckRequestDto dto) {
+
         try{
 
             String userEmail = dto.getUserEmail();
@@ -145,10 +154,12 @@ public class AuthServiceImplementation implements AuthService{
         }
 
         return ResponseDto.success();
+
     }
 
     @Override
     public ResponseEntity<ResponseDto> signUp (SignUpRequestDto dto) {
+
         try{
 
             String userId = dto.getUserId();
@@ -175,7 +186,9 @@ public class AuthServiceImplementation implements AuthService{
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
+
         return ResponseDto.success();
+
     }
 
 }

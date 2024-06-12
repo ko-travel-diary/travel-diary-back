@@ -17,7 +17,7 @@ public class ScheduleListItem {
     private String scheduleStartTime;
     private String scheduleEndTime;
 
-    private ScheduleListItem (ScheduleEntity scheduleEntity) {
+    private ScheduleListItem(ScheduleEntity scheduleEntity) {
         this.scheduleDate = scheduleEntity.getScheduleDate();
         this.scheduleContent = scheduleEntity.getScheduleContent();
         this.scheduleStartTime = scheduleEntity.getScheduleStartTime();
@@ -34,8 +34,7 @@ public class ScheduleListItem {
         }
 
         return scheduleList;
-    }
 
-    
+    }
 
 }

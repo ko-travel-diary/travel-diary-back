@@ -10,10 +10,15 @@ import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsListR
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsResponseDto;
 
 public interface TourAttractionsService {
-    ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList (Double lat, Double lng);
+
+    ResponseEntity<ResponseDto> postTourAttractions(PostTourAttractionsRequestDto dto, String userId);
+
+    ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList(Double lat, Double lng);
     ResponseEntity<? super GetSearchTourAttractionsListResponseDto> getSearchTourAttractionsList (String searchWord);
-    ResponseEntity<? super GetTourAttractionsResponseDto> getTourAttractions (Integer tourAttractionsNumber);
-    ResponseEntity<ResponseDto> postTourAttractions (PostTourAttractionsRequestDto dto, String userId);
-    ResponseEntity<ResponseDto> deleteTourAttractions (Integer tourAttractionsNumber, String userId);
-    ResponseEntity<ResponseDto> patchTourAttractions (PatchTourAttrcationsRequestDto dto, Integer tourAttractionsNumber, String userId);
+    ResponseEntity<? super GetTourAttractionsResponseDto> getTourAttractions(Integer tourAttractionsNumber);
+
+    ResponseEntity<ResponseDto> patchTourAttractions(PatchTourAttrcationsRequestDto dto, Integer tourAttractionsNumber, String userId);
+
+    ResponseEntity<ResponseDto> deleteTourAttractions(Integer tourAttractionsNumber, String userId);
+
 }

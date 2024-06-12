@@ -23,7 +23,8 @@ public class TourAttractionsRecommendServcieImplemetation implements TourAttract
     private final TourAttractionsRecommendRepository tourAttractionsRecommendRepository;
 
     @Override
-    public ResponseEntity<ResponseDto> patchTourRecommend(int tourAttractionNumber, String userId) {
+    public ResponseEntity<ResponseDto> patchTourRecommend(Integer tourAttractionNumber, String userId) {
+
         try{
 
             TourAttractionsEntity tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionNumber);
@@ -53,11 +54,14 @@ public class TourAttractionsRecommendServcieImplemetation implements TourAttract
         }
 
         return ResponseDto.success();
+
     }
 
     @Override
     public ResponseEntity<? super GetTourAttractionsRecommendResponseDto> getTourRecommendStatus(Integer tourAttractionNumber, String userId) {
-        boolean existsRecommend;
+
+        boolean existsRecommend = false;
+
         try{
 
             if(tourAttractionNumber == null) return ResponseDto.noExistBoard();
@@ -71,6 +75,7 @@ public class TourAttractionsRecommendServcieImplemetation implements TourAttract
         }
 
         return GetTourAttractionsRecommendResponseDto.success(existsRecommend);
+
     }
     
 }

@@ -37,6 +37,23 @@ public class ScheduleController {
         return response;
     }
 
+    @GetMapping("/list")
+    public ResponseEntity<? super GetScheduleListResponseDto> getScheduleViewList (
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<? super GetScheduleListResponseDto> response = scheduleService.getScheduleList(userId);
+        return response;
+    }
+
+    @GetMapping("/{travelScheduleNumber}")
+    public ResponseEntity<? super GetScheduleDetailResponseDto> getScheduleDetail (
+        @PathVariable("travelScheduleNumber") Integer travelScheduleNumber,
+        @AuthenticationPrincipal String userId
+    ) {
+        ResponseEntity<? super GetScheduleDetailResponseDto> response = scheduleService.getScheduleDetail(userId, travelScheduleNumber);
+        return response;
+    }
+
     @PatchMapping("/{travelScheduleNumber}")
     public ResponseEntity<ResponseDto> patchSchedule(
         @RequestBody @Valid PatchScheduleRequestDto requestbody,
@@ -56,20 +73,4 @@ public class ScheduleController {
         return response;
     }
     
-    @GetMapping("/list")
-    public ResponseEntity<? super GetScheduleListResponseDto> getScheduleViewList (
-        @AuthenticationPrincipal String userId
-    ) {
-        ResponseEntity<? super GetScheduleListResponseDto> response = scheduleService.getScheduleList(userId);
-        return response;
-    }
-
-    @GetMapping("/{travelScheduleNumber}")
-    public ResponseEntity<? super GetScheduleDetailResponseDto> getScheduleDetail (
-        @PathVariable("travelScheduleNumber") Integer travelScheduleNumber,
-        @AuthenticationPrincipal String userId
-    ) {
-        ResponseEntity<? super GetScheduleDetailResponseDto> response = scheduleService.getScheduleDetail(userId, travelScheduleNumber);
-        return response;
-    }
 }

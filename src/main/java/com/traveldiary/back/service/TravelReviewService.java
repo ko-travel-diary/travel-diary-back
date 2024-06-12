@@ -13,6 +13,8 @@ import com.traveldiary.back.dto.response.review.PostTravelReviewResponseDto;
 
 public interface TravelReviewService {
 
+    ResponseEntity<? super PostTravelReviewResponseDto> postTravelReview(PostTravelReviewRequestDto dto, String userId);
+    
     ResponseEntity<? super GetTravelReviewBoardResponseDto> getReviewBoardList();
     ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewTitleAndContentSearchList(String searchWord);
     ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriterSearchList(String searchWord);
@@ -21,9 +23,7 @@ public interface TravelReviewService {
     ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(String userId);
     ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewMyListSearchList(String userId, String searchWord);
 
-    ResponseEntity<? super PostTravelReviewResponseDto> postTravelReview(PostTravelReviewRequestDto dto, String userId);
-
-    ResponseEntity<ResponseDto> patchTravelReview(PatchTravelReviewRequestDto dto, int reviewNumber, String userId);
+    ResponseEntity<ResponseDto> patchTravelReview(PatchTravelReviewRequestDto dto, Integer reviewNumber, String userId);
     ResponseEntity<ResponseDto> patchTravelView(Integer reviewNumber);
 
     ResponseEntity<ResponseDto> deleteTravelReview(Integer reviewNumber, String userId);

@@ -6,7 +6,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -30,19 +29,12 @@ public class AddressServiceImplementation implements AddressService{
 
         try {
 
-            // 인코딩 O
-            // System.out.println(endcodeAddress);
-
-            // "http://dapi.kakao.com/v2/local/search/address.json?query=%EB%B6%80%EC%82%B0%EC%A7%84%EA%B5%AC"
             searchUrl = new URL(url + encodeAddress);
-            // System.out.println(searcUrl);
 
-            // HTTPURLConnection : HTTP 요청을 수행
             HttpURLConnection con = (HttpURLConnection)searchUrl.openConnection();
 
-            // GET 메서드 사용
+
             con.setRequestMethod("GET");
-            // 헤더에 추가 정보 포함
             con.setRequestProperty("Authorization",key);
             con.setRequestProperty("content-type", "application/json");
 
@@ -51,6 +43,7 @@ public class AddressServiceImplementation implements AddressService{
             JsonNode response = objectMapper.readTree(inputStream);
 
             return response;
+
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;                                                                                                                                         

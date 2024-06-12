@@ -49,6 +49,7 @@ public class WebSecurityConfig {
 
     @Bean
     protected SecurityFilterChain configure(HttpSecurity httpSecurity) throws Exception{
+
         httpSecurity
             .httpBasic(HttpBasicConfigurer::disable)
             .csrf(CsrfConfigurer::disable)
@@ -69,7 +70,6 @@ public class WebSecurityConfig {
                 "/traveldiary/v1/userlist", "/traveldiary/v1/user/userlist/*", "/traveldiary/v1/tourattractions/tourlist/control/*", "/traveldiary/v1/restaurant/restlist/control/*").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
-
             .oauth2Login(oauth2 -> oauth2
                 .authorizationEndpoint(endpoint -> endpoint.baseUri("/traveldiary/v1/auth/oauth2"))
                 .redirectionEndpoint(endpoint -> endpoint.baseUri("/oauth2/callback/*"))
@@ -82,10 +82,12 @@ public class WebSecurityConfig {
             .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
+
     }
 
     @Bean
     protected CorsConfigurationSource corsConfigurationSource() {
+        
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.addAllowedOrigin("*");
         configuration.addAllowedHeader("*");
