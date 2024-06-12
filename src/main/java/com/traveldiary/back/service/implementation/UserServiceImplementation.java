@@ -207,7 +207,6 @@ public class UserServiceImplementation implements UserService{
         Integer travelScheduleNumber;
 
         String email;
-        String deleteUserId;
 
         try {
 
