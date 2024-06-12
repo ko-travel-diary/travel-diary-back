@@ -21,6 +21,7 @@ import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.TravelFavoriteRepository;
 import com.traveldiary.back.repository.TravelReviewImageRepository;
 import com.traveldiary.back.repository.TravelReviewRepository;
+import com.traveldiary.back.repository.TravelReviewViewRepository;
 import com.traveldiary.back.repository.UserRepository;
 import com.traveldiary.back.repository.resultSet.GetTravelReviewResultSet;
 import com.traveldiary.back.service.TravelReviewService;
@@ -33,6 +34,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
     private final UserRepository userRepository;
     private final TravelReviewRepository travelReviewRepository;
+    private final TravelReviewViewRepository travelReviewViewRepository;
     private final TravelReviewImageRepository travelReviewImageRepository;
     private final TravelFavoriteRepository travelFavoriteRepository;
 
@@ -43,7 +45,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
         
         try {
 
-            resultSets = travelReviewRepository.getReviewBoardList();
+            resultSets = travelReviewViewRepository.getReviewBoardList();
 
         } catch(Exception exception) {
             exception.printStackTrace();
@@ -61,7 +63,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
         try {
         
-            resultSets = travelReviewRepository.getReivewTitleOrReviewContent(searchWord);
+            resultSets = travelReviewViewRepository.getReivewTitleOrReviewContent(searchWord);
             
         } catch(Exception exception) {
             exception.printStackTrace();
@@ -79,7 +81,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
         try {
         
-            resultSets = travelReviewRepository.getReviewWriter(searchWord);
+            resultSets = travelReviewViewRepository.getReviewWriter(searchWord);
             
         } catch(Exception exception) {
             exception.printStackTrace();
@@ -97,7 +99,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
         try {
         
-            resultSets = travelReviewRepository.getReviewDatetime(searchWord);
+            resultSets = travelReviewViewRepository.getReviewDatetime(searchWord);
             
         } catch(Exception exception) {
             exception.printStackTrace();
@@ -145,7 +147,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             boolean isExistUser = userRepository.existsByUserId(userId);
             if(!isExistUser) return ResponseDto.authenticationFailed();
             
-            resultSets = travelReviewRepository.findByReviewWriterIdOrderByReviewNumberDesc(userId);
+            resultSets = travelReviewViewRepository.findByReviewWriterIdOrderByReviewNumberDesc(userId);
             if(resultSets == null) return ResponseDto.authorizationFailed();
             
         } catch(Exception exception) {
@@ -168,7 +170,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             boolean isExistUser = userRepository.existsByUserId(userId);
             if(!isExistUser) return ResponseDto.authenticationFailed();
         
-            resultSets = travelReviewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
+            resultSets = travelReviewViewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
             
 
         } catch(Exception exception) {

@@ -14,10 +14,9 @@ import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetSearchRestaurantListResponseDto;
 import com.traveldiary.back.entity.RestaurantEntity;
 import com.traveldiary.back.entity.RestaurantImageEntity;
-import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.RestaurantImageRepository;
 import com.traveldiary.back.repository.RestaurantRepository;
-import com.traveldiary.back.repository.UserRepository;
+import com.traveldiary.back.repository.RestaurantViewRepository;
 import com.traveldiary.back.repository.resultSet.GetRestaurantResultSet;
 import com.traveldiary.back.service.RestaurantService;
 
@@ -29,7 +28,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
     private final RestaurantRepository restaurantRepository;
     private final RestaurantImageRepository restaurantImageRepository;
-    private final UserRepository userRepository;
+    private final RestaurantViewRepository restaurantViewRepository;
 
     @Override
     public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(Double lat, Double lng) {
@@ -39,9 +38,9 @@ public class RestaurantServiceImplementation implements RestaurantService{
         try {
             
             if (lat == null || lng == null)
-                resultSets = restaurantRepository.getRestaurantList();
+                resultSets = restaurantViewRepository.getRestaurantList();
             else
-                resultSets = restaurantRepository.getRestaurantRangeList(lat, lng);
+                resultSets = restaurantViewRepository.getRestaurantRangeList(lat, lng);
             
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -58,7 +57,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
         List<GetRestaurantResultSet> resultSets = new ArrayList<>();
 
         try {
-            resultSets = restaurantRepository.getSearchRestaurantList(searchWord);
+            resultSets = restaurantViewRepository.getSearchRestaurantList(searchWord);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
