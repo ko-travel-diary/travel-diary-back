@@ -126,13 +126,13 @@ public class UserServiceImplementation implements UserService{
 
     
     @Override
-    public ResponseEntity<? super PostUserNickNameResponseDto> getUserNickName(PostUserNickNameRequestDto dto) {
+    public ResponseEntity<? super PostUserNickNameResponseDto> postUserNickName(PostUserNickNameRequestDto dto) {
 
         String nickName = null;
 
         try {
 
-            String userId = dto.getWriterId();
+            String userId = dto.getUserId();
 
             UserEntity userEntity = userRepository.findByUserId(userId);
 

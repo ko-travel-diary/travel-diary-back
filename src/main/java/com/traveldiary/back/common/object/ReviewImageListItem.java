@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class ReviewImageListItem {
-
+    
     private Integer travelReviewImageNumber;
     private Integer travelReviewNumber;
     private String travelReviewImageUrl;

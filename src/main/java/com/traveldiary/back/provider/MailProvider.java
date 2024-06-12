@@ -18,24 +18,26 @@ public class MailProvider {
     private String from;
     
     private final JavaMailSender javaMailSender;
+    private final String  jwtSubject = "여행일기 인증 번호";
 
     public void mailAuthSend(String to, String authNumber) throws MessagingException {
         
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         mimeMessage.setRecipient(RecipientType.TO, new InternetAddress(to));
-        mimeMessage.setSubject("여행일기 인증 번호");
+        mimeMessage.setSubject(jwtSubject);
         mimeMessage.setText(getText(authNumber), "UTF-8", "html");
         javaMailSender.send(mimeMessage);
-        
+
     }
 
     private String getText(String authNumber) {
+
         String text = 
-            "<h2 style='text-align: center'>여행일기 인증 번호</h2>" +
-            "<p>요청하신 email 인증 번호는 <strong style='color: red;'>" +
-            authNumber +
-            "</strong>입니다.</p>";
+            "<h2 style='text-align: center'>" + jwtSubject + "</h2>" +
+            "<p>요청하신 email 인증 번호는 <strong style='color: red;'>" + authNumber + "</strong>입니다.</p>";
+
         return text;
+
     }
 
 }

@@ -10,9 +10,10 @@ import com.traveldiary.back.entity.pk.FavoritePk;
 
 @Repository
 public interface TravelFavoriteRepository extends JpaRepository<TravelFavoriteEntity, FavoritePk>{
-    
-    boolean existsByUserIdAndReviewNumber(String userId, Integer reviewNumber);
+
     List<TravelFavoriteEntity> findByReviewNumber(Integer reviewNumber);
     List<TravelFavoriteEntity> findByUserIdAndReviewNumber(String userId, Integer reviewNumber);
     List<TravelFavoriteEntity> findByUserId(String userId);
+    boolean existsByUserIdAndReviewNumber(String userId, Integer reviewNumber);
+
 }

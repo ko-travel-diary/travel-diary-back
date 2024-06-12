@@ -1,6 +1,7 @@
 package com.traveldiary.back.repository.resultSet;
 
 public interface GetRestaurantResultSet {
+
     Integer getRestaurantNumber();
     String getImage();
     String getRestaurantName();
@@ -13,4 +14,5 @@ public interface GetRestaurantResultSet {
     Double getRestaurantLat();
     Double getRestaurantLng();
     Integer getRestaurantRecommendCount();
+
 }
