@@ -49,10 +49,10 @@ public class UserController {
     }
 
     @PostMapping("/nickName")
-    public ResponseEntity<? super PostUserNickNameResponseDto> getUserNickName (
+    public ResponseEntity<? super PostUserNickNameResponseDto> postUserNickName (
         @RequestBody @Valid PostUserNickNameRequestDto requestBody
     ) {
-        ResponseEntity<? super PostUserNickNameResponseDto> response = userService.getUserNickName(requestBody);
+        ResponseEntity<? super PostUserNickNameResponseDto> response = userService.postUserNickName(requestBody);
         return response;
     }
 
