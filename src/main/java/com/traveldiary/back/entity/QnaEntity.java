@@ -7,6 +7,7 @@ import java.util.Date;
 import com.traveldiary.back.common.util.ChangeDateFormatUtil;
 import com.traveldiary.back.dto.request.qna.PatchQnaCommentRequestDto;
 import com.traveldiary.back.dto.request.qna.PatchQnaRequestDto;
+import com.traveldiary.back.dto.request.qna.PostQnaCommentRequestDto;
 import com.traveldiary.back.dto.request.qna.PostQnaRequestDto;
 
 import jakarta.persistence.Entity;
@@ -55,6 +56,11 @@ public class QnaEntity {
     }
 
     public void updateComment(PatchQnaCommentRequestDto dto) {
+        this.qnaComment = dto.getQnaComment();
+    }
+
+    public void postComment(PostQnaCommentRequestDto dto) {
+        this.qnaStatus = true;
         this.qnaComment = dto.getQnaComment();
     }
 
