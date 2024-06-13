@@ -9,7 +9,7 @@ import com.traveldiary.back.entity.TravelFavoriteEntity;
 import com.traveldiary.back.entity.pk.FavoritePk;
 
 @Repository
-public interface TravelFavoriteRepository extends JpaRepository<TravelFavoriteEntity, FavoritePk>{
+public interface TravelFavoriteRepository extends JpaRepository<TravelFavoriteEntity, FavoritePk> {
 
     List<TravelFavoriteEntity> findByReviewNumber(Integer reviewNumber);
     List<TravelFavoriteEntity> findByUserIdAndReviewNumber(String userId, Integer reviewNumber);

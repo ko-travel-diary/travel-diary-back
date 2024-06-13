@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.traveldiary.back.entity.TravelReviewEntity;
 
 @Repository
-public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity, Integer>{
+public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity, Integer> {
 
     boolean existsByReviewNumber(Integer reviewNumber);
     TravelReviewEntity findByReviewNumber(Integer reviewNumber);

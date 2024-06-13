@@ -10,6 +10,6 @@ import com.traveldiary.back.entity.RestaurantImageEntity;
 @Repository
 public interface RestaurantImageRepository extends JpaRepository<RestaurantImageEntity, Integer> {
 
-    List<RestaurantImageEntity> findByRestaurantNumber (Integer RestaurantNumber);
+    List<RestaurantImageEntity> findByRestaurantNumber(Integer RestaurantNumber);
 
 }
