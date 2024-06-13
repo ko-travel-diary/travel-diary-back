@@ -66,7 +66,7 @@ public class ReviewController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewTitleAndContentSearchList(
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewSearchList(
         @RequestParam(value = "titleAndContent", required = false) String titleAndContent,
         @RequestParam(value = "writer", required = false) String writer,
         @RequestParam(value = "writedate", required = false) String writedate
@@ -91,7 +91,7 @@ public class ReviewController {
         return response;
     }
 
-    @GetMapping("/my-list/search")
+    @GetMapping("/my-search")
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewMyListSearchList(
         @RequestParam("searchWord") String searchWord,
         @AuthenticationPrincipal String userId
@@ -100,7 +100,7 @@ public class ReviewController {
         return response;
     }
 
-    @GetMapping("/{reviewNumber}/favorite-status")
+    @GetMapping("/{reviewNumber}/favorite")
     public ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> getFavoriteStatus(
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
@@ -155,7 +155,7 @@ public class ReviewController {
         return response;
     }
 
-    @DeleteMapping("/delete/{reviewNumber}")
+    @DeleteMapping("/{reviewNumber}")
     public ResponseEntity<ResponseDto> deleteTravelReview(
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId
@@ -173,5 +173,5 @@ public class ReviewController {
         ResponseEntity<ResponseDto> response = travelCommentService.deleteTravelComment(commentNumber, reviewNumber, userId);
         return response;
     }
+    
 }
-
