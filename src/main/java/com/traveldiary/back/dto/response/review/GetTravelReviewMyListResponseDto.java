@@ -9,7 +9,7 @@ import com.traveldiary.back.common.object.ReviewBoardListItem;
 import com.traveldiary.back.dto.response.ResponseCode;
 import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.ResponseMessage;
-import com.traveldiary.back.repository.resultSet.GetTravelReviewResultSet;
+import com.traveldiary.back.entity.TravelReviewViewEntity;
 
 import lombok.Getter;
 
@@ -18,13 +18,13 @@ public class GetTravelReviewMyListResponseDto extends ResponseDto {
 
     private List<ReviewBoardListItem> TravelReviewMyList;
 
-    public GetTravelReviewMyListResponseDto(List<GetTravelReviewResultSet> resultSets) {
+    public GetTravelReviewMyListResponseDto(List<TravelReviewViewEntity> travelReviewViewEntities) {
         super(ResponseCode.SUCCESS, ResponseMessage.SUCCESS);
-        this.TravelReviewMyList = ReviewBoardListItem.getReviewList(resultSets);
+        this.TravelReviewMyList = ReviewBoardListItem.getReviewList(travelReviewViewEntities);
     }
 
-    public static ResponseEntity<GetTravelReviewMyListResponseDto> success(List<GetTravelReviewResultSet> resultSets) {
-        GetTravelReviewMyListResponseDto responseBody = new GetTravelReviewMyListResponseDto(resultSets);
+    public static ResponseEntity<GetTravelReviewMyListResponseDto> success(List<TravelReviewViewEntity> travelReviewViewEntities) {
+        GetTravelReviewMyListResponseDto responseBody = new GetTravelReviewMyListResponseDto(travelReviewViewEntities);
         return ResponseEntity.status(HttpStatus.OK).body(responseBody);
     }
     

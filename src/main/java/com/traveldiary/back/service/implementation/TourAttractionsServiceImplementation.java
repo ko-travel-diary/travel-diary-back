@@ -12,12 +12,12 @@ import com.traveldiary.back.dto.response.ResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetSearchTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsListResponseDto;
 import com.traveldiary.back.dto.response.touarAttraction.GetTourAttractionsResponseDto;
+import com.traveldiary.back.entity.TourAttractionViewEntity;
 import com.traveldiary.back.entity.TourAttractionsEntity;
 import com.traveldiary.back.entity.TourAttractionsImageEntity;
 import com.traveldiary.back.repository.TourAttractionViewRepository;
 import com.traveldiary.back.repository.TourAttractionsImageRepository;
 import com.traveldiary.back.repository.TourAttractionsRepository;
-import com.traveldiary.back.repository.resultSet.GetTourAttractionsResultSet;
 import com.traveldiary.back.service.TourAttractionsService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,12 +33,12 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
     @Override
     public ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList (Double lat, Double lng) {
 
-        List<GetTourAttractionsResultSet> resultSets = null;
+        List<TourAttractionViewEntity> resultSets = null;
 
         try {
 
             if (lat == null || lng == null)
-                resultSets = tourAttractionViewRepository.getTourAttractionsList();
+                resultSets = tourAttractionViewRepository.findBy();
             else
                 resultSets = tourAttractionViewRepository.getTourAttractionsRangeList(lat, lng);
                 
@@ -54,11 +54,11 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
     @Override
     public ResponseEntity<? super GetSearchTourAttractionsListResponseDto> getSearchTourAttractionsList(String searchWord) {
 
-        List<GetTourAttractionsResultSet> resultSets = null;
+        List<TourAttractionViewEntity> resultSets = null;
 
         try {
 
-            resultSets = tourAttractionViewRepository.getSearchTourAttractionsList(searchWord);
+            resultSets = tourAttractionViewRepository.findByTourAttractionsNameContains(searchWord);
 
         } catch (Exception exception) {
             exception.printStackTrace();

@@ -17,13 +17,13 @@ import com.traveldiary.back.dto.response.review.PostTravelReviewResponseDto;
 import com.traveldiary.back.entity.TravelFavoriteEntity;
 import com.traveldiary.back.entity.TravelReviewEntity;
 import com.traveldiary.back.entity.TravelReviewImageEntity;
+import com.traveldiary.back.entity.TravelReviewViewEntity;
 import com.traveldiary.back.entity.UserEntity;
 import com.traveldiary.back.repository.TravelFavoriteRepository;
 import com.traveldiary.back.repository.TravelReviewImageRepository;
 import com.traveldiary.back.repository.TravelReviewRepository;
 import com.traveldiary.back.repository.TravelReviewViewRepository;
 import com.traveldiary.back.repository.UserRepository;
-import com.traveldiary.back.repository.resultSet.GetTravelReviewResultSet;
 import com.traveldiary.back.service.TravelReviewService;
 
 import lombok.RequiredArgsConstructor;
@@ -71,72 +71,72 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     @Override
     public ResponseEntity<? super GetTravelReviewBoardResponseDto> getReviewBoardList() {
 
-        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
+        List<TravelReviewViewEntity> travelReviewViewEntities = new ArrayList<>();
         
         try {
 
-            resultSets = travelReviewViewRepository.getReviewBoardList();
+            travelReviewViewEntities = travelReviewViewRepository.findBy();
 
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetTravelReviewBoardResponseDto.success(resultSets);
+        return GetTravelReviewBoardResponseDto.success(travelReviewViewEntities);
 
     }
 
     @Override
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewTitleAndContentSearchList(String searchWord) {
         
-        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
+        List<TravelReviewViewEntity> travelReviewViewEntities = new ArrayList<>();
 
         try {
-        
-            resultSets = travelReviewViewRepository.getReivewTitleOrReviewContent(searchWord);
+            
+            travelReviewViewEntities = travelReviewViewRepository.findByReviewTitleContainsOrReviewContentContains(searchWord, searchWord);
             
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         
-        return GetTravelReviewSearchResponseDto.success(resultSets);
+        return GetTravelReviewSearchResponseDto.success(travelReviewViewEntities);
 
     }
 
     @Override
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriterSearchList(String searchWord) {
 
-        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
+        List<TravelReviewViewEntity> travelReviewViewEntities = new ArrayList<>();
 
         try {
         
-            resultSets = travelReviewViewRepository.getReviewWriter(searchWord);
+            travelReviewViewEntities = travelReviewViewRepository.findByReviewWriterIdContains(searchWord);
             
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         
-        return GetTravelReviewSearchResponseDto.success(resultSets);
+        return GetTravelReviewSearchResponseDto.success(travelReviewViewEntities);
 
     }
 
     @Override
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriteDateSearchList(String searchWord) {
 
-        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
+        List<TravelReviewViewEntity> travelReviewViewEntities = new ArrayList<>();
 
         try {
         
-            resultSets = travelReviewViewRepository.getReviewDatetime(searchWord);
+            travelReviewViewEntities = travelReviewViewRepository.findByReviewDatetimeContains(searchWord);
             
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
         
-        return GetTravelReviewSearchResponseDto.success(resultSets);
+        return GetTravelReviewSearchResponseDto.success(travelReviewViewEntities);
 
     }
 
@@ -170,22 +170,22 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     @Override
     public ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(String userId) {
 
-        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
+        List<TravelReviewViewEntity> travelReviewViewEntities = new ArrayList<>();
         
         try {
 
             boolean isExistUser = userRepository.existsByUserId(userId);
             if(!isExistUser) return ResponseDto.authenticationFailed();
             
-            resultSets = travelReviewViewRepository.findByReviewWriterIdOrderByReviewNumberDesc(userId);
-            if(resultSets == null) return ResponseDto.authorizationFailed();
+            travelReviewViewEntities = travelReviewViewRepository.findByReviewWriterId(userId);
+            if(travelReviewViewEntities == null) return ResponseDto.authorizationFailed();
             
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
 
-        return GetTravelReviewMyListResponseDto.success(resultSets);
+        return GetTravelReviewMyListResponseDto.success(travelReviewViewEntities);
 
     }
 
@@ -193,14 +193,14 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     @Override
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewMyListSearchList(String searchWord, String userId) {
 
-        List<GetTravelReviewResultSet> resultSets = new ArrayList<>();
+        List<TravelReviewViewEntity> travelReviewViewEntities = new ArrayList<>();
 
         try {
 
             boolean isExistUser = userRepository.existsByUserId(userId);
             if(!isExistUser) return ResponseDto.authenticationFailed();
         
-            resultSets = travelReviewViewRepository.findByReviewTitleContainsOrderByReviewNumberDesc(searchWord);
+            travelReviewViewEntities = travelReviewViewRepository.findByReviewTitleContains(searchWord);
             
 
         } catch(Exception exception) {
@@ -208,7 +208,7 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             return ResponseDto.databaseError();
         }
 
-        return GetTravelReviewSearchResponseDto.success(resultSets);
+        return GetTravelReviewSearchResponseDto.success(travelReviewViewEntities);
         
     }
 
