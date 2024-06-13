@@ -60,41 +60,41 @@ public class WebSecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(request -> request
                 // ! 모두 허용
-                .requestMatchers("/", "traveldiary/v1/", "traveldiary/v1/auth/*",
-                    "traveldiary/v1/restaurant/list", "traveldiary/v1/restaurant/search", "traveldiary/v1/restaurant/*",
-                    "traveldiary/v1/tour-attractions/list", "traveldiary/v1/tour-attractions/search", "traveldiary/v1/tour-attractions/*",
-                    "traveldiary/v1/review/list", "traveldiary/v1/review/search", "traveldiary/v1/review/*", "traveldiary/v1/review/*/comment/list", "traveldiary/v1/review/*/view-count",
-                    "traveldiary/v1/user/nick-name").permitAll()
+                .requestMatchers("/", "/traveldiary/v1/", "traveldiary/v1/auth/*",
+                    "/traveldiary/v1/restaurant/*",
+                    "/traveldiary/v1/tour-attractions/*",
+                    "/traveldiary/v1/review/*", "/traveldiary/v1/review/*/comment/list", "/traveldiary/v1/review/*/view-count",
+                    "/traveldiary/v1/user/nick-name").permitAll()
                 // ! 유저만 모두 허용
-                .requestMatchers("qna/", "schedule/*").hasRole("USER")
+                .requestMatchers("/traveldiary/v1/qna/", "/traveldiary/v1/schedule/*").hasRole("USER")
                 // ! 유저 중 GET 허용
-                .requestMatchers(HttpMethod.GET, "restaurant/*/recommend", "tour-attractions/*/recommend").hasRole("USER")
+                .requestMatchers(HttpMethod.GET, "/traveldiary/v1/restaurant/*/recommend", "/traveldiary/v1/tour-attractions/*/recommend").hasRole("USER")
                 // ! 유저 중 POST 허용
-                .requestMatchers(HttpMethod.POST, "review/", "review/my-list", "review/my-search").hasRole("USER")
+                .requestMatchers(HttpMethod.POST, "/traveldiary/v1/review/", "/traveldiary/v1/review/my-list", "/traveldiary/v1/review/my-search").hasRole("USER")
                 // ! 유저 중 PATCH 허용
-                .requestMatchers(HttpMethod.PATCH, "qna/*",
-                    "restaurant/*/recommend",
-                    "tour-attractions/*/recommend",
-                    "review/*",
-                    "review/*/favorite",
-                    "review/*/comment/*",
-                    "user/edit").hasRole("USER")
+                .requestMatchers(HttpMethod.PATCH, "/traveldiary/v1/qna/*",
+                    "/traveldiary/v1/restaurant/*/recommend",
+                    "/traveldiary/v1/tour-attractions/*/recommend",
+                    "/traveldiary/v1/review/*",
+                    "/traveldiary/v1/review/*/favorite",
+                    "/traveldiary/v1/review/*/comment/*",
+                    "/traveldiary/v1/user/edit").hasRole("USER")
                 // ! 유저 중 PUT 허용
-                .requestMatchers(HttpMethod.PUT, "user/cancle-account").hasRole("USER")
+                .requestMatchers(HttpMethod.PUT, "/traveldiary/v1/user/cancle-account").hasRole("USER")
                 // ! 유저 중 DELETE 허용
-                .requestMatchers(HttpMethod.DELETE, "qna/*").hasRole("USER")
+                .requestMatchers(HttpMethod.DELETE, "/traveldiary/v1/qna/*").hasRole("USER")
                 // ! 관리자만 모두 허용
-                .requestMatchers("address/*", "restaurant/", "tour-attractions").hasRole("ADMIN")
+                .requestMatchers("/traveldiary/v1/address/*", "/traveldiary/v1/restaurant/", "/traveldiary/v1/tour-attractions").hasRole("ADMIN")
                 // ! 관리자 중 GET 허용
-                .requestMatchers(HttpMethod.GET, "user/list", "user/search").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.GET, "/traveldiary/v1/user/list", "/traveldiary/v1/user/search").hasRole("ADMIN")
                 // ! 관리자 중 POST 허용
-                .requestMatchers(HttpMethod.POST, "qna/*/comment").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/traveldiary/v1/qna/*/comment").hasRole("ADMIN")
                 // ! 관리자 중 PATCH 허용
-                .requestMatchers(HttpMethod.PATCH, "qna/*/comment", "restaurant/*", "tour-attractions/*").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.PATCH, "/traveldiary/v1/qna/*/comment", "/traveldiary/v1/restaurant/*", "/traveldiary/v1/tour-attractions/*").hasRole("ADMIN")
                 // ! 관리자 중 DELETE 허용
-                .requestMatchers(HttpMethod.DELETE, "qna/*/comment", "restaurant/*", 
-                "tour-attractions/*",
-                "user/list/cancle-account").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/traveldiary/v1/qna/*/comment", "/traveldiary/v1/restaurant/*", 
+                "/traveldiary/v1/tour-attractions/*",
+                "/traveldiary/v1/user/list/cancle-account").hasRole("ADMIN")
                 // ! 유저와 관리자만 (인증된 사람만)
                 .anyRequest().authenticated()
             )
