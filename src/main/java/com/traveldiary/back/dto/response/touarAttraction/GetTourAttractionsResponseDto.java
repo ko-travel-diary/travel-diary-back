@@ -21,8 +21,8 @@ public class GetTourAttractionsResponseDto extends ResponseDto {
     private String tourAttractionsTelNumber;
     private String tourAttractionsHours;
     private String tourAttractionsOutline;
-    private double tourAttractionsLat;
-    private double tourAttractionsLng;
+    private Double tourAttractionsLat;
+    private Double tourAttractionsLng;
     private Integer tourAttractionsRecommendCount;
 
     private GetTourAttractionsResponseDto(TourAttractionsEntity tourAttractionsEntity, List<String> tourAttractionsImageUrl) {

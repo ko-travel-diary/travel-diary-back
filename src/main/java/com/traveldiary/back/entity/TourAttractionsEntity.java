@@ -37,10 +37,10 @@ public class TourAttractionsEntity {
     private Integer tourAttractionsRecommendCount;
 
     @NotNull
-    private double tourAttractionsLat;
+    private Double tourAttractionsLat;
 
     @NotNull
-    private double tourAttractionsLng;
+    private Double tourAttractionsLng;
     
     private String tourAttractionsTelNumber;
     private String tourAttractionsHours;
