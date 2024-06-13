@@ -60,7 +60,8 @@ public class WebSecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(request -> request
                 // ! 모두 허용
-                .requestMatchers("/", "/traveldiary/v1/", "traveldiary/v1/auth/*",
+                .requestMatchers("/", "/traveldiary/v1/", "/traveldiary/v1/auth/*",
+                    "/traveldiary/v1/image/file/*",
                     "/traveldiary/v1/restaurant/*",
                     "/traveldiary/v1/tour-attractions/*",
                     "/traveldiary/v1/review/*", "/traveldiary/v1/review/*/comment/list", "/traveldiary/v1/review/*/view-count",
