@@ -9,7 +9,7 @@ import com.traveldiary.back.entity.RestaurantRecommendEntity;
 import com.traveldiary.back.entity.pk.RestRecommendPk;
 
 @Repository
-public interface RestaurantRecommendRepository extends JpaRepository<RestaurantRecommendEntity, RestRecommendPk>{
+public interface RestaurantRecommendRepository extends JpaRepository<RestaurantRecommendEntity, RestRecommendPk> {
 
     List<RestaurantRecommendEntity> findByUserId(String userId);
     boolean existsByUserIdAndRestaurantNumber(String userId, Integer restaurantNumber);

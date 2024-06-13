@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import com.traveldiary.back.entity.TourAttractionsEntity;
 
 @Repository
-public interface TourAttractionsRepository extends JpaRepository<TourAttractionsEntity, Integer>{
+public interface TourAttractionsRepository extends JpaRepository<TourAttractionsEntity, Integer> {
 
-    TourAttractionsEntity findByTourAttractionsNumber (Integer tourAttractionsNumber);
-    boolean existsByTourAttractionsName (String tourAttractionsName);
+    TourAttractionsEntity findByTourAttractionsNumber(Integer tourAttractionsNumber);
+    boolean existsByTourAttractionsName(String tourAttractionsName);
 
 }

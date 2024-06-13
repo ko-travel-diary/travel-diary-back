@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.traveldiary.back.entity.ScheduleEntity;
 
 @Repository
-public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Integer>{
+public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Integer> {
 
     List<ScheduleEntity> findByTravelScheduleNumber(Integer travelScheduleNumber);
 

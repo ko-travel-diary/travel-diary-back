@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 import com.traveldiary.back.entity.RestaurantEntity;
 
 @Repository
-public interface RestaurantRepository extends JpaRepository<RestaurantEntity, Integer>{
+public interface RestaurantRepository extends JpaRepository<RestaurantEntity, Integer> {
 
-    RestaurantEntity findByRestaurantNumber (Integer RestaurantNumber);
-    boolean existsByRestaurantName (String restaurantName);
+    RestaurantEntity findByRestaurantNumber(Integer RestaurantNumber);
+    boolean existsByRestaurantName(String restaurantName);
 
 }

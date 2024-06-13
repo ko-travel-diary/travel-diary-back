@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.traveldiary.back.entity.TravelCommentEntity;
 
 @Repository
-public interface TravelCommentRepository extends JpaRepository<TravelCommentEntity, Integer>{
+public interface TravelCommentRepository extends JpaRepository<TravelCommentEntity, Integer> {
 
     TravelCommentEntity findByCommentNumber(Integer commentNumber);
     List<TravelCommentEntity> findByCommentReviewNumber(Integer commentReviewNumber);
