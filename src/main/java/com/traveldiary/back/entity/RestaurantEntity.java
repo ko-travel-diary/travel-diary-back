@@ -40,10 +40,10 @@ public class RestaurantEntity {
     private Integer restaurantRecommendCount;
 
     @NotNull
-    private double restaurantLat;
+    private Double restaurantLat;
 
     @NotNull
-    private double restaurantLng;
+    private Double restaurantLng;
 
     private String restaurantTelNumber;
     private String restaurantHours;
