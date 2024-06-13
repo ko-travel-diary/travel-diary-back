@@ -64,7 +64,8 @@ public class WebSecurityConfig {
                     "/traveldiary/v1/restaurant/*",
                     "/traveldiary/v1/tour-attractions/*",
                     "/traveldiary/v1/review/*", "/traveldiary/v1/review/*/comment/list", "/traveldiary/v1/review/*/view-count",
-                    "/traveldiary/v1/user/nick-name").permitAll()
+                    "/traveldiary/v1/user/nick-name",
+                    "/traveldiary/v1/qna/list").permitAll()
                 // ! 유저만 모두 허용
                 .requestMatchers("/traveldiary/v1/qna/", "/traveldiary/v1/schedule/*").hasRole("USER")
                 // ! 유저 중 GET 허용
