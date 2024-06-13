@@ -5,10 +5,15 @@ import org.springframework.stereotype.Repository;
 
 import com.traveldiary.back.entity.TourAttractionsEntity;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 public interface TourAttractionsRepository extends JpaRepository<TourAttractionsEntity, Integer> {
 
     TourAttractionsEntity findByTourAttractionsNumber(Integer tourAttractionsNumber);
     boolean existsByTourAttractionsName(String tourAttractionsName);
+
+    @Transactional
+    void deleteByTourAttractionsNumber(Integer tourAttractionsNumber);
 
 }

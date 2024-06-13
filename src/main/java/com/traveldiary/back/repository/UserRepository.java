@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.traveldiary.back.entity.UserEntity;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, String> {
 
@@ -19,5 +21,8 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
     boolean existsByUserPassword(String userPassword);
     boolean existsByNickName(String nickName);
     boolean existsByUserEmail(String userEmail);
+
+    @Transactional
+    void deleteByUserId(String userId);
 
 }

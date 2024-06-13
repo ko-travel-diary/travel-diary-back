@@ -91,7 +91,9 @@ public class RestaurantServiceImplementation implements RestaurantService{
         List<RestaurantViewEntity> resultSets = new ArrayList<>();
 
         try {
+
             resultSets = restaurantViewRepository.findByRestaurantNameContains(searchWord);
+            
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
@@ -133,8 +135,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
         
         try {
 
-            List<RestaurantImageEntity> restaurantImageEntities = restaurantImageRepository.findByRestaurantNumber(restaurantNumber);
-            restaurantImageRepository.deleteAll(restaurantImageEntities);
+            restaurantImageRepository.deleteByRestaurantNumber(restaurantNumber);
             
             RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
             if (restaurantEntity == null) return ResponseDto.noExistData();
@@ -162,11 +163,8 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
         try {
 
-            List<RestaurantImageEntity> restaurantImageEntities = restaurantImageRepository.findByRestaurantNumber(restaurantNumber);
-            restaurantImageRepository.deleteAll(restaurantImageEntities);
-
-            RestaurantEntity restaurantEntity = restaurantRepository.findByRestaurantNumber(restaurantNumber);
-            restaurantRepository.delete(restaurantEntity);
+            restaurantImageRepository.deleteByRestaurantNumber(restaurantNumber);
+            restaurantRepository.deleteByRestaurantNumber(restaurantNumber);
             
         } catch (Exception exception) {
             exception.printStackTrace();

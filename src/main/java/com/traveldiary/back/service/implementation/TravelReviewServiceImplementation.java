@@ -250,12 +250,8 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
             if(!iswriterId && !isAdmin) return ResponseDto.authenticationFailed();
 
-            List<TravelReviewImageEntity> travelReviewImageEntities = travelReviewImageRepository.findByTravelReviewNumber(reviewNumber);
-            travelReviewImageRepository.deleteAll(travelReviewImageEntities);
-            
-            List<TravelFavoriteEntity> travelFavoriteEntities = travelFavoriteRepository.findByReviewNumber(reviewNumber);
-            travelFavoriteRepository.deleteAll(travelFavoriteEntities);
-
+            travelReviewImageRepository.deleteByTravelReviewNumber(reviewNumber);
+            travelFavoriteRepository.deleteByReviewNumber(reviewNumber);
             travelReviewRepository.delete(travelReviewEntity);
 
         } catch(Exception exception) {

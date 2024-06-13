@@ -116,7 +116,6 @@ public class TravelCommentServiceImplementation implements TravelCommentService{
             boolean iswriterId = userId.equals(writerId);
             if(!iswriterId) return ResponseDto.authorizationFailed();
             
-            
             travelCommentRepository.delete(travelCommentEntity);
 
         } catch(Exception exception) {
