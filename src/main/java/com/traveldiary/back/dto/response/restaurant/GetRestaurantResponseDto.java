@@ -23,8 +23,8 @@ public class GetRestaurantResponseDto extends ResponseDto {
     private String restaurantOutline;
     private String restaurantMainMenu;
     private String restaurantServiceMenu;
-    private double restaurantLat;
-    private double restaurantLng;
+    private Double restaurantLat;
+    private Double restaurantLng;
     private Integer restaurantRecommendCount;
 
     private GetRestaurantResponseDto(RestaurantEntity restaurantEntity, List<String> restaurantImageUrl) {
