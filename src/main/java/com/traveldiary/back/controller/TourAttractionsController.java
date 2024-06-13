@@ -33,7 +33,7 @@ public class TourAttractionsController {
     private final TourAttractionsService tourAttractionsService;
     private final TourAttractionsRecommendService tourAttractionsRecommendService;
 
-    @PostMapping("/addTourAttractions")
+    @PostMapping("/")
     public ResponseEntity<ResponseDto> postTourAttractions(
         @RequestBody @Valid PostTourAttractionsRequestDto responseBody,
         @AuthenticationPrincipal String userId
@@ -42,7 +42,7 @@ public class TourAttractionsController {
         return response;
     }
 
-    @GetMapping("/tourlist")
+    @GetMapping("/list")
     public ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList(
         @RequestParam(name="lat", required=false) Double lat,
         @RequestParam(name="lng", required=false) Double lng
@@ -51,7 +51,7 @@ public class TourAttractionsController {
         return response;
     }
 
-    @GetMapping("/tourlist/search")
+    @GetMapping("/search")
     public ResponseEntity<? super GetSearchTourAttractionsListResponseDto> getSearchTourAttractionsList(
         @RequestParam ("searchWord") String searchWord
     ){
@@ -59,7 +59,7 @@ public class TourAttractionsController {
         return response;
     }
 
-    @GetMapping("/tourlist/{tourattractionsNumber}")
+    @GetMapping("/{tourattractionsNumber}")
     public ResponseEntity<? super GetTourAttractionsResponseDto> getTourAttractions(
         @PathVariable ("tourattractionsNumber") Integer tourattractionsNumber
     ){
@@ -67,7 +67,7 @@ public class TourAttractionsController {
         return response;
     }
 
-    @GetMapping("/{tourattractionsNumber}")
+    @GetMapping("/{tourattractionsNumber}/recommend")
     public ResponseEntity<? super GetTourAttractionsRecommendResponseDto> getRecoomendStatus(
         @PathVariable("tourattractionsNumber") int tourattractionsNumber,
         @AuthenticationPrincipal String userId
@@ -75,8 +75,8 @@ public class TourAttractionsController {
         ResponseEntity<? super GetTourAttractionsRecommendResponseDto> response = tourAttractionsRecommendService.getTourRecommendStatus(tourattractionsNumber, userId);
         return response;
     }
-    
-    @PatchMapping("/tourlist/control/{tourattractionsNumber}")
+
+    @PatchMapping("/{tourattractionsNumber}")
     public ResponseEntity<ResponseDto> patchTourAttrcation(
         @RequestBody @Valid PatchTourAttrcationsRequestDto requestBody,
         @PathVariable("tourattractionsNumber") Integer tourattractionsNumber,
@@ -95,7 +95,7 @@ public class TourAttractionsController {
         return response;
     }
 
-    @DeleteMapping("/tourlist/control/{tourattractionsNumber}")
+    @DeleteMapping("/{tourattractionsNumber}")
     public ResponseEntity<ResponseDto> deleteTourAttractions(
         @PathVariable ("tourattractionsNumber") Integer tourattractionsNumber,
         @AuthenticationPrincipal String userId

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.traveldiary.back.entity.TourAttractionViewEntity;
 
 @Repository
-public interface TourAttractionViewRepository extends JpaRepository<TourAttractionViewEntity, Integer>{
+public interface TourAttractionViewRepository extends JpaRepository<TourAttractionViewEntity, Integer> {
 
     List<TourAttractionViewEntity> findBy();
     List<TourAttractionViewEntity> findByTourAttractionsNameContains(String tourAttractionsName);
