@@ -32,7 +32,7 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("/nickName")
+    @PostMapping("/nick-name")
     public ResponseEntity<? super PostUserNickNameResponseDto> postUserNickName (
         @RequestBody @Valid PostUserNickNameRequestDto requestBody
     ) {
@@ -40,7 +40,7 @@ public class UserController {
         return response;
     }
     
-    @GetMapping("/userlist")
+    @GetMapping("/list")
     public ResponseEntity<? super GetUserListResponseDto> getUserList(
         @AuthenticationPrincipal String userId
     ) {
@@ -56,7 +56,7 @@ public class UserController {
         return response;
     }
 
-    @GetMapping("/userlist/search")
+    @GetMapping("/search")
     public ResponseEntity<? super GetSearchUserListResponseDto> getSearchUserResponseDto(
         @RequestParam("word") String word,
         @AuthenticationPrincipal String userId
@@ -83,7 +83,7 @@ public class UserController {
         return response;
     }
 
-    @PutMapping("/userlist/cancle-account")
+    @PutMapping("/list/cancle-account")
     public ResponseEntity<ResponseDto> deleteAdminUser(
         @RequestBody @Valid DeleteAdminUserRequestDto requestBody,
         @AuthenticationPrincipal String deleteToUserId

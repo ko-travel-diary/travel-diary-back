@@ -4,6 +4,7 @@ import java.io.IOException;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.CsrfConfigurer;
@@ -58,18 +59,45 @@ public class WebSecurityConfig {
             )
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(request -> request
-                .requestMatchers("/", "/traveldiary/v1/image/file/*", "/traveldiary/v1/auth/**", "/oauth2/callback/*", "/traveldiary/v1/qna/list", "/traveldiary/v1/qna/list/*", 
-                "/traveldiary/v1/tourattractions/tourlist", "/traveldiary/v1/tourattractions/tourlist/*", "/traveldiary/v1/restaurant/restlist", "/traveldiary/v1/restaurant/restlist/*", 
-                "/traveldiary/v1/review/list", "/traveldiary/v1/review/list/search/**", "/traveldiary/v1/user/nickName", "/traveldiary/v1/review/*", "/traveldiary/v1/review/*/comment/list", 
-                "/traveldiary/v1/review/*/view-count", "/traveldiary/v1/user/", "/traveldiary/v1/image/upload", "/traveldiary/v1/address/**", "/traveldiary/v1/restaurant/restlist/*", 
-                "/traveldiary/v1/review/list", "/traveldiary/v1/review/list/search/**", "/traveldiary/v1/user/nickName", "/traveldiary/v1/review/*", "/traveldiary/v1/review/*/comment/list", 
-                "/traveldiary/v1/review/*/view-count", "/traveldiary/v1/user/", "/traveldiary/v1/image/upload", "/traveldiary/v1/location/**").permitAll()
-                .requestMatchers("/traveldiary/v1/qna/", "/traveldiary/v1/user/edit", "/traveldiary/v1/user/cancle-account","/traveldiary/v1/qna/*", "/traveldiary/v1/schedule/", 
-                "/traveldiary/v1/schedule/**", "/traveldiary/v1/tourattractions/*/recommend", "/traveldiary/v1/restaurant/*/recommend").hasRole("USER")
-                .requestMatchers("/traveldiary/v1/qna/*/comment", "/traveldiary/v1/tourattractions/addTourAttractions", "/traveldiary/v1/restaurant/addRestaurant",
-                "/traveldiary/v1/userlist", "/traveldiary/v1/user/userlist/*", "/traveldiary/v1/tourattractions/tourlist/control/*", "/traveldiary/v1/restaurant/restlist/control/*").hasRole("ADMIN")
+                // ! 모두 허용
+                .requestMatchers("/", "traveldiary/v1/", "traveldiary/v1/auth/*",
+                    "traveldiary/v1/restaurant/list", "traveldiary/v1/restaurant/search", "traveldiary/v1/restaurant/*",
+                    "traveldiary/v1/tour-attractions/list", "traveldiary/v1/tour-attractions/search", "traveldiary/v1/tour-attractions/*",
+                    "traveldiary/v1/review/list", "traveldiary/v1/review/search", "traveldiary/v1/review/*", "traveldiary/v1/review/*/comment/list", "traveldiary/v1/review/*/view-count",
+                    "traveldiary/v1/user/nick-name").permitAll()
+                // ! 유저만 모두 허용
+                .requestMatchers("qna/", "schedule/*").hasRole("USER")
+                // ! 유저 중 GET 허용
+                .requestMatchers(HttpMethod.GET, "restaurant/*/recommend", "tour-attractions/*/recommend").hasRole("USER")
+                // ! 유저 중 POST 허용
+                .requestMatchers(HttpMethod.POST, "review/", "review/my-list", "review/my-search").hasRole("USER")
+                // ! 유저 중 PATCH 허용
+                .requestMatchers(HttpMethod.PATCH, "qna/*",
+                    "restaurant/*/recommend",
+                    "tour-attractions/*/recommend",
+                    "review/*",
+                    "review/*/favorite",
+                    "review/*/comment/*",
+                    "user/edit").hasRole("USER")
+                // ! 유저 중 PUT 허용
+                .requestMatchers(HttpMethod.PUT, "user/cancle-account").hasRole("USER")
+                // ! 유저 중 DELETE 허용
+                .requestMatchers(HttpMethod.DELETE, "qna/*").hasRole("USER")
+                // ! 관리자만 모두 허용
+                .requestMatchers("address/*", "restaurant/", "tour-attractions").hasRole("ADMIN")
+                // ! 관리자 중 GET 허용
+                .requestMatchers(HttpMethod.GET, "user/list", "user/search").hasRole("ADMIN")
+                // ! 관리자 중 POST 허용
+                .requestMatchers(HttpMethod.POST, "qna/*/comment").hasRole("ADMIN")
+                // ! 관리자 중 PATCH 허용
+                .requestMatchers(HttpMethod.PATCH, "qna/*/comment", "restaurant/*", "tour-attractions/*").hasRole("ADMIN")
+                // ! 관리자 중 DELETE 허용
+                .requestMatchers(HttpMethod.DELETE, "qna/*/comment", "restaurant/*", 
+                "tour-attractions/*",
+                "user/list/cancle-account").hasRole("ADMIN")
+                // ! 유저와 관리자만 (인증된 사람만)
                 .anyRequest().authenticated()
-                )
+            )
             .oauth2Login(oauth2 -> oauth2
                 .authorizationEndpoint(endpoint -> endpoint.baseUri("/traveldiary/v1/auth/oauth2"))
                 .redirectionEndpoint(endpoint -> endpoint.baseUri("/oauth2/callback/*"))
