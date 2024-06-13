@@ -91,7 +91,7 @@ public class ReviewController {
         return response;
     }
 
-    @GetMapping("/post/list/search")
+    @GetMapping("/my-list/search")
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewMyListSearchList(
         @RequestParam("searchWord") String searchWord,
         @AuthenticationPrincipal String userId
@@ -100,7 +100,7 @@ public class ReviewController {
         return response;
     }
 
-    @GetMapping("/{reviewNumber}/")
+    @GetMapping("/{reviewNumber}/favorite-status")
     public ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> getFavoriteStatus(
         @PathVariable("reviewNumber") int reviewNumber,
         @AuthenticationPrincipal String userId

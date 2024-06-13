@@ -33,7 +33,7 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
     private final RestaurantRecommendService restaurantRecommendService;
 
-    @PostMapping("/addRestaurant")
+    @PostMapping("/")
     public ResponseEntity<ResponseDto> postRestaurant(
         @RequestBody @Valid PostRestaurantRequestDto responseBody,
         @AuthenticationPrincipal String userId
@@ -42,7 +42,7 @@ public class RestaurantController {
         return response;
     }
 
-    @GetMapping("/restlist")
+    @GetMapping("/list")
     public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(
         @RequestParam(name="lat", required=false) Double lat,
         @RequestParam(name="lng", required=false) Double lng
@@ -51,7 +51,7 @@ public class RestaurantController {
         return response;    
     }
 
-    @GetMapping("/restlist/search")
+    @GetMapping("/search")
     public ResponseEntity<? super GetSearchRestaurantListResponseDto> getSearchRestaurantList(
         @RequestParam ("searchWord") String searchWord
     ){
@@ -59,7 +59,7 @@ public class RestaurantController {
         return response;
     }
 
-    @GetMapping("/restlist/{restaurantNumber}")
+    @GetMapping("/{restaurantNumber}")
     public ResponseEntity<? super GetRestaurantResponseDto> getRestaurant(
         @PathVariable ("restaurantNumber") Integer restaurantNumber
     ) {
@@ -67,7 +67,7 @@ public class RestaurantController {
         return response;
     }
 
-    @GetMapping("/{restaurantNumber}")
+    @GetMapping("/{restaurantNumber}/recommend")
     public ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> getRecoomendStatus(
         @PathVariable("restaurantNumber") int restaurantNumber,
         @AuthenticationPrincipal String userId
@@ -76,7 +76,7 @@ public class RestaurantController {
         return response;
     }
 
-    @PatchMapping("/restlist/{restaurantNumber}")
+    @PatchMapping("/{restaurantNumber}")
     public ResponseEntity<ResponseDto> patchRestaurant(
         @RequestBody @Valid PatchRestaurantRequestDto requestBody,
         @PathVariable ("restaurantNumber") Integer restaurantNumber,
@@ -95,7 +95,7 @@ public class RestaurantController {
         return response;
     }
 
-    @DeleteMapping("/restlist/{restaurantNumber}")
+    @DeleteMapping("/{restaurantNumber}")
     public ResponseEntity<ResponseDto> deleteRestaurant(
         @PathVariable ("restaurantNumber") Integer restaurantNumber,
         @AuthenticationPrincipal String userId
