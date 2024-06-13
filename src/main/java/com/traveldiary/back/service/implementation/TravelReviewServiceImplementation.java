@@ -92,12 +92,23 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
         List<TravelReviewViewEntity> travelReviewViewEntities = new ArrayList<>();
 
         try {
-            
-            if(titleAndContent != null) travelReviewViewEntities = travelReviewViewRepository.findByReviewTitleContainsOrReviewContentContains(titleAndContent, titleAndContent);
-        
-            if(writer != null)travelReviewViewEntities = travelReviewViewRepository.findByReviewDatetimeContains(writer);
 
-            if(writedate != null)travelReviewViewEntities = travelReviewViewRepository.findByReviewWriterIdContains(writedate);
+            System.out.println(titleAndContent);
+            System.out.println(writer);
+            System.out.println(writedate);
+            
+            if(!titleAndContent.isEmpty()) {
+                travelReviewViewEntities = travelReviewViewRepository.findByReviewTitleContainsOrReviewContentContains(titleAndContent, titleAndContent);
+                System.out.println("titleAndContent");
+            }
+        
+            if(!writer.isEmpty()) {travelReviewViewEntities = travelReviewViewRepository.findByReviewWriterIdContains(writer);
+                System.out.println("writer");
+            }
+
+            if(!writedate.isEmpty()){travelReviewViewEntities = travelReviewViewRepository.findByReviewDatetimeContains(writedate);
+                System.out.println("writedate");
+            }
             
         } catch(Exception exception) {
             exception.printStackTrace();
