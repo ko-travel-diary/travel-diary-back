@@ -188,53 +188,43 @@ public class UserServiceImplementation implements UserService{
             if(!isMatchedUserId) return ResponseDto.authenticationFailed();
 
             String userPassword = dto.getUserPassword();
-            String userRole = userEntity.getUserRole();
-            if(userRole == "ROLE_ADMIN") return ResponseDto.authenticationFailed();
 
             String encodedPassword = userEntity.getUserPassword();
             boolean isMatchedUserPassword = passwordEncoder.matches(userPassword, encodedPassword);
             if(!isMatchedUserPassword) return ResponseDto.authenticationFailed();
 
-            List<TourAttractionsRecommendEntity> tourAttractionsRecommendEntities = tourAttractionsRecommendRepository.findByUserId(userId);
-            tourAttractionsRecommendRepository.deleteAll(tourAttractionsRecommendEntities);
+            tourAttractionsRecommendRepository.deleteByUserId(userId);
 
-            List<RestaurantRecommendEntity> restaurantRecommendEntities = restaurantRecommendRepository.findByUserId(userId);
-            restaurantRecommendRepository.deleteAll(restaurantRecommendEntities);
+            restaurantRecommendRepository.deleteByUserId(userId);
             
-            List<QnaEntity> qnaEntities = qnaRepository.findByQnaWriterId(userId);
-            qnaRepository.deleteAll(qnaEntities);
+            qnaRepository.deleteByQnaWriterId(userId);
             
-            List<TravelFavoriteEntity> travelFavoriteEntities = travelFavoriteRepository.findByUserId(userId);
-            travelFavoriteRepository.deleteAll(travelFavoriteEntities);
+            travelFavoriteRepository.deleteByUserId(userId);
 
             List<TravelReviewEntity> travelReviewEntities = travelReviewRepository.findByReviewWriterId(userId);
+            List<Integer> reviewNumbers = new ArrayList<>();
             for (TravelReviewEntity travelReviewEntity : travelReviewEntities) {
-                // Review Comment 삭제
                 Integer reviewNumber = travelReviewEntity.getReviewNumber();
-                List<TravelCommentEntity> travelCommentEntities = travelCommentRepository.findByCommentReviewNumber(reviewNumber);
-                travelCommentRepository.deleteAll(travelCommentEntities);
-                // Review Image 삭제
-                List<TravelReviewImageEntity> travelReviewImageEntities = travelReviewImageRepository.findByTravelReviewNumber(reviewNumber);
-                travelReviewImageRepository.deleteAll(travelReviewImageEntities);
+                reviewNumbers.add(reviewNumber);
             }
+            travelCommentRepository.deleteByCommentReviewNumberIn(reviewNumbers);
+            travelReviewImageRepository.deleteByTravelReviewNumberIn(reviewNumbers);
             travelReviewRepository.deleteAll(travelReviewEntities);
 
             List<TravelScheduleEntity> travelScheduleEntities = travelScheduleRepository.findByTravelScheduleWriterId(userId);
+            List<Integer> travelScheduleNumbers = new ArrayList<>();
             for (TravelScheduleEntity travelScheduleEntity: travelScheduleEntities) {
                 Integer travelScheduleNumber = travelScheduleEntity.getTravelScheduleNumber();
-
-                List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(travelScheduleNumber);
-                travelScheduleExpenditureRepository.deleteAll(travelScheduleExpenditureEntities);
-
-                List<ScheduleEntity> scheduleEntities = scheduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
-                scheduleRepository.deleteAll(scheduleEntities);
+                travelScheduleNumbers.add(travelScheduleNumber);
             }
+            travelScheduleExpenditureRepository.deleteByTravelScheduleNumberIn(travelScheduleNumbers);
+            scheduleRepository.deleteByTravelScheduleNumberIn(travelScheduleNumbers);
+            travelScheduleRepository.deleteAll(travelScheduleEntities);
 
             userRepository.delete(userEntity);
 
             String email = userEntity.getUserEmail();
-            EmailAuthNumberEntity emailAuthNumberEntity = emailAuthNumberRepository.findByEmail(email);
-            emailAuthNumberRepository.delete(emailAuthNumberEntity);
+            emailAuthNumberRepository.deleteByEmail(email);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -257,46 +247,38 @@ public class UserServiceImplementation implements UserService{
             UserEntity userEntity = userRepository.findByUserId(deleteUserId);
             if(userEntity == null) return ResponseDto.noExistUser();
 
-            List<TourAttractionsRecommendEntity> tourAttractionsRecommendEntities = tourAttractionsRecommendRepository.findByUserId(userId);
-            tourAttractionsRecommendRepository.deleteAll(tourAttractionsRecommendEntities);
+            tourAttractionsRecommendRepository.deleteByUserId(userId);
 
-            List<RestaurantRecommendEntity> restaurantRecommendEntities = restaurantRecommendRepository.findByUserId(userId);
-            restaurantRecommendRepository.deleteAll(restaurantRecommendEntities);
+            restaurantRecommendRepository.deleteByUserId(userId);
             
-            List<QnaEntity> qnaEntities = qnaRepository.findByQnaWriterId(userId);
-            qnaRepository.deleteAll(qnaEntities);
+            qnaRepository.deleteByQnaWriterId(userId);
             
-            List<TravelFavoriteEntity> travelFavoriteEntities = travelFavoriteRepository.findByUserId(userId);
-            travelFavoriteRepository.deleteAll(travelFavoriteEntities);
+            travelFavoriteRepository.deleteByUserId(userId);
 
             List<TravelReviewEntity> travelReviewEntities = travelReviewRepository.findByReviewWriterId(userId);
+            List<Integer> reviewNumbers = new ArrayList<>();
             for (TravelReviewEntity travelReviewEntity : travelReviewEntities) {
-
                 Integer reviewNumber = travelReviewEntity.getReviewNumber();
-                List<TravelCommentEntity> travelCommentEntities = travelCommentRepository.findByCommentReviewNumber(reviewNumber);
-                travelCommentRepository.deleteAll(travelCommentEntities);
-
-                List<TravelReviewImageEntity> travelReviewImageEntities = travelReviewImageRepository.findByTravelReviewNumber(reviewNumber);
-                travelReviewImageRepository.deleteAll(travelReviewImageEntities);
+                reviewNumbers.add(reviewNumber);
             }
+            travelCommentRepository.deleteByCommentReviewNumberIn(reviewNumbers);
+            travelReviewImageRepository.deleteByTravelReviewNumberIn(reviewNumbers);
             travelReviewRepository.deleteAll(travelReviewEntities);
 
             List<TravelScheduleEntity> travelScheduleEntities = travelScheduleRepository.findByTravelScheduleWriterId(userId);
+            List<Integer> travelScheduleNumbers = new ArrayList<>();
             for (TravelScheduleEntity travelScheduleEntity: travelScheduleEntities) {
                 Integer travelScheduleNumber = travelScheduleEntity.getTravelScheduleNumber();
-
-                List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(travelScheduleNumber);
-                travelScheduleExpenditureRepository.deleteAll(travelScheduleExpenditureEntities);
-
-                List<ScheduleEntity> scheduleEntities = scheduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
-                scheduleRepository.deleteAll(scheduleEntities);
+                travelScheduleNumbers.add(travelScheduleNumber);
             }
+            travelScheduleExpenditureRepository.deleteByTravelScheduleNumberIn(travelScheduleNumbers);
+            scheduleRepository.deleteByTravelScheduleNumberIn(travelScheduleNumbers);
+            travelScheduleRepository.deleteAll(travelScheduleEntities);
 
             userRepository.delete(userEntity);
 
             String email = userEntity.getUserEmail();
-            EmailAuthNumberEntity emailAuthNumberEntity = emailAuthNumberRepository.findByEmail(email);
-            emailAuthNumberRepository.delete(emailAuthNumberEntity);
+            emailAuthNumberRepository.deleteByEmail(email);
 
         } catch (Exception exception) {
             exception.printStackTrace();
@@ -305,4 +287,5 @@ public class UserServiceImplementation implements UserService{
 
         return ResponseDto.success();
     }
+    
 }

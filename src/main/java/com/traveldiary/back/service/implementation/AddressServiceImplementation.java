@@ -37,7 +37,7 @@ public class AddressServiceImplementation implements AddressService {
             x = data.path("x").asDouble();
             y = data.path("y").asDouble();
 
-        } catch (Exception exception) {
+        } catch(Exception exception) {
             exception.printStackTrace();
             return null;                                                                                                                                         
         }
@@ -61,7 +61,7 @@ public class AddressServiceImplementation implements AddressService {
                 addresses.add(address);
             }
 
-        } catch (Exception exception) {
+        } catch(Exception exception) {
             exception.printStackTrace();
             return null;
         }

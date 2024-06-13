@@ -15,7 +15,7 @@ public interface ScheduleService {
     ResponseEntity<? super GetScheduleListResponseDto> getScheduleList(String userId);
     ResponseEntity<? super GetScheduleDetailResponseDto> getScheduleDetail(String userId, Integer travelScheduleNumber);
 
-    ResponseEntity<ResponseDto> patchSchedule(PatchScheduleRequestDto dto, String userId, Integer number);
+    ResponseEntity<ResponseDto> patchSchedule(PatchScheduleRequestDto dto, String userId, Integer travelScheduleNumber);
     
     ResponseEntity<ResponseDto> deleteSchedule(String userId, Integer travelScheduleWriterId);
 

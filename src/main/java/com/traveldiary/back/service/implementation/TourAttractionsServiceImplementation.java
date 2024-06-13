@@ -135,8 +135,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
 
         try {
 
-            List<TourAttractionsImageEntity> tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
-            tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);
+            tourAttractionsImageRepository.deleteByTourAttractionsNumber(tourAttractionsNumber);
 
             TourAttractionsEntity tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
             if (tourAttractionsEntity == null) return ResponseDto.noExistData();
@@ -165,11 +164,8 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
 
         try {
 
-            List<TourAttractionsImageEntity> tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
-            tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);
-
-            TourAttractionsEntity tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
-            tourAttractionsRepository.delete(tourAttractionsEntity);
+            tourAttractionsImageRepository.deleteByTourAttractionsNumber(tourAttractionsNumber);
+            tourAttractionsRepository.deleteByTourAttractionsNumber(tourAttractionsNumber);
             
         } catch (Exception exception) {
             exception.printStackTrace();

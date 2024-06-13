@@ -7,6 +7,8 @@ import org.springframework.stereotype.Repository;
 
 import com.traveldiary.back.entity.TravelCommentEntity;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 public interface TravelCommentRepository extends JpaRepository<TravelCommentEntity, Integer> {
 
@@ -14,5 +16,8 @@ public interface TravelCommentRepository extends JpaRepository<TravelCommentEnti
     List<TravelCommentEntity> findByCommentReviewNumber(Integer commentReviewNumber);
     List<TravelCommentEntity> findByCommentWriterId(String userId);
     boolean existsByCommentNumber(Integer commentNumber);
+
+    @Transactional
+    void deleteByCommentReviewNumberIn(List<Integer> commentReviewNumber);
 
 }

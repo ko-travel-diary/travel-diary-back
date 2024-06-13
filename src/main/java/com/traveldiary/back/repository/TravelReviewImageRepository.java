@@ -7,11 +7,17 @@ import org.springframework.stereotype.Repository;
 
 import com.traveldiary.back.entity.TravelReviewImageEntity;
 
+import jakarta.transaction.Transactional;
+
 @Repository
 public interface TravelReviewImageRepository extends JpaRepository<TravelReviewImageEntity, Integer> {
 
     List<TravelReviewImageEntity> findByTravelReviewNumber(Integer travelReviewNumber);
 
-    void deleteByTravelReviewNumber(Integer reviewNumber);
+    @Transactional
+    void deleteByTravelReviewNumberIn(List<Integer> travelReviewNumber);
+
+    @Transactional
+    void deleteByTravelReviewNumber(Integer travelReviewNumber);
 
 }
