@@ -19,11 +19,12 @@ public class TravelReviewViewEntity {
     @Id
     private Integer reviewNumber;
 
+    private String image;
     private String reviewTitle;
     private String reviewContent;
     private String reviewWriterId;
     private String reviewDatetime;
-    private String reviewFavoriteCount;
+    private Integer reviewFavoriteCount;
     private Integer reviewViewCount;
 
 }

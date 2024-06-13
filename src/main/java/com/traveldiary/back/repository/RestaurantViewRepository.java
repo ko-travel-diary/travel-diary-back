@@ -8,39 +8,23 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.traveldiary.back.entity.RestaurantViewEntity;
-import com.traveldiary.back.repository.resultSet.GetRestaurantResultSet;
 
 @Repository
 public interface RestaurantViewRepository extends JpaRepository<RestaurantViewEntity, Integer>{
 
-    @Query(
-        value=
-            "SELECT * " +
-            "FROM travel_diary.restaurant_view ",
-        nativeQuery=true
-    )
-    List<GetRestaurantResultSet> getRestaurantList();
+    List<RestaurantViewEntity> findBy();
+    List<RestaurantViewEntity> findByRestaurantNameContains(String restaurantName);
 
     @Query(
         value=
-            "SELECT * " +
-            "FROM travel_diary.restaurant_view " +
-            "WHERE r.restaurant_name LIKE %:searchWord% ",
-        nativeQuery=true
+            "SELECT r " +
+            "FROM RestaurantViewEntity as r " +
+            "WHERE r.restaurantLat >= (:lat - 0.03) " +
+                "AND r.restaurantLat <= (:lat + 0.03) " +
+                "AND r.restaurantLng >= (:lng - 0.07) " +
+                "AND r.restaurantLng <= (:lng + 0.07) "
     )
-    List<GetRestaurantResultSet> getSearchRestaurantList(String searchWord);
-
-    @Query(
-        value=
-            "SELECT * " +
-            "FROM travel_diary.restaurant_view " +
-            "WHERE r.restaurant_lat >= (:lat - 0.03) " +
-                "AND r.restaurant_lat <= (:lat + 0.03) " +
-                "AND r.restaurant_lng >= (:lng - 0.07) " +
-                "AND r.restaurant_lng <= (:lng + 0.07) ",
-        nativeQuery=true
-    )
-    List<GetRestaurantResultSet> getRestaurantRangeList(
+    List<RestaurantViewEntity> getRestaurantRangeList(
         @Param("lat") Double lat,
         @Param("lng") Double lng
     );

@@ -8,40 +8,22 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.traveldiary.back.entity.TourAttractionViewEntity;
-import com.traveldiary.back.repository.resultSet.GetTourAttractionsResultSet;
 
 @Repository
 public interface TourAttractionViewRepository extends JpaRepository<TourAttractionViewEntity, Integer>{
 
+    List<TourAttractionViewEntity> findBy();
+    List<TourAttractionViewEntity> findByTourAttractionsNameContains(String tourAttractionsName);
     @Query(
         value=
-            "SELECT * " +
-            "FROM travel_diary.tour_attraction_view",
-        nativeQuery=true
+            "SELECT t " +
+            "FROM TourAttractionViewEntity as t " +
+            "WHERE t.tourAttractionsLat >= (:lat - 0.03) " +
+                "AND t.tourAttractionsLat <= (:lat + 0.03) " +
+                "AND t.tourAttractionsLng >= (:lng - 0.07) " +
+                "AND t.tourAttractionsLng <= (:lng + 0.07) "
     )
-    List<GetTourAttractionsResultSet> getTourAttractionsList();
-
-    
-    @Query(
-        value=
-            "SELECT * " +
-            "FROM travel_diary.tour_attraction_view " +
-            "WHERE t.tour_attractions_name LIKE %:searchWord%",
-        nativeQuery=true
-    )
-    List<GetTourAttractionsResultSet> getSearchTourAttractionsList(String searchWord);
-
-    @Query(
-        value=
-            "SELECT * " +
-            "FROM travel_diary.tour_attraction_view " +
-            "WHERE t.tour_attractions_lat >= (:lat - 0.03) " +
-                "AND t.tour_attractions_lat <= (:lat + 0.03) " +
-                "AND t.tour_attractions_lng >= (:lng - 0.07) " +
-                "AND t.tour_attractions_lng <= (:lng + 0.07) ",
-        nativeQuery=true
-    )
-    List<GetTourAttractionsResultSet> getTourAttractionsRangeList(
+    List<TourAttractionViewEntity> getTourAttractionsRangeList(
         @Param("lat") Double lat,
         @Param("lng") Double lng
     );

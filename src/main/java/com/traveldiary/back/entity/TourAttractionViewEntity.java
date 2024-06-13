@@ -19,13 +19,14 @@ public class TourAttractionViewEntity {
     @Id
     private Integer tourAttractionsNumber;
 
+    private String image;
     private String tourAttractionsName;
     private String tourAttractionsLocation;
     private String tourAttractionsOutline;
     private String tourAttractionsHours;
     private String tourAttractionsTelNumber;
-    private String image;
     private Double tourAttractionsLat;
     private Double tourAttractionsLng;
+    private Integer tourAttractionsRecommendCount;
 
 }
