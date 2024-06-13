@@ -65,27 +65,13 @@ public class ReviewController {
         return response;
     }
 
-    @GetMapping("/list/search/title")
+    @GetMapping("/search")
     public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewTitleAndContentSearchList(
-        @RequestParam("searchWord") String searchWord
+        @RequestParam(value = "titleAndContent", required = false) String titleAndContent,
+        @RequestParam(value = "writer", required = false) String writer,
+        @RequestParam(value = "writedate", required = false) String writedate
     ) {
-        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewTitleAndContentSearchList(searchWord);
-        return response;
-    }
-
-    @GetMapping("/list/search/writer")
-    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriterSearchList(
-        @RequestParam("searchWord") String searchWord
-    ) {
-        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewWriterSearchList(searchWord);
-        return response;
-    }
-
-    @GetMapping("/list/search/writedate")
-    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriteDateSearchList(
-        @RequestParam("searchWord") String searchWord
-    ) {
-        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getReviewWriteDateSearchList(searchWord);
+        ResponseEntity<? super GetTravelReviewSearchResponseDto> response = travelReviewService.getSearchList(titleAndContent, writer, writedate);
         return response;
     }
 
@@ -97,7 +83,7 @@ public class ReviewController {
         return response;
     }
 
-    @GetMapping("/post/list")
+    @GetMapping("/my-list")
     public ResponseEntity<? super GetTravelReviewMyListResponseDto> getReviewMyList(
         @AuthenticationPrincipal String userId
     ) {

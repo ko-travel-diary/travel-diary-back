@@ -87,49 +87,17 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
     }
 
     @Override
-    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewTitleAndContentSearchList(String searchWord) {
+    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getSearchList(String titleAndContent, String writer, String writedate) {
         
         List<TravelReviewViewEntity> travelReviewViewEntities = new ArrayList<>();
 
         try {
             
-            travelReviewViewEntities = travelReviewViewRepository.findByReviewTitleContainsOrReviewContentContains(searchWord, searchWord);
-            
-        } catch(Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
+            if(titleAndContent != null) travelReviewViewEntities = travelReviewViewRepository.findByReviewTitleContainsOrReviewContentContains(titleAndContent, titleAndContent);
         
-        return GetTravelReviewSearchResponseDto.success(travelReviewViewEntities);
+            if(writer != null)travelReviewViewEntities = travelReviewViewRepository.findByReviewDatetimeContains(writer);
 
-    }
-
-    @Override
-    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriterSearchList(String searchWord) {
-
-        List<TravelReviewViewEntity> travelReviewViewEntities = new ArrayList<>();
-
-        try {
-        
-            travelReviewViewEntities = travelReviewViewRepository.findByReviewWriterIdContains(searchWord);
-            
-        } catch(Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-        
-        return GetTravelReviewSearchResponseDto.success(travelReviewViewEntities);
-
-    }
-
-    @Override
-    public ResponseEntity<? super GetTravelReviewSearchResponseDto> getReviewWriteDateSearchList(String searchWord) {
-
-        List<TravelReviewViewEntity> travelReviewViewEntities = new ArrayList<>();
-
-        try {
-        
-            travelReviewViewEntities = travelReviewViewRepository.findByReviewDatetimeContains(searchWord);
+            if(writedate != null)travelReviewViewEntities = travelReviewViewRepository.findByReviewWriterIdContains(writedate);
             
         } catch(Exception exception) {
             exception.printStackTrace();
