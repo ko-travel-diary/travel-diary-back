@@ -57,7 +57,7 @@ public class QnaController {
         return response;
     }
 
-    @GetMapping("/list/search")
+    @GetMapping("/search")
     public ResponseEntity<? super GetSearchQnaBoardResponseDto> getSearchQnaList(
         @RequestParam("word") String word
     ) {
@@ -65,7 +65,7 @@ public class QnaController {
         return response;
     }
 
-    @GetMapping("/list/{receptionNumber}")
+    @GetMapping("/{receptionNumber}")
     public ResponseEntity<? super GetQnaResponseDto> getQna(
         @PathVariable("receptionNumber") Integer receptionNumber
     ) {
