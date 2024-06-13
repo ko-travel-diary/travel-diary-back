@@ -31,6 +31,40 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
     private final TourAttractionViewRepository tourAttractionViewRepository;
 
     @Override
+    public ResponseEntity<ResponseDto> postTourAttractions(PostTourAttractionsRequestDto dto, String userId) {
+
+        try{
+
+            String tourAttractionsName = dto.getTourAttractionsName();
+            boolean existsed = tourAttractionsRepository.existsByTourAttractionsName(tourAttractionsName);
+            if(existsed) return ResponseDto.duplicatedTourAttractions();
+
+            TourAttractionsEntity tourAttractionsEntity = new TourAttractionsEntity(dto);
+            tourAttractionsRepository.save(tourAttractionsEntity);
+
+            int tourAttractionsNumber = tourAttractionsEntity.getTourAttractionsNumber();
+
+            List<String> images = dto.getTourAttractionsImageUrl();
+            for (String image : images) {
+                TourAttractionsImageEntity imageEntity = new TourAttractionsImageEntity(tourAttractionsNumber, image);
+                tourAttractionsImageRepository.save(imageEntity);
+            }
+            if(images.isEmpty() || images.get(0) == null) {
+                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
+                TourAttractionsImageEntity imageEntity = new TourAttractionsImageEntity(tourAttractionsNumber, image);
+                tourAttractionsImageRepository.save(imageEntity);
+            }
+            
+        }catch(Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+
+    }
+
+    @Override
     public ResponseEntity<? super GetTourAttractionsListResponseDto> getTourAttractionsList (Double lat, Double lng) {
 
         List<TourAttractionViewEntity> resultSets = null;
@@ -95,61 +129,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
         return GetTourAttractionsResponseDto.success(tourAttractionsEntity, tourAttractionsImageUrl);
 
     }
-
-    @Override
-    public ResponseEntity<ResponseDto> postTourAttractions(PostTourAttractionsRequestDto dto, String userId) {
-
-        try{
-
-            String tourAttractionsName = dto.getTourAttractionsName();
-            boolean existsed = tourAttractionsRepository.existsByTourAttractionsName(tourAttractionsName);
-            if(existsed) return ResponseDto.duplicatedTourAttractions();
-
-            TourAttractionsEntity tourAttractionsEntity = new TourAttractionsEntity(dto);
-            tourAttractionsRepository.save(tourAttractionsEntity);
-
-            int tourAttractionsNumber = tourAttractionsEntity.getTourAttractionsNumber();
-
-            List<String> images = dto.getTourAttractionsImageUrl();
-            for (String image : images) {
-                TourAttractionsImageEntity imageEntity = new TourAttractionsImageEntity(tourAttractionsNumber, image);
-                tourAttractionsImageRepository.save(imageEntity);
-            }
-            if(images.isEmpty() || images.get(0) == null) {
-                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
-                TourAttractionsImageEntity imageEntity = new TourAttractionsImageEntity(tourAttractionsNumber, image);
-                tourAttractionsImageRepository.save(imageEntity);
-            }
-            
-        }catch(Exception exception){
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return ResponseDto.success();
-
-    }
-
-    @Override
-    public ResponseEntity<ResponseDto> deleteTourAttractions(Integer tourAttractionsNumber, String userId) {
-
-        try {
-
-            List<TourAttractionsImageEntity> tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
-            tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);
-
-            TourAttractionsEntity tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
-            tourAttractionsRepository.delete(tourAttractionsEntity);
-            
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return ResponseDto.success();
-
-    }
-
+    
     @Override
     public ResponseEntity<ResponseDto> patchTourAttractions(PatchTourAttrcationsRequestDto dto, Integer tourAttractionsNumber, String userId) {
 
@@ -176,6 +156,27 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
         }
 
     return ResponseDto.success();
+
+    }
+
+
+    @Override
+    public ResponseEntity<ResponseDto> deleteTourAttractions(Integer tourAttractionsNumber, String userId) {
+
+        try {
+
+            List<TourAttractionsImageEntity> tourAttractionsImageEntities = tourAttractionsImageRepository.findByTourAttractionsNumber(tourAttractionsNumber);
+            tourAttractionsImageRepository.deleteAll(tourAttractionsImageEntities);
+
+            TourAttractionsEntity tourAttractionsEntity = tourAttractionsRepository.findByTourAttractionsNumber(tourAttractionsNumber);
+            tourAttractionsRepository.delete(tourAttractionsEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
 
     }
 

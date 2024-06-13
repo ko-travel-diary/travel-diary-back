@@ -68,6 +68,31 @@ public class UserServiceImplementation implements UserService{
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Override
+    public ResponseEntity<? super PostUserNickNameResponseDto> postUserNickName(PostUserNickNameRequestDto dto) {
+
+        String nickName = null;
+
+        try {
+
+            String userId = dto.getUserId();
+
+            UserEntity userEntity = userRepository.findByUserId(userId);
+
+            String userRole = userEntity.getUserRole();
+            if(userRole == "ROLE_ADMIN") return ResponseDto.authenticationFailed();
+
+            nickName = userEntity.getNickName();
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return PostUserNickNameResponseDto.success(nickName);
+        
+    }
+
+    @Override
     public ResponseEntity<? super GetUserListResponseDto> getUserList(String userId) {
 
         List<UserEntity> userEntities = new ArrayList<>();
@@ -123,33 +148,6 @@ public class UserServiceImplementation implements UserService{
         return GetUserInfoResponseDto.success(userEntity);
 
     }
-
-    
-    @Override
-    public ResponseEntity<? super PostUserNickNameResponseDto> postUserNickName(PostUserNickNameRequestDto dto) {
-
-        String nickName = null;
-
-        try {
-
-            String userId = dto.getUserId();
-
-            UserEntity userEntity = userRepository.findByUserId(userId);
-
-            String userRole = userEntity.getUserRole();
-            if(userRole == "ROLE_ADMIN") return ResponseDto.authenticationFailed();
-
-            nickName = userEntity.getNickName();
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return PostUserNickNameResponseDto.success(nickName);
-        
-    }
-
 
     @Override
     public ResponseEntity<ResponseDto> patchUserInfo(PatchUserInfoRequestDto dto, String userId) {

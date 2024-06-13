@@ -66,6 +66,46 @@ public class ScheduleServiceImplementation implements ScheduleService{
     }
 
     @Override
+    public ResponseEntity<? super GetScheduleListResponseDto> getScheduleList(String userId) {
+
+        List<TravelScheduleEntity> travelScheduleEntities;
+
+        try {
+            
+            travelScheduleEntities = travelSchduleRepository.findByTravelScheduleWriterId(userId);
+
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+        
+        return GetScheduleListResponseDto.success(travelScheduleEntities);
+
+    }
+
+    @Override
+    public ResponseEntity<? super GetScheduleDetailResponseDto> getScheduleDetail(String userId, Integer travelScheduleNumber) {
+        
+        TravelScheduleEntity travelScheduleEntity;
+        List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities;
+        List<ScheduleEntity> scheduleEntities;
+
+        try {
+
+            travelScheduleEntity = travelSchduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
+            travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(travelScheduleNumber);
+            scheduleEntities = scheduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetScheduleDetailResponseDto.success(travelScheduleEntity, travelScheduleExpenditureEntities, scheduleEntities);
+
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> patchSchedule(PatchScheduleRequestDto dto, String userId, Integer number) {
 
         try {
@@ -123,46 +163,6 @@ public class ScheduleServiceImplementation implements ScheduleService{
         }
 
         return ResponseDto.success();
-
-    }
-
-    @Override
-    public ResponseEntity<? super GetScheduleListResponseDto> getScheduleList(String userId) {
-
-        List<TravelScheduleEntity> travelScheduleEntities;
-
-        try {
-            
-            travelScheduleEntities = travelSchduleRepository.findByTravelScheduleWriterId(userId);
-
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-        
-        return GetScheduleListResponseDto.success(travelScheduleEntities);
-
-    }
-
-    @Override
-    public ResponseEntity<? super GetScheduleDetailResponseDto> getScheduleDetail(String userId, Integer travelScheduleNumber) {
-        
-        TravelScheduleEntity travelScheduleEntity;
-        List<TravelScheduleExpenditureEntity> travelScheduleExpenditureEntities;
-        List<ScheduleEntity> scheduleEntities;
-
-        try {
-
-            travelScheduleEntity = travelSchduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
-            travelScheduleExpenditureEntities = travelScheduleExpenditureRepository.findByTravelScheduleNumber(travelScheduleNumber);
-            scheduleEntities = scheduleRepository.findByTravelScheduleNumber(travelScheduleNumber);
-            
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return GetScheduleDetailResponseDto.success(travelScheduleEntity, travelScheduleExpenditureEntities, scheduleEntities);
 
     }
 }

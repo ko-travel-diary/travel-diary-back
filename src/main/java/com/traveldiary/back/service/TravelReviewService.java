@@ -27,5 +27,6 @@ public interface TravelReviewService {
     ResponseEntity<ResponseDto> patchTravelView(Integer reviewNumber);
 
     ResponseEntity<ResponseDto> deleteTravelReview(Integer reviewNumber, String userId);
+    
 }
 

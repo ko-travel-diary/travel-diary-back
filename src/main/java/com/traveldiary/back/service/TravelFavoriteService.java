@@ -7,7 +7,7 @@ import com.traveldiary.back.dto.response.review.GetTravelReviewFavoriteStatusRes
 
 public interface TravelFavoriteService {
 
-    ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> getFavoriteStatus (Integer reviewNumber, String userId);
+    ResponseEntity<? super GetTravelReviewFavoriteStatusResponseDto> getFavoriteStatus(Integer reviewNumber, String userId);
 
     ResponseEntity<ResponseDto> patchTravelFavorite(Integer reviewNumber, String userId);
 

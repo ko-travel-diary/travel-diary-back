@@ -23,6 +23,27 @@ public class RestaurantRecommendServiceImplementation implements RestaurantRecom
     private final RestaurantRecommendRepository restaurantRecommendRepository;
 
     @Override
+    public ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> getRestRecommendStatus(Integer restaurantNumber, String userId) {
+
+        boolean existsRecommend = false;
+
+        try{
+
+            if(restaurantNumber == null) return ResponseDto.noExistBoard();
+            if(userId == null) return ResponseDto.authenticationFailed();
+
+            existsRecommend = restaurantRecommendRepository.existsByUserIdAndRestaurantNumber(userId, restaurantNumber);
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetRestaurantRecommendStatusResponseDto.success(existsRecommend);
+
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> patchRestRecommend(Integer restaurantNumber, String userId) {
 
         try{
@@ -54,27 +75,6 @@ public class RestaurantRecommendServiceImplementation implements RestaurantRecom
         }
 
         return ResponseDto.success();
-    }
-
-    @Override
-    public ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> getRestRecommendStatus(Integer restaurantNumber, String userId) {
-
-        boolean existsRecommend = false;
-
-        try{
-
-            if(restaurantNumber == null) return ResponseDto.noExistBoard();
-            if(userId == null) return ResponseDto.authenticationFailed();
-
-            existsRecommend = restaurantRecommendRepository.existsByUserIdAndRestaurantNumber(userId, restaurantNumber);
-
-        }catch(Exception exception){
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return GetRestaurantRecommendStatusResponseDto.success(existsRecommend);
-
     }
 
 }

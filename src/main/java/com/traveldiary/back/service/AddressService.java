@@ -1,12 +1,13 @@
 package com.traveldiary.back.service;
 
-import java.io.UnsupportedEncodingException;
+import org.springframework.http.ResponseEntity;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.traveldiary.back.dto.response.address.GetSearchAddressResponseDto;
+import com.traveldiary.back.dto.response.address.GetSearchCoordinateResponseDto;
 
 public interface AddressService {
 
-    JsonNode SearchCoordinate (String query) throws UnsupportedEncodingException;
-    JsonNode SearchAddress (String query, Integer page, Integer size) throws UnsupportedEncodingException;
+    ResponseEntity<? super GetSearchCoordinateResponseDto> SearchCoordinate(String query);
+    ResponseEntity<? super GetSearchAddressResponseDto> SearchAddress(String query, Integer page, Integer size);
 
 }
