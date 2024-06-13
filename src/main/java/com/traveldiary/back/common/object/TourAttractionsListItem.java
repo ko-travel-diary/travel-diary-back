@@ -3,7 +3,7 @@ package com.traveldiary.back.common.object;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.traveldiary.back.repository.resultSet.GetTourAttractionsResultSet;
+import com.traveldiary.back.entity.TourAttractionViewEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,7 +25,7 @@ public class TourAttractionsListItem {
     private Double tourAttractionsLng;
     private Integer tourAttractionsRecommendCount;    
 
-    private TourAttractionsListItem(GetTourAttractionsResultSet resultSet) {
+    private TourAttractionsListItem(TourAttractionViewEntity resultSet) {
         this.tourAttractionsNumber = resultSet.getTourAttractionsNumber();
         this.tourAttractionsImageUrl = resultSet.getImage();
         this.tourAttractionsName = resultSet.getTourAttractionsName();
@@ -38,11 +38,11 @@ public class TourAttractionsListItem {
         this.tourAttractionsRecommendCount = resultSet.getTourAttractionsRecommendCount();
     }
 
-    public static List<TourAttractionsListItem> getTourAttractionsList(List<GetTourAttractionsResultSet> resultSets) {
+    public static List<TourAttractionsListItem> getTourAttractionsList(List<TourAttractionViewEntity> resultSets) {
 
         List<TourAttractionsListItem> tourAttractionsList = new ArrayList<>();
 
-        for(GetTourAttractionsResultSet resultSet : resultSets){
+        for(TourAttractionViewEntity resultSet : resultSets){
             TourAttractionsListItem tourAttractionsListItem = new TourAttractionsListItem(resultSet);
             tourAttractionsList.add(tourAttractionsListItem);
         }

@@ -3,7 +3,7 @@ package com.traveldiary.back.common.object;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.traveldiary.back.repository.resultSet.GetTravelReviewResultSet;
+import com.traveldiary.back.entity.TravelReviewViewEntity;
 
 import lombok.Getter;
 
@@ -19,23 +19,23 @@ public class ReviewBoardListItem {
     private Integer reviewViewCount;
     private Integer reviewFavoriteCount;
 
-    public ReviewBoardListItem(GetTravelReviewResultSet resultSet) {
-        this.reviewNumber = resultSet.getReviewNumber();
-        this.reviewTitle = resultSet.getReviewTitle();
-        this.reviewContent = resultSet.getReviewContent();
-        this.writerId = resultSet.getReviewWriterId();
-        this.reviewDatetime = resultSet.getReviewDatetime();
-        this.reviewViewCount = resultSet.getReviewViewCount();
-        this.reviewFavoriteCount = resultSet.getReviewFavoriteCount();
-        this.travelReviewImageUrl = resultSet.getImage();
+    public ReviewBoardListItem(TravelReviewViewEntity travelReviewViewEntity) {
+        this.reviewNumber = travelReviewViewEntity.getReviewNumber();
+        this.reviewTitle = travelReviewViewEntity.getReviewTitle();
+        this.reviewContent = travelReviewViewEntity.getReviewContent();
+        this.writerId = travelReviewViewEntity.getReviewWriterId();
+        this.reviewDatetime = travelReviewViewEntity.getReviewDatetime();
+        this.reviewViewCount = travelReviewViewEntity.getReviewViewCount();
+        this.reviewFavoriteCount = travelReviewViewEntity.getReviewFavoriteCount();
+        this.travelReviewImageUrl = travelReviewViewEntity.getImage();
     }
 
-    public static List<ReviewBoardListItem> getReviewList(List<GetTravelReviewResultSet> resultSets) {
+    public static List<ReviewBoardListItem> getReviewList(List<TravelReviewViewEntity> travelReviewViewEntities) {
 
         List<ReviewBoardListItem> reviewBoardList = new ArrayList<>();
 
-        for(GetTravelReviewResultSet resultSet: resultSets) {
-            ReviewBoardListItem reviewBoardListItem = new ReviewBoardListItem(resultSet);
+        for(TravelReviewViewEntity travelReviewViewEntity: travelReviewViewEntities) {
+            ReviewBoardListItem reviewBoardListItem = new ReviewBoardListItem(travelReviewViewEntity);
             reviewBoardList.add(reviewBoardListItem);
         }
 

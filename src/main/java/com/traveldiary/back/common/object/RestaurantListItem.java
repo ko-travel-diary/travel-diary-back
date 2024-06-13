@@ -3,7 +3,7 @@ package com.traveldiary.back.common.object;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.traveldiary.back.repository.resultSet.GetRestaurantResultSet;
+import com.traveldiary.back.entity.RestaurantViewEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,7 +27,7 @@ public class RestaurantListItem {
     private Double restaurantLng;
     private Integer restaurantRecommendCount;
 
-    private RestaurantListItem(GetRestaurantResultSet resultSet) {
+    private RestaurantListItem(RestaurantViewEntity resultSet) {
         this.restaurantNumber = resultSet.getRestaurantNumber();
         this.restaurantImageUrl = resultSet.getImage();
         this.restaurantName = resultSet.getRestaurantName();
@@ -42,11 +42,11 @@ public class RestaurantListItem {
         this.restaurantRecommendCount = resultSet.getRestaurantRecommendCount();
     }
 
-    public static List<RestaurantListItem> getRestaurantList(List<GetRestaurantResultSet> resultSets) {
+    public static List<RestaurantListItem> getRestaurantList(List<RestaurantViewEntity> resultSets) {
 
         List<RestaurantListItem> restaurantList = new ArrayList<>();
 
-        for(GetRestaurantResultSet resultSet : resultSets){
+        for(RestaurantViewEntity resultSet : resultSets){
 
             RestaurantListItem tRestaurantListItem = new RestaurantListItem(resultSet);
             restaurantList.add(tRestaurantListItem);

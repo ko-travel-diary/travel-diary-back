@@ -19,6 +19,7 @@ public class RestaurantViewEntity {
     @Id
     private Integer restaurantNumber;
 
+    private String image;
     private String restaurantName;
     private String restaurantLocation;
     private String restaurantOutline;
@@ -26,8 +27,8 @@ public class RestaurantViewEntity {
     private String restaurantTelNumber;
     private String restaurantMainMenu;
     private String restaurantServiceMenu;
-    private String image;
     private Double restaurantLat;
     private Double restaurantLng;
+    private Integer restaurantRecommendCount;
 
 }

@@ -14,10 +14,10 @@ import com.traveldiary.back.dto.response.restaurant.GetRestaurantResponseDto;
 import com.traveldiary.back.dto.response.restaurant.GetSearchRestaurantListResponseDto;
 import com.traveldiary.back.entity.RestaurantEntity;
 import com.traveldiary.back.entity.RestaurantImageEntity;
+import com.traveldiary.back.entity.RestaurantViewEntity;
 import com.traveldiary.back.repository.RestaurantImageRepository;
 import com.traveldiary.back.repository.RestaurantRepository;
 import com.traveldiary.back.repository.RestaurantViewRepository;
-import com.traveldiary.back.repository.resultSet.GetRestaurantResultSet;
 import com.traveldiary.back.service.RestaurantService;
 
 import lombok.RequiredArgsConstructor;
@@ -33,12 +33,12 @@ public class RestaurantServiceImplementation implements RestaurantService{
     @Override
     public ResponseEntity<? super GetRestaurantListResponseDto> getRestaurantList(Double lat, Double lng) {
 
-        List<GetRestaurantResultSet> resultSets = new ArrayList<>();
+        List<RestaurantViewEntity> resultSets = new ArrayList<>();
 
         try {
             
             if (lat == null || lng == null)
-                resultSets = restaurantViewRepository.getRestaurantList();
+                resultSets = restaurantViewRepository.findBy();
             else
                 resultSets = restaurantViewRepository.getRestaurantRangeList(lat, lng);
             
@@ -54,10 +54,10 @@ public class RestaurantServiceImplementation implements RestaurantService{
     @Override
     public ResponseEntity<? super GetSearchRestaurantListResponseDto> getSearchRestaurantList(String searchWord) {
 
-        List<GetRestaurantResultSet> resultSets = new ArrayList<>();
+        List<RestaurantViewEntity> resultSets = new ArrayList<>();
 
         try {
-            resultSets = restaurantViewRepository.getSearchRestaurantList(searchWord);
+            resultSets = restaurantViewRepository.findByRestaurantNameContains(searchWord);
         } catch (Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
