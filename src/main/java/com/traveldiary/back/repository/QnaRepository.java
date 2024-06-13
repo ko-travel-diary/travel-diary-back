@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.traveldiary.back.entity.QnaEntity;
 
 @Repository
-public interface QnaRepository extends JpaRepository<QnaEntity, Integer>{
+public interface QnaRepository extends JpaRepository<QnaEntity, Integer> {
 
     List<QnaEntity> findByOrderByReceptionNumberDesc();
     List<QnaEntity> findByQnaTitleContainsOrderByReceptionNumberDesc(String searchWord);

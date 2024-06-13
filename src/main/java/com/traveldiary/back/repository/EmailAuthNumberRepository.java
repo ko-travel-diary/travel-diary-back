@@ -8,12 +8,12 @@ import com.traveldiary.back.entity.EmailAuthNumberEntity;
 import jakarta.transaction.Transactional;
 
 @Repository
-public interface EmailAuthNumberRepository extends JpaRepository<EmailAuthNumberEntity, String>{
+public interface EmailAuthNumberRepository extends JpaRepository<EmailAuthNumberEntity, String> {
 
     EmailAuthNumberEntity findByEmail(String email);
-    boolean existsByEmailAndAuthNumber (String userEmail, String authNumber);
+    boolean existsByEmailAndAuthNumber(String userEmail, String authNumber);
 
     @Transactional
-    void deleteByEmail (String email);
+    void deleteByEmail(String email);
 
 }

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.traveldiary.back.entity.RestaurantViewEntity;
 
 @Repository
-public interface RestaurantViewRepository extends JpaRepository<RestaurantViewEntity, Integer>{
+public interface RestaurantViewRepository extends JpaRepository<RestaurantViewEntity, Integer> {
 
     List<RestaurantViewEntity> findBy();
     List<RestaurantViewEntity> findByRestaurantNameContains(String restaurantName);
