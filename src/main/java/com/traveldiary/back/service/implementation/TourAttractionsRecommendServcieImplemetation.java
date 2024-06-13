@@ -23,6 +23,27 @@ public class TourAttractionsRecommendServcieImplemetation implements TourAttract
     private final TourAttractionsRecommendRepository tourAttractionsRecommendRepository;
 
     @Override
+    public ResponseEntity<? super GetTourAttractionsRecommendResponseDto> getTourRecommendStatus(Integer tourAttractionNumber, String userId) {
+
+        boolean existsRecommend = false;
+
+        try{
+
+            if(tourAttractionNumber == null) return ResponseDto.noExistBoard();
+            if(userId == null) return ResponseDto.authenticationFailed();
+
+            existsRecommend = tourAttractionsRecommendRepository.existsByUserIdAndTourAttractionsNumber(userId, tourAttractionNumber);
+
+        }catch(Exception exception){
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return GetTourAttractionsRecommendResponseDto.success(existsRecommend);
+
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> patchTourRecommend(Integer tourAttractionNumber, String userId) {
 
         try{
@@ -54,27 +75,6 @@ public class TourAttractionsRecommendServcieImplemetation implements TourAttract
         }
 
         return ResponseDto.success();
-
-    }
-
-    @Override
-    public ResponseEntity<? super GetTourAttractionsRecommendResponseDto> getTourRecommendStatus(Integer tourAttractionNumber, String userId) {
-
-        boolean existsRecommend = false;
-
-        try{
-
-            if(tourAttractionNumber == null) return ResponseDto.noExistBoard();
-            if(userId == null) return ResponseDto.authenticationFailed();
-
-            existsRecommend = tourAttractionsRecommendRepository.existsByUserIdAndTourAttractionsNumber(userId, tourAttractionNumber);
-
-        }catch(Exception exception){
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return GetTourAttractionsRecommendResponseDto.success(existsRecommend);
 
     }
     

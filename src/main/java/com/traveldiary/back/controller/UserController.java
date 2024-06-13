@@ -31,6 +31,14 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
     private final UserService userService;
+
+    @PostMapping("/nickName")
+    public ResponseEntity<? super PostUserNickNameResponseDto> postUserNickName (
+        @RequestBody @Valid PostUserNickNameRequestDto requestBody
+    ) {
+        ResponseEntity<? super PostUserNickNameResponseDto> response = userService.postUserNickName(requestBody);
+        return response;
+    }
     
     @GetMapping("/userlist")
     public ResponseEntity<? super GetUserListResponseDto> getUserList(
@@ -45,14 +53,6 @@ public class UserController {
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<? super GetUserInfoResponseDto> response = userService.getUserInfo(userId);
-        return response;
-    }
-
-    @PostMapping("/nickName")
-    public ResponseEntity<? super PostUserNickNameResponseDto> postUserNickName (
-        @RequestBody @Valid PostUserNickNameRequestDto requestBody
-    ) {
-        ResponseEntity<? super PostUserNickNameResponseDto> response = userService.postUserNickName(requestBody);
         return response;
     }
 

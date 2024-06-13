@@ -1,85 +1,72 @@
 package com.traveldiary.back.service.implementation;
 
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.traveldiary.back.common.util.GetRequestUtil;
+import com.traveldiary.back.dto.response.address.GetSearchAddressResponseDto;
+import com.traveldiary.back.dto.response.address.GetSearchCoordinateResponseDto;
 import com.traveldiary.back.service.AddressService;
 
 @Service
-public class AddressServiceImplementation implements AddressService{
+public class AddressServiceImplementation implements AddressService {
 
     @Value("${kakao.rest-api-key}") private String restKey;
+    @Value("${kakao.coordinate-url}") private String coordinateUrl;
+    @Value("${kakao.address-url}") private String addressUrl;
+
+    GetSearchCoordinateResponseDto getSearchCoordinateResponseDto = null;
+
+    Double x = null;
+    Double y = null;
 
     @Override
-    public JsonNode  SearchCoordinate(String query) throws UnsupportedEncodingException{
-
-    String url = "http://dapi.kakao.com/v2/local/search/address.json?query=";
-    String key = "KakaoAK " + restKey;
-    String encodeAddress = URLEncoder.encode(query, "UTF-8");
-
-    URL searchUrl;
+    public ResponseEntity<? super GetSearchCoordinateResponseDto> SearchCoordinate(String query){
 
         try {
 
-            searchUrl = new URL(url + encodeAddress);
-
-            HttpURLConnection con = (HttpURLConnection)searchUrl.openConnection();
-
-
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization",key);
-            con.setRequestProperty("content-type", "application/json");
-
-            InputStream inputStream = con.getInputStream();
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode response = objectMapper.readTree(inputStream);
-
-            return response;
+            JsonNode result = GetRequestUtil.coordinateRequest(query, restKey, coordinateUrl);
+            JsonNode documents = result.path("documents");
+            
+            JsonNode data = documents.get(0);
+            x = data.path("x").asDouble();
+            y = data.path("y").asDouble();
 
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;                                                                                                                                         
         }
+
+        return GetSearchCoordinateResponseDto.success(x, y);
+
     }
 
 
     @Override
-    public JsonNode SearchAddress(String query, Integer size, Integer page) {
+    public ResponseEntity<? super GetSearchAddressResponseDto> SearchAddress(String query, Integer size, Integer page) {
 
-        String url = "http://dapi.kakao.com/v2/local/search/keyword.json?query=";
-        String key = "KakaoAK " + restKey;
-        String encode;
+        List<String> addresses = new ArrayList<>();
 
-        URL searchUrl;
-        
         try {
 
-            encode = URLEncoder.encode(query, "UTF-8"); 
-            searchUrl = new URL(url + encode + "&size=" + size + "&page=" + page);
-            
-            HttpURLConnection con = (HttpURLConnection)searchUrl.openConnection();
+            JsonNode result = GetRequestUtil.addressRequest(query, restKey, addressUrl, size, page);
 
-            con.setRequestMethod("GET");
-            con.setRequestProperty("Authorization", key);
-            con.setRequestProperty("content-type", "application/json");
+            for(JsonNode document: result.path("documents")) {
+                String address = document.path("address_name").asText();
+                addresses.add(address);
+            }
 
-            InputStream inputStream = con.getInputStream();
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode response = objectMapper.readTree(inputStream);
-
-            return response;
         } catch (Exception exception) {
             exception.printStackTrace();
             return null;
         }
+
+        return GetSearchAddressResponseDto.success(addresses);
         
     }
 

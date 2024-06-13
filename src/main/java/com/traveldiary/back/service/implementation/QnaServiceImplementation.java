@@ -155,28 +155,6 @@ public class QnaServiceImplementation implements QnaService{
     }
 
     @Override
-    public ResponseEntity<ResponseDto> deleteQna(Integer receptionNumber, String userId) {
-
-        try {
-
-            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
-            if (qnaEntity == null) return ResponseDto.noExistBoard();
-
-            String writerId = qnaEntity.getQnaWriterId();
-            boolean isWriter = userId.equals(writerId);
-            if(!isWriter) return ResponseDto.authenticationFailed();
-
-            qnaRepository.delete(qnaEntity);
-            
-        } catch (Exception exception) {
-            exception.printStackTrace();
-            return ResponseDto.databaseError();
-        }
-
-        return ResponseDto.success();
-    }
-
-    @Override
     public ResponseEntity<ResponseDto> patchQnaComment(PatchQnaCommentRequestDto dto, Integer receptionNumber) {
         
         try {
@@ -200,6 +178,29 @@ public class QnaServiceImplementation implements QnaService{
     }
 
     @Override
+    public ResponseEntity<ResponseDto> deleteQna(Integer receptionNumber, String userId) {
+
+        try {
+
+            QnaEntity qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
+            if (qnaEntity == null) return ResponseDto.noExistBoard();
+
+            String writerId = qnaEntity.getQnaWriterId();
+            boolean isWriter = userId.equals(writerId);
+            if(!isWriter) return ResponseDto.authenticationFailed();
+
+            qnaRepository.delete(qnaEntity);
+            
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            return ResponseDto.databaseError();
+        }
+
+        return ResponseDto.success();
+
+    }
+
+    @Override
     public ResponseEntity<ResponseDto> deleteQnaComment(Integer receptionNumber, String userId) {
         
         QnaEntity qnaEntity = null;
@@ -217,5 +218,7 @@ public class QnaServiceImplementation implements QnaService{
         }
 
         return ResponseDto.success();
+
     }
+
 }
