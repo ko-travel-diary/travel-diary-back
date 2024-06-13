@@ -14,7 +14,6 @@ import com.traveldiary.back.dto.response.review.GetTravelReviewDetailResponseDto
 import com.traveldiary.back.dto.response.review.GetTravelReviewMyListResponseDto;
 import com.traveldiary.back.dto.response.review.GetTravelReviewSearchResponseDto;
 import com.traveldiary.back.dto.response.review.PostTravelReviewResponseDto;
-import com.traveldiary.back.entity.TravelFavoriteEntity;
 import com.traveldiary.back.entity.TravelReviewEntity;
 import com.traveldiary.back.entity.TravelReviewImageEntity;
 import com.traveldiary.back.entity.TravelReviewViewEntity;
@@ -93,28 +92,17 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
         try {
 
-            System.out.println(titleAndContent);
-            System.out.println(writer);
-            System.out.println(writedate);
-            
-            if(!titleAndContent.isEmpty()) {
-                travelReviewViewEntities = travelReviewViewRepository.findByReviewTitleContainsOrReviewContentContains(titleAndContent, titleAndContent);
-                System.out.println("titleAndContent");
-            }
+            if(!titleAndContent.isEmpty()) travelReviewViewEntities = travelReviewViewRepository.findByReviewTitleContainsOrReviewContentContains(titleAndContent, titleAndContent);
         
-            if(!writer.isEmpty()) {travelReviewViewEntities = travelReviewViewRepository.findByReviewWriterIdContains(writer);
-                System.out.println("writer");
-            }
+            if(!writer.isEmpty()) travelReviewViewEntities = travelReviewViewRepository.findByReviewWriterIdContains(writer);
 
-            if(!writedate.isEmpty()){travelReviewViewEntities = travelReviewViewRepository.findByReviewDatetimeContains(writedate);
-                System.out.println("writedate");
-            }
-            
+            if(!writedate.isEmpty()) travelReviewViewEntities = travelReviewViewRepository.findByReviewDatetimeContains(writedate); 
+
         } catch(Exception exception) {
             exception.printStackTrace();
             return ResponseDto.databaseError();
         }
-        
+
         return GetTravelReviewSearchResponseDto.success(travelReviewViewEntities);
 
     }
