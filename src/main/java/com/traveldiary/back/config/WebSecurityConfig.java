@@ -27,17 +27,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
-/*
-▶ Spring Web Security 설정
-Basic 인증 미사용
-CSRF 정책 미사용
-Session 생성 정책 미사용
-CORS 정책 (모든 출처 - 모든 메서드 - 모든 패턴 허용)
-
-JwtAuthenticationFilter 추가 (UsernamePasswordAuthenticationFilter 이전에 추가)
-*/
-
-// 등록, 수정, web security 설정 지원
 @Configurable
 @Configuration
 @EnableWebSecurity
@@ -59,7 +48,6 @@ public class WebSecurityConfig {
             )
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .authorizeHttpRequests(request -> request
-                // ! 모두 허용
                 .requestMatchers("/", "/traveldiary/v1/", "/traveldiary/v1/auth/*",
                     "/traveldiary/v1/image/file/*",
                     "/traveldiary/v1/restaurant/*",
@@ -68,13 +56,9 @@ public class WebSecurityConfig {
                     "/traveldiary/v1/user/nick-name",
                     "/traveldiary/v1/qna/list").permitAll()
                 .requestMatchers(HttpMethod.GET, "/traveldiary/v1/schedule/*").permitAll()
-                // ! 유저만 모두 허용
                 .requestMatchers("/traveldiary/v1/qna/").hasRole("USER")
-                // ! 유저 중 GET 허용
                 .requestMatchers(HttpMethod.GET, "/traveldiary/v1/restaurant/*/recommend", "/traveldiary/v1/tour-attractions/*/recommend").hasRole("USER")
-                // ! 유저 중 POST 허용
                 .requestMatchers(HttpMethod.POST, "/traveldiary/v1/review/", "/traveldiary/v1/review/my-list", "/traveldiary/v1/review/my-search").hasRole("USER")
-                // ! 유저 중 PATCH 허용
                 .requestMatchers(HttpMethod.PATCH, "/traveldiary/v1/qna/*",
                     "/traveldiary/v1/restaurant/*/recommend",
                     "/traveldiary/v1/tour-attractions/*/recommend",
@@ -83,23 +67,15 @@ public class WebSecurityConfig {
                     "/traveldiary/v1/review/*/comment/*",
                     "/traveldiary/v1/user/edit",
                     "/traveldiary/v1/schedule/*").hasRole("USER")
-                // ! 유저 중 PUT 허용
                 .requestMatchers(HttpMethod.PUT, "/traveldiary/v1/user/cancle-account").hasRole("USER")
-                // ! 유저 중 DELETE 허용
                 .requestMatchers(HttpMethod.DELETE, "/traveldiary/v1/qna/*", "/traveldiary/v1/schedule/*").hasRole("USER")
-                // ! 관리자만 모두 허용
                 .requestMatchers("/traveldiary/v1/address/*", "/traveldiary/v1/restaurant/", "/traveldiary/v1/tour-attractions").hasRole("ADMIN")
-                // ! 관리자 중 GET 허용
                 .requestMatchers(HttpMethod.GET, "/traveldiary/v1/user/list", "/traveldiary/v1/user/search").hasRole("ADMIN")
-                // ! 관리자 중 POST 허용
                 .requestMatchers(HttpMethod.POST, "/traveldiary/v1/qna/*/comment").hasRole("ADMIN")
-                // ! 관리자 중 PATCH 허용
                 .requestMatchers(HttpMethod.PATCH, "/traveldiary/v1/qna/*/comment", "/traveldiary/v1/restaurant/*", "/traveldiary/v1/tour-attractions/*").hasRole("ADMIN")
-                // ! 관리자 중 DELETE 허용
                 .requestMatchers(HttpMethod.DELETE, "/traveldiary/v1/qna/*/comment", "/traveldiary/v1/restaurant/*", 
                 "/traveldiary/v1/tour-attractions/*",
                 "/traveldiary/v1/user/list/cancle-account").hasRole("ADMIN")
-                // ! 유저와 관리자만 (인증된 사람만)
                 .anyRequest().authenticated()
             )
             .oauth2Login(oauth2 -> oauth2

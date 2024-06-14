@@ -9,7 +9,6 @@ import com.traveldiary.back.dto.response.ResponseMessage;
 
 import lombok.Getter;
 
-// 로그인 Response Body Dto
 @Getter
 public class SignInResponseDto extends ResponseDto {
 
