@@ -60,4 +60,9 @@ public class QnaEntity {
         this.qnaComment = dto.getQnaComment();
     }
 
+    public void deleteComment() {
+        this.qnaComment = null;
+        this.qnaStatus = false;
+    }
+
 }

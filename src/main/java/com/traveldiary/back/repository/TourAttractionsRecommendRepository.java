@@ -13,10 +13,14 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface TourAttractionsRecommendRepository extends JpaRepository<TourAttractionsRecommendEntity, TourRecommendPk> {
 
-    List<TourAttractionsRecommendEntity> findByUserId(String userId);
     boolean existsByUserIdAndTourAttractionsNumber(String userId, Integer tourAttractionsNumber);
+
+    List<TourAttractionsRecommendEntity> findByUserId(String userId);
 
     @Transactional
     void deleteByUserId(String userId);
+
+    @Transactional
+    void deleteByTourAttractionsNumber(Integer tourAttractionsNumber);
 
 }

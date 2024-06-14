@@ -12,9 +12,11 @@ public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity
 
     boolean existsByReviewNumber(Integer reviewNumber);
     boolean existsByTravelScheduleNumber(Integer travelScheduleNumber);
-    List<TravelReviewEntity> findByOrderByReviewNumberDesc();
-    List<TravelReviewEntity> findByReviewWriterId(String userId);
+
     TravelReviewEntity findByReviewNumber(Integer reviewNumber);
     TravelReviewEntity findByTravelScheduleNumber(Integer travelScheduleNumber);
+    
+    List<TravelReviewEntity> findByOrderByReviewNumberDesc();
+    List<TravelReviewEntity> findByReviewWriterId(String userId);
 
 }

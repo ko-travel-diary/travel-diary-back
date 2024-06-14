@@ -10,8 +10,9 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface TourAttractionsRepository extends JpaRepository<TourAttractionsEntity, Integer> {
 
-    TourAttractionsEntity findByTourAttractionsNumber(Integer tourAttractionsNumber);
     boolean existsByTourAttractionsName(String tourAttractionsName);
+
+    TourAttractionsEntity findByTourAttractionsNumber(Integer tourAttractionsNumber);
 
     @Transactional
     void deleteByTourAttractionsNumber(Integer tourAttractionsNumber);

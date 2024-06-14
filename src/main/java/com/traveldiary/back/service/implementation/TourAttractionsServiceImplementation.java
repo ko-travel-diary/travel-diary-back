@@ -17,6 +17,7 @@ import com.traveldiary.back.entity.TourAttractionsEntity;
 import com.traveldiary.back.entity.TourAttractionsImageEntity;
 import com.traveldiary.back.repository.TourAttractionViewRepository;
 import com.traveldiary.back.repository.TourAttractionsImageRepository;
+import com.traveldiary.back.repository.TourAttractionsRecommendRepository;
 import com.traveldiary.back.repository.TourAttractionsRepository;
 import com.traveldiary.back.service.TourAttractionsService;
 
@@ -29,6 +30,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
     private final TourAttractionsRepository tourAttractionsRepository;
     private final TourAttractionsImageRepository tourAttractionsImageRepository;
     private final TourAttractionViewRepository tourAttractionViewRepository;
+    private final TourAttractionsRecommendRepository tourAttractionsRecommendRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postTourAttractions(PostTourAttractionsRequestDto dto, String userId) {
@@ -164,6 +166,7 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
 
         try {
 
+            tourAttractionsRecommendRepository.deleteByTourAttractionsNumber(tourAttractionsNumber);
             tourAttractionsImageRepository.deleteByTourAttractionsNumber(tourAttractionsNumber);
             tourAttractionsRepository.deleteByTourAttractionsNumber(tourAttractionsNumber);
             
