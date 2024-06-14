@@ -51,11 +51,6 @@ public class TourAttractionsServiceImplementation implements TourAttractionsServ
                 TourAttractionsImageEntity imageEntity = new TourAttractionsImageEntity(tourAttractionsNumber, image);
                 tourAttractionsImageRepository.save(imageEntity);
             }
-            if(images.isEmpty() || images.get(0) == null) {
-                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
-                TourAttractionsImageEntity imageEntity = new TourAttractionsImageEntity(tourAttractionsNumber, image);
-                tourAttractionsImageRepository.save(imageEntity);
-            }
             
         }catch(Exception exception){
             exception.printStackTrace();

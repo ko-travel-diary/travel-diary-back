@@ -51,11 +51,6 @@ public class RestaurantServiceImplementation implements RestaurantService{
                 RestaurantImageEntity imageEntity = new RestaurantImageEntity(restaurantNumber, image);
                 restaurantImageRepository.save(imageEntity);
             }
-            if(images.isEmpty() || images.get(0) == null) {
-                String image = "https://cdn-icons-png.flaticon.com/128/11423/11423562.png";
-                RestaurantImageEntity imageEntity = new RestaurantImageEntity(restaurantNumber, image);
-                restaurantImageRepository.save(imageEntity);
-            }
             
         }catch (Exception exception){
             exception.printStackTrace();
