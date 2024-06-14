@@ -11,8 +11,10 @@ import com.traveldiary.back.entity.TravelReviewEntity;
 public interface TravelReviewRepository extends JpaRepository<TravelReviewEntity, Integer> {
 
     boolean existsByReviewNumber(Integer reviewNumber);
-    TravelReviewEntity findByReviewNumber(Integer reviewNumber);
+    boolean existsByTravelScheduleNumber(Integer travelScheduleNumber);
     List<TravelReviewEntity> findByOrderByReviewNumberDesc();
     List<TravelReviewEntity> findByReviewWriterId(String userId);
+    TravelReviewEntity findByReviewNumber(Integer reviewNumber);
+    TravelReviewEntity findByTravelScheduleNumber(Integer travelScheduleNumber);
 
 }
