@@ -46,6 +46,9 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
 
             boolean isExistUser = userRepository.existsByUserId(userId);
             if(!isExistUser) return ResponseDto.authenticationFailed();
+
+            Integer travelScheduleNumber = dto.getTravelScheduleNumber();
+            if(travelScheduleNumber == 0) dto.setTravelScheduleNumber(null);
             
             TravelReviewEntity travelReviewEntity = new TravelReviewEntity(dto, userId);
             travelReviewRepository.save(travelReviewEntity);
