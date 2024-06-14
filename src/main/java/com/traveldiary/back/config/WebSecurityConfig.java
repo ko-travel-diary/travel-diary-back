@@ -67,8 +67,9 @@ public class WebSecurityConfig {
                     "/traveldiary/v1/review/*", "/traveldiary/v1/review/*/comment/list", "/traveldiary/v1/review/*/view-count",
                     "/traveldiary/v1/user/nick-name",
                     "/traveldiary/v1/qna/list").permitAll()
+                .requestMatchers(HttpMethod.GET, "/traveldiary/v1/schedule/*").permitAll()
                 // ! 유저만 모두 허용
-                .requestMatchers("/traveldiary/v1/qna/", "/traveldiary/v1/schedule/*").hasRole("USER")
+                .requestMatchers("/traveldiary/v1/qna/").hasRole("USER")
                 // ! 유저 중 GET 허용
                 .requestMatchers(HttpMethod.GET, "/traveldiary/v1/restaurant/*/recommend", "/traveldiary/v1/tour-attractions/*/recommend").hasRole("USER")
                 // ! 유저 중 POST 허용
@@ -80,11 +81,12 @@ public class WebSecurityConfig {
                     "/traveldiary/v1/review/*",
                     "/traveldiary/v1/review/*/favorite",
                     "/traveldiary/v1/review/*/comment/*",
-                    "/traveldiary/v1/user/edit").hasRole("USER")
+                    "/traveldiary/v1/user/edit",
+                    "/traveldiary/v1/schedule/*").hasRole("USER")
                 // ! 유저 중 PUT 허용
                 .requestMatchers(HttpMethod.PUT, "/traveldiary/v1/user/cancle-account").hasRole("USER")
                 // ! 유저 중 DELETE 허용
-                .requestMatchers(HttpMethod.DELETE, "/traveldiary/v1/qna/*").hasRole("USER")
+                .requestMatchers(HttpMethod.DELETE, "/traveldiary/v1/qna/*", "/traveldiary/v1/schedule/*").hasRole("USER")
                 // ! 관리자만 모두 허용
                 .requestMatchers("/traveldiary/v1/address/*", "/traveldiary/v1/restaurant/", "/traveldiary/v1/tour-attractions").hasRole("ADMIN")
                 // ! 관리자 중 GET 허용
