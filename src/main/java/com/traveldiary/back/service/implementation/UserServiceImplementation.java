@@ -189,16 +189,17 @@ public class UserServiceImplementation implements UserService{
             restaurantRecommendRepository.deleteByUserId(userId);
             
             qnaRepository.deleteByQnaWriterId(userId);
-            
+
             travelFavoriteRepository.deleteByUserId(userId);
 
             List<TravelReviewEntity> travelReviewEntities = travelReviewRepository.findByReviewWriterId(userId);
             List<Integer> reviewNumbers = new ArrayList<>();
+
             for (TravelReviewEntity travelReviewEntity : travelReviewEntities) {
                 Integer reviewNumber = travelReviewEntity.getReviewNumber();
                 reviewNumbers.add(reviewNumber);
             }
-            travelCommentRepository.deleteByCommentReviewNumberIn(reviewNumbers);
+            travelCommentRepository.deleteByCommentWriterId(userId);
             travelReviewImageRepository.deleteByTravelReviewNumberIn(reviewNumbers);
             travelReviewRepository.deleteAll(travelReviewEntities);
 
@@ -236,27 +237,28 @@ public class UserServiceImplementation implements UserService{
 
             String deleteUserId = dto.getDeleteToUserId();
             UserEntity userEntity = userRepository.findByUserId(deleteUserId);
-            if(userEntity == null) return ResponseDto.noExistUser();
+            if(userEntity == null) return ResponseDto.noExistUser();            
 
-            tourAttractionsRecommendRepository.deleteByUserId(userId);
+            tourAttractionsRecommendRepository.deleteByUserId(deleteUserId);
 
-            restaurantRecommendRepository.deleteByUserId(userId);
+            restaurantRecommendRepository.deleteByUserId(deleteUserId);
             
-            qnaRepository.deleteByQnaWriterId(userId);
-            
-            travelFavoriteRepository.deleteByUserId(userId);
+            qnaRepository.deleteByQnaWriterId(deleteUserId);
 
-            List<TravelReviewEntity> travelReviewEntities = travelReviewRepository.findByReviewWriterId(userId);
+            travelFavoriteRepository.deleteByUserId(deleteUserId);
+
+            List<TravelReviewEntity> travelReviewEntities = travelReviewRepository.findByReviewWriterId(deleteUserId);
             List<Integer> reviewNumbers = new ArrayList<>();
+
             for (TravelReviewEntity travelReviewEntity : travelReviewEntities) {
                 Integer reviewNumber = travelReviewEntity.getReviewNumber();
                 reviewNumbers.add(reviewNumber);
             }
-            travelCommentRepository.deleteByCommentReviewNumberIn(reviewNumbers);
+            travelCommentRepository.deleteByCommentWriterId(deleteUserId);
             travelReviewImageRepository.deleteByTravelReviewNumberIn(reviewNumbers);
             travelReviewRepository.deleteAll(travelReviewEntities);
 
-            List<TravelScheduleEntity> travelScheduleEntities = travelScheduleRepository.findByTravelScheduleWriterId(userId);
+            List<TravelScheduleEntity> travelScheduleEntities = travelScheduleRepository.findByTravelScheduleWriterId(deleteUserId);
             List<Integer> travelScheduleNumbers = new ArrayList<>();
             for (TravelScheduleEntity travelScheduleEntity: travelScheduleEntities) {
                 Integer travelScheduleNumber = travelScheduleEntity.getTravelScheduleNumber();

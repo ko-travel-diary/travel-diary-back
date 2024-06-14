@@ -19,6 +19,6 @@ public interface TravelCommentRepository extends JpaRepository<TravelCommentEnti
     List<TravelCommentEntity> findByCommentWriterId(String userId);
 
     @Transactional
-    void deleteByCommentReviewNumberIn(List<Integer> commentReviewNumber);
+    void deleteByCommentWriterId(String commentWriterId);
 
 }
