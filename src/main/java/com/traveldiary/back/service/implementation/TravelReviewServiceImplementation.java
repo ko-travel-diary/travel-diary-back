@@ -194,6 +194,9 @@ public class TravelReviewServiceImplementation implements TravelReviewService{
             boolean iswriterId = userId.equals(writerId);
             if(!iswriterId) return ResponseDto.authorizationFailed();
 
+            Integer travelScheduleNumber = dto.getTravelScheduleNumber();
+            if(travelScheduleNumber == 0) dto.setTravelScheduleNumber(null);
+
             travelReviewEntity.update(dto);
             travelReviewRepository.save(travelReviewEntity);
 
