@@ -13,10 +13,14 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface RestaurantRecommendRepository extends JpaRepository<RestaurantRecommendEntity, RestRecommendPk> {
 
-    List<RestaurantRecommendEntity> findByUserId(String userId);
     boolean existsByUserIdAndRestaurantNumber(String userId, Integer restaurantNumber);
 
+    List<RestaurantRecommendEntity> findByUserId(String userId);
+
     @Transactional
-    List<RestaurantRecommendEntity> deleteByUserId(String userId);
+    void deleteByUserId(String userId);
+
+    @Transactional
+    void deleteByRestaurantNumber(Integer restaurantNumber);
 
 }

@@ -16,6 +16,7 @@ import com.traveldiary.back.entity.RestaurantEntity;
 import com.traveldiary.back.entity.RestaurantImageEntity;
 import com.traveldiary.back.entity.RestaurantViewEntity;
 import com.traveldiary.back.repository.RestaurantImageRepository;
+import com.traveldiary.back.repository.RestaurantRecommendRepository;
 import com.traveldiary.back.repository.RestaurantRepository;
 import com.traveldiary.back.repository.RestaurantViewRepository;
 import com.traveldiary.back.service.RestaurantService;
@@ -29,6 +30,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
     private final RestaurantRepository restaurantRepository;
     private final RestaurantImageRepository restaurantImageRepository;
     private final RestaurantViewRepository restaurantViewRepository;
+    private final RestaurantRecommendRepository restaurantRecommendRepository;
 
     @Override
     public ResponseEntity<ResponseDto> postRestaurant(PostRestaurantRequestDto dto, String userId) {
@@ -163,6 +165,7 @@ public class RestaurantServiceImplementation implements RestaurantService{
 
         try {
 
+            restaurantRecommendRepository.deleteByRestaurantNumber(restaurantNumber);
             restaurantImageRepository.deleteByRestaurantNumber(restaurantNumber);
             restaurantRepository.deleteByRestaurantNumber(restaurantNumber);
             

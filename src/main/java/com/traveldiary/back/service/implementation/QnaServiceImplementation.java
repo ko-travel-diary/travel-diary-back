@@ -208,7 +208,10 @@ public class QnaServiceImplementation implements QnaService{
             qnaEntity = qnaRepository.findByReceptionNumber(receptionNumber);
             if(qnaEntity == null) return ResponseDto.noExistBoard();
 
-            qnaRepository.delete(qnaEntity);
+            
+
+            qnaEntity.deleteComment();
+            qnaRepository.save(qnaEntity);
             
         } catch(Exception exception) {
             exception.printStackTrace();

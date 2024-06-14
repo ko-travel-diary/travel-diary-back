@@ -10,8 +10,9 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface RestaurantRepository extends JpaRepository<RestaurantEntity, Integer> {
 
-    RestaurantEntity findByRestaurantNumber(Integer restaurantNumber);
     boolean existsByRestaurantName(String restaurantName);
+
+    RestaurantEntity findByRestaurantNumber(Integer restaurantNumber);
 
     @Transactional
     void deleteByRestaurantNumber(Integer restaurantNumber);

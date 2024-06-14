@@ -14,7 +14,6 @@ public interface RestaurantViewRepository extends JpaRepository<RestaurantViewEn
 
     List<RestaurantViewEntity> findBy();
     List<RestaurantViewEntity> findByRestaurantNameContains(String restaurantName);
-
     @Query(
         value=
             "SELECT r " +
