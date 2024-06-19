@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
 import java.util.Map;
+import java.util.Random;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -42,7 +43,8 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
         int userIdEndIndex = id.length() > 10 ? 10 : id.length();
         String userId = oauthClientName + "_" + id.substring(0, userIdEndIndex);
         int nickNameEndIndex = oauthNickName.length() > 10 ? 10 : oauthNickName.length();
-        String nickName = oauthClientName + "_" + oauthNickName.substring(0, nickNameEndIndex);
+        int userCount = userRepository.countByUserId(userId) + 1;
+        String nickName = oauthClientName + "_" + oauthNickName.substring(0, nickNameEndIndex) + userCount;
 
         Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
