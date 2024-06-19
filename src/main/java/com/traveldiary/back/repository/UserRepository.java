@@ -24,6 +24,8 @@ public interface UserRepository extends JpaRepository<UserEntity, String> {
     List<UserEntity> findByUserRoleAndUserIdContainingOrderByJoinDate(String userRole, String searchWord);
     List<UserEntity> findByUserRole(String userRole);
 
+    Integer countByUserId(String userId);
+
     @Transactional
     void deleteByUserId(String userId);
 
