@@ -35,6 +35,8 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
 
         OAuth2User oAuth2User = super.loadUser(userRequest);
         String oauthClientName = userRequest.getClientRegistration().getClientName().toUpperCase();
+        Random random = new Random();
+        Date now = Date.from(Instant.now());
 
         String id = getId(oAuth2User, oauthClientName);
         String oauthNickName = getNickName(oAuth2User, oauthClientName);
@@ -43,10 +45,10 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
         int userIdEndIndex = id.length() > 10 ? 10 : id.length();
         String userId = oauthClientName + "_" + id.substring(0, userIdEndIndex);
         int nickNameEndIndex = oauthNickName.length() > 10 ? 10 : oauthNickName.length();
-        int userCount = userRepository.countByUserId(userId) + 1;
-        String nickName = oauthClientName + "_" + oauthNickName.substring(0, nickNameEndIndex) + userCount;
+        long nowMillis = Instant.now().toEpochMilli();
+        int randomInt = random.nextInt((int) nowMillis);
+        String nickName = oauthClientName + "_" + oauthNickName.substring(0, nickNameEndIndex) + randomInt;
 
-        Date now = Date.from(Instant.now());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
         String dateTime = simpleDateFormat.format(now);
 
