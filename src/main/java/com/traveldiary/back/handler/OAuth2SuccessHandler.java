@@ -2,6 +2,7 @@ package com.traveldiary.back.handler;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
@@ -19,6 +20,9 @@ import lombok.RequiredArgsConstructor;
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 
     private final JwtProvider jwtProvider;
+
+    @Value("${frontServer}")
+    private final String frontServer;
     
     @Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -29,7 +33,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
 
         String token = jwtProvider.create(userId);
         
-        response.sendRedirect("http://localhost:3000/sns/" + token + "/4320000");
+        response.sendRedirect(frontServer + token + "/1440");
 
 	}
 
