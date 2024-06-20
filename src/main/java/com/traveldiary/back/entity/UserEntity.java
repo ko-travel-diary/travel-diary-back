@@ -33,7 +33,7 @@ public class UserEntity {
 
     public UserEntity(SignUpRequestDto dto) throws Exception {
 
-        String dateTime = ChangeDateFormatUtil.nowDate();
+        String dateTime = ChangeDateFormatUtil.nowDateHHmmss();
 
         this.userId = dto.getUserId();
         this.userPassword = dto.getUserPassword();
