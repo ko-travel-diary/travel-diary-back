@@ -16,4 +16,13 @@ public class ChangeDateFormatUtil {
         return dateTime;
     }
 
+    public static String nowDateHHmmss() throws Exception {
+
+        Date now = Date.from(Instant.now());
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
+        String dateTime = simpleDateFormat.format(now);
+
+        return dateTime;
+    }
+
 }
