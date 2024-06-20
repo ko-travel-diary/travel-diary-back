@@ -22,7 +22,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler{
     private final JwtProvider jwtProvider;
 
     @Value("${frontServer}")
-    private final String frontServer;
+    private String frontServer;
     
     @Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
