@@ -1,4 +1,5 @@
-# Travel-diary Web application
+# Travel-diary Project
+여행일기 공유 및 관광지, 음식점 정보 공유
 
 ## 작업자
 - 심태욱 (DDDDKo)
