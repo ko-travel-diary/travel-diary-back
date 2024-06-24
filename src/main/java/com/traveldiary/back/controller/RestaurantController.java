@@ -69,7 +69,7 @@ public class RestaurantController {
 
     @GetMapping("/{restaurantNumber}/recommend")
     public ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> getRecommendStatus(
-        @PathVariable("restaurantNumber") int restaurantNumber,
+        @PathVariable("restaurantNumber") Integer restaurantNumber,
         @AuthenticationPrincipal String userId
     ){
         ResponseEntity<? super GetRestaurantRecommendStatusResponseDto> response = restaurantRecommendService.getRestRecommendStatus(restaurantNumber, userId);
@@ -88,7 +88,7 @@ public class RestaurantController {
 
     @PatchMapping("/{restaurantNumber}/recommend")
     public ResponseEntity<ResponseDto> patchRestRecommend(
-        @PathVariable("restaurantNumber") int restaurantNumber,
+        @PathVariable("restaurantNumber") Integer restaurantNumber,
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<ResponseDto> response = restaurantRecommendService.patchRestRecommend(restaurantNumber, userId);

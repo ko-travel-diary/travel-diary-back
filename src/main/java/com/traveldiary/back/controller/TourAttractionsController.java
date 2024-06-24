@@ -68,8 +68,8 @@ public class TourAttractionsController {
     }
 
     @GetMapping("/{tourattractionsNumber}/recommend")
-    public ResponseEntity<? super GetTourAttractionsRecommendResponseDto> getRecoomendStatus(
-        @PathVariable("tourattractionsNumber") int tourattractionsNumber,
+    public ResponseEntity<? super GetTourAttractionsRecommendResponseDto> getRecommendStatus(
+        @PathVariable("tourattractionsNumber") Integer tourattractionsNumber,
         @AuthenticationPrincipal String userId
     ){
         ResponseEntity<? super GetTourAttractionsRecommendResponseDto> response = tourAttractionsRecommendService.getTourRecommendStatus(tourattractionsNumber, userId);
@@ -87,8 +87,8 @@ public class TourAttractionsController {
     }
 
     @PatchMapping("/{tourattractionsNumber}/recommend")
-    public ResponseEntity<ResponseDto> patchRestRecommend(
-        @PathVariable("tourattractionsNumber") int tourattractionsNumber,
+    public ResponseEntity<ResponseDto> patchTourRecommend(
+        @PathVariable("tourattractionsNumber") Integer tourattractionsNumber,
         @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<ResponseDto> response = tourAttractionsRecommendService.patchTourRecommend(tourattractionsNumber, userId);

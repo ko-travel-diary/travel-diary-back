@@ -45,7 +45,7 @@ public class QnaController {
     public ResponseEntity<ResponseDto> postQnaComment(
         @RequestBody @Valid PostQnaCommentRequestDto requestBody,
         @PathVariable("receptionNumber") Integer receptionNumber,
-        @AuthenticationPrincipal String userID
+        @AuthenticationPrincipal String userId
     ) {
         ResponseEntity<ResponseDto> response = qnaService.postQnaComment(requestBody, receptionNumber) ;
         return response;
