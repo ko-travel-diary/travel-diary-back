@@ -45,8 +45,7 @@ public class OAuth2UserServiceImplementation extends DefaultOAuth2UserService {
         int userIdEndIndex = id.length() > 10 ? 10 : id.length();
         String userId = oauthClientName + "_" + id.substring(0, userIdEndIndex);
         int nickNameEndIndex = oauthNickName.length() > 10 ? 10 : oauthNickName.length();
-        long nowMillis = Instant.now().toEpochMilli();
-        int randomInt = random.nextInt((int) nowMillis);
+        int randomInt = random.nextInt(10000);
         String nickName = oauthClientName + "_" + oauthNickName.substring(0, nickNameEndIndex) + randomInt;
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
